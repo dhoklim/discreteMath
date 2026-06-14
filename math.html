@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정보올림피아드 이산수학 전체 정리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<style>
+:root {
+  --bg:#08090f; --surface:#0f1120; --card:#141728; --border:rgba(120,130,255,.12);
+  --border2:rgba(120,130,255,.28); --primary:#818cf8; --pdim:rgba(129,140,248,.15);
+  --cyan:#22d3ee; --text:#f0f1fa; --text2:#94a3b8; --text3:#4b5563;
+  --easy:#22c55e; --easybg:rgba(34,197,94,.12); --mid:#f59e0b; --midbg:rgba(245,158,11,.12);
+  --hard:#f43f5e; --hardbg:rgba(244,63,94,.12); --sw:268px;
+  --font:'Noto Sans KR','Space Grotesk',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.7}
+
+.sidebar{position:fixed;top:0;left:0;width:var(--sw);height:100vh;overflow-y:auto;
+  background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+.logo{padding:1.2rem 1.2rem .9rem;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:var(--surface);z-index:10}
+.logo-title{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--primary)}
+.logo-sub{font-size:11px;color:var(--text3);margin-top:2px}
+
+.search-wrap{padding:.7rem 1rem;border-bottom:1px solid var(--border)}
+#search{width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:.4rem .7rem;font-size:13px;color:var(--text);outline:none;font-family:var(--font);transition:border-color .2s}
+#search::placeholder{color:var(--text3)}
+#search:focus{border-color:var(--primary)}
+
+.nav-unit{padding:.4rem 0}
+.nav-unit-head{padding:.35rem 1.2rem;font-size:11px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:.5rem}
+.unum{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;
+  border-radius:4px;font-size:10px;background:var(--pdim);color:var(--primary);font-weight:700}
+.nav-link{display:block;padding:.28rem 1.2rem .28rem 2.2rem;font-size:13px;color:var(--text2);
+  text-decoration:none;border-left:2px solid transparent;transition:all .15s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-link:hover{color:var(--text);background:var(--pdim)}
+.nav-link.active{color:var(--primary);border-left-color:var(--primary);background:var(--pdim)}
+.nav-link.hid{display:none}
+
+.legend{margin:auto 1.2rem 0;padding-top:1rem;border-top:1px solid var(--border)}
+.legend-t{font-size:11px;color:var(--text3);margin-bottom:.4rem}
+.legend-row{display:flex;gap:.4rem;flex-wrap:wrap}
+.badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px}
+.easy{background:var(--easybg);color:var(--easy)}
+.mid{background:var(--midbg);color:var(--mid)}
+.hard{background:var(--hardbg);color:var(--hard)}
+
+main{margin-left:var(--sw);min-height:100vh}
+
+.hero{background:linear-gradient(135deg,#0f1228,#0b0c1a);padding:4rem 3rem 3rem;
+  border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;
+  border-radius:50%;background:radial-gradient(circle,rgba(129,140,248,.08),transparent 70%)}
+.hero-lbl{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+.hero-lbl::before{content:'';display:block;width:20px;height:1px;background:var(--cyan)}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:2.3rem;font-weight:700;
+  line-height:1.2;letter-spacing:-.02em;margin-bottom:.7rem}
+.hero h1 span{color:var(--primary)}
+.hero p{color:var(--text2);max-width:540px;margin-bottom:1.4rem}
+.stats{display:flex;gap:1.5rem;flex-wrap:wrap}
+.stat-n{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--primary);line-height:1}
+.stat-l{font-size:12px;color:var(--text3);margin-top:.15rem}
+
+.cw{padding:2.5rem 3rem;max-width:960px}
+.us{margin-bottom:4rem}
+.uh{display:flex;align-items:center;gap:1rem;margin-bottom:1.6rem;
+  padding-bottom:.9rem;border-bottom:1px solid var(--border)}
+.ubadge{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.1em;padding:.28rem .7rem;border-radius:6px;background:var(--pdim);
+  color:var(--primary);text-transform:uppercase}
+.uh h2{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:600}
+.ucnt{margin-left:auto;font-size:13px;color:var(--text3)}
+
+.concept{background:var(--card);border:1px solid var(--border);border-radius:12px;
+  margin-bottom:.9rem;overflow:hidden;transition:border-color .2s}
+.concept:hover{border-color:var(--border2)}
+.ch{display:flex;align-items:center;gap:.7rem;padding:.85rem 1.2rem;cursor:pointer;user-select:none}
+.ch:hover{background:rgba(255,255,255,.02)}
+.ct{font-size:15px;font-weight:500;flex:1}
+.chev{font-size:12px;color:var(--text3);transition:transform .2s;flex-shrink:0}
+.concept.open .chev{transform:rotate(180deg)}
+.cb{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border)}
+.concept.open .cb{display:block}
+
+.desc{color:var(--text2);font-size:14px;line-height:1.75;margin:.85rem 0 .7rem}
+.formula{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--primary);
+  border-radius:0 8px 8px 0;padding:.7rem 1rem;margin:.7rem 0;
+  font-family:var(--mono);font-size:13px;color:var(--cyan);white-space:pre-wrap}
+.cb pre{margin:.7rem 0 0;border-radius:8px;font-size:13px;border:1px solid var(--border)}
+.cb pre code{font-family:var(--mono) !important}
+.pl{margin:.4rem 0;padding-left:0;list-style:none}
+.pl li{font-size:14px;color:var(--text2);padding:.22rem 0 .22rem 1.2rem;position:relative}
+.pl li::before{content:'→';position:absolute;left:0;color:var(--primary)}
+
+.tw{overflow-x:auto;margin:.7rem 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--bg);color:var(--text2);padding:.45rem .7rem;text-align:left;
+  border-bottom:1px solid var(--border);font-weight:500}
+td{padding:.4rem .7rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--text);font-family:var(--mono);font-size:12px}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-title">KOI 이산수학</div>
+    <div class="logo-sub">전체 개념 정리 · 66개 토픽</div>
+  </div>
+  <div class="search-wrap">
+    <input id="search" type="text" placeholder="개념 검색…" autocomplete="off">
+  </div>
+  <nav id="nav">
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">I</span>수론</div>
+      <a class="nav-link" href="#divisors">약수·배수</a>
+      <a class="nav-link" href="#primes">소수 판별</a>
+      <a class="nav-link" href="#factorize">소인수분해</a>
+      <a class="nav-link" href="#gcd">GCD / LCM</a>
+      <a class="nav-link" href="#extgcd">확장 유클리드</a>
+      <a class="nav-link" href="#sieve">에라토스테네스의 체</a>
+      <a class="nav-link" href="#spf">선형 체 SPF</a>
+      <a class="nav-link" href="#modular">모듈러 산술</a>
+      <a class="nav-link" href="#fastpow">빠른 거듭제곱</a>
+      <a class="nav-link" href="#fermat">페르마 소정리</a>
+      <a class="nav-link" href="#modinv">모듈러 역원</a>
+      <a class="nav-link" href="#eulerphi">오일러 파이 함수</a>
+      <a class="nav-link" href="#eulerthm">오일러 정리</a>
+      <a class="nav-link" href="#crt">중국인 나머지 정리</a>
+      <a class="nav-link" href="#mobius">뫼비우스 함수</a>
+      <a class="nav-link" href="#millerrabin">밀러-라빈 소수 판별</a>
+      <a class="nav-link" href="#pollard">폴라드 로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">II</span>조합론</div>
+      <a class="nav-link" href="#permcomb">순열·조합</a>
+      <a class="nav-link" href="#binom">이항계수</a>
+      <a class="nav-link" href="#pascal">파스칼 삼각형</a>
+      <a class="nav-link" href="#binomthm">이항 정리</a>
+      <a class="nav-link" href="#rep">중복 순열·조합</a>
+      <a class="nav-link" href="#ie">포함-배제 원리</a>
+      <a class="nav-link" href="#pigeonhole">비둘기집 원리</a>
+      <a class="nav-link" href="#catalan">카탈란 수</a>
+      <a class="nav-link" href="#lucas">뤼카 정리</a>
+      <a class="nav-link" href="#partition">분할수</a>
+      <a class="nav-link" href="#stirling">스털링 수</a>
+      <a class="nav-link" href="#burnside">번사이드 보조정리</a>
+      <a class="nav-link" href="#genfunc">생성함수 기초</a>
+      <a class="nav-link" href="#countdp">경우의 수 DP</a>
+      <a class="nav-link" href="#lattice">격자 경로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">III</span>그래프 이론</div>
+      <a class="nav-link" href="#graphbasic">그래프 기본 용어</a>
+      <a class="nav-link" href="#graphrepr">그래프 표현</a>
+      <a class="nav-link" href="#tree">트리</a>
+      <a class="nav-link" href="#bipartite">이분 그래프</a>
+      <a class="nav-link" href="#eulerham">오일러·해밀턴 경로</a>
+      <a class="nav-link" href="#topo">위상 정렬</a>
+      <a class="nav-link" href="#scc">강한 연결 성분 SCC</a>
+      <a class="nav-link" href="#matching">이분 매칭</a>
+      <a class="nav-link" href="#coloring">그래프 채색</a>
+      <a class="nav-link" href="#planar">평면 그래프</a>
+      <a class="nav-link" href="#handshake">악수 보조정리</a>
+      <a class="nav-link" href="#spanning">스패닝 트리</a>
+      <a class="nav-link" href="#flow">네트워크 플로우</a>
+      <a class="nav-link" href="#lca">트리 지름·LCA</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">IV</span>논리·집합·귀납법</div>
+      <a class="nav-link" href="#proposition">명제 논리</a>
+      <a class="nav-link" href="#logicops">논리 연산자</a>
+      <a class="nav-link" href="#demorgan">드 모르간 법칙</a>
+      <a class="nav-link" href="#sets">집합 연산</a>
+      <a class="nav-link" href="#induction">수학적 귀납법</a>
+      <a class="nav-link" href="#strongind">강한 귀납법</a>
+      <a class="nav-link" href="#boolean">부울 대수</a>
+      <a class="nav-link" href="#bitops">비트 연산·비트마스크</a>
+      <a class="nav-link" href="#relations">동치·편순서 관계</a>
+      <a class="nav-link" href="#predicate">술어 논리</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">V</span>기타 기법</div>
+      <a class="nav-link" href="#recurrence">점화식</a>
+      <a class="nav-link" href="#matpow">행렬 거듭제곱</a>
+      <a class="nav-link" href="#nim">님 게임·스프라그-그런디</a>
+      <a class="nav-link" href="#probdp">확률·기댓값 DP</a>
+      <a class="nav-link" href="#master">마스터 정리</a>
+      <a class="nav-link" href="#bsgs">이산 로그 BSGS</a>
+      <a class="nav-link" href="#fft">FFT / NTT</a>
+      <a class="nav-link" href="#latin">라틴 방진</a>
+      <a class="nav-link" href="#hamming">해밍 거리</a>
+      <a class="nav-link" href="#sim">시뮬레이션 카운팅</a>
+    </div>
+  </nav>
+  <div class="legend">
+    <div class="legend-t">난이도</div>
+    <div class="legend-row">
+      <span class="badge easy">기초 KOI1차</span>
+      <span class="badge mid">중급 KOI2차</span>
+      <span class="badge hard">고급 IOI</span>
+    </div>
+  </div>
+</aside>
+
+<main>
+<header class="hero">
+  <div class="hero-lbl">Korea Olympiad in Informatics</div>
+  <h1>정보올림피아드<br><span>이산 수학</span> 전체 정리</h1>
+  <p>수론 · 조합론 · 그래프 이론 · 논리·집합 · 기타 기법까지, KOI부터 IOI까지 필요한 모든 개념을 한 페이지에.</p>
+  <div class="stats">
+    <div><div class="stat-n">66</div><div class="stat-l">전체 개념</div></div>
+    <div><div class="stat-n">5</div><div class="stat-l">대단원</div></div>
+    <div><div class="stat-n">C++</div><div class="stat-l">코드 예시</div></div>
+  </div>
+</header>
+
+<div class="cw">
+
+<!-- ═══ UNIT I 수론 ═══ -->
+<section class="us">
+<div class="uh"><span class="ubadge">Unit I</span><h2>수론 (Number Theory)</h2><span class="ucnt">17개 개념</span></div>
+
+<div class="concept" id="divisors"><div class="ch" onclick="T(this)"><span class="ct">약수와 배수</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">a | b : a가 b를 나누어 떨어뜨린다. 약수는 √n 이하와 초과의 쌍으로 존재하므로 √n까지만 순회하면 O(√n).</p>
+<div class="formula">d(n) = (a₁+1)(a₂+1)···(aₖ+1)  [약수의 개수, n=p₁^a₁×···]
+σ(n) = Π(pᵢ^(aᵢ+1)-1)/(pᵢ-1)  [약수의 합]</div>
+<pre><code class="language-cpp">vector&lt;int&gt; divisors(int n) {
+    vector&lt;int&gt; d;
+    for (int i = 1; (long long)i*i &lt;= n; i++) {
+        if (n % i == 0) { d.push_back(i); if (i != n/i) d.push_back(n/i); }
+    }
+    sort(d.begin(), d.end());
+    return d;
+}  // O(√n)</code></pre>
+</div></div>
+
+<div class="concept" id="primes"><div class="ch" onclick="T(this)"><span class="ct">소수 판별 O(√n)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">합성수 n에는 √n 이하의 소인수가 반드시 존재 → √n까지만 나눠보면 충분. 짝수는 2만 소수이므로 홀수만 검사하면 2배 빠름.</p>
+<pre><code class="language-cpp">bool isPrime(int n) {
+    if (n &lt; 2) return false;
+    if (n == 2) return true;
+    if (n % 2 == 0) return false;
+    for (int i = 3; (long long)i*i &lt;= n; i += 2)
+        if (n % i == 0) return false;
+    return true;
+}</code></pre>
+</div></div>
+
+<div class="concept" id="factorize"><div class="ch" onclick="T(this)"><span class="ct">소인수분해</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">유일 인수분해 정리: n &gt; 1은 소수의 곱으로 유일하게 표현된다. 2부터 √n까지 나누면 O(√n).</p>
+<pre><code class="language-cpp">map&lt;int,int&gt; factorize(int n) {
+    map&lt;int,int&gt; f;
+    for (int i = 2; (long long)i*i &lt;= n; i++)
+        while (n % i == 0) { f[i]++; n /= i; }
+    if (n &gt; 1) f[n]++;
+    return f;
+}  // factorize(360) → {2:3, 3:2, 5:1}</code></pre>
+</div></div>
+
+<div class="concept" id="gcd"><div class="ch" onclick="T(this)"><span class="ct">GCD / LCM — 유클리드 호제법</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">gcd(a,b) = gcd(b, a mod b),  gcd(a,0) = a
+lcm(a,b) = a / gcd(a,b) × b  [오버플로 방지: 나눗셈 먼저]</div>
+<pre><code class="language-cpp">int gcd(int a, int b) { return b ? gcd(b, a%b) : a; }
+long long lcm(long long a, long long b) { return a / gcd(a,b) * b; }
+// O(log min(a,b))
+// gcd(a,b) = gcd(a+b,b) = gcd(a-b,b),  gcd(ka,kb)=k·gcd(a,b)</code></pre>
+</div></div>
+
+<div class="concept" id="extgcd"><div class="ch" onclick="T(this)"><span class="ct">확장 유클리드 알고리즘</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">베주 항등식: ax + by = gcd(a,b)를 만족하는 정수 (x,y)가 항상 존재. 모듈러 역원·CRT·1차 디오판토스 방정식에 사용.</p>
+<pre><code class="language-cpp">long long extGcd(long long a, long long b, long long &x, long long &y) {
+    if (!b) { x=1; y=0; return a; }
+    long long x1,y1, g=extGcd(b, a%b, x1, y1);
+    x=y1; y=x1-(a/b)*y1; return g;
+}
+// 일반해: x=x₀+(b/g)t,  y=y₀-(a/g)t</code></pre>
+</div></div>
+
+<div class="concept" id="sieve"><div class="ch" onclick="T(this)"><span class="ct">에라토스테네스의 체</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">소수의 배수를 제거해 N 이하 소수를 한번에 구함. i²부터 시작하는 이유: 이전 소수들이 이미 i×2 ~ i×(i-1)을 제거했기 때문.</p>
+<div class="formula">O(n log log n) ≈ O(n)  [n=10⁷ 기준 ~0.1초]</div>
+<pre><code class="language-cpp">vector&lt;bool&gt; sieve(int n) {
+    vector&lt;bool&gt; ip(n+1, true);
+    ip[0]=ip[1]=false;
+    for (int i=2; (long long)i*i&lt;=n; i++)
+        if (ip[i]) for (int j=i*i; j&lt;=n; j+=i) ip[j]=false;
+    return ip;
+}</code></pre>
+</div></div>
+
+<div class="concept" id="spf"><div class="ch" onclick="T(this)"><span class="ct">선형 체 (SPF — Smallest Prime Factor)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">각 수의 최솟소인수를 배열에 저장. 소인수분해 쿼리를 O(log n)에 반복 처리할 때 사용.</p>
+<pre><code class="language-cpp">vector&lt;int&gt; makeSPF(int n) {
+    vector&lt;int&gt; spf(n+1); iota(spf.begin(),spf.end(),0);
+    for (int i=2; (long long)i*i&lt;=n; i++)
+        if (spf[i]==i) for (int j=i*i; j&lt;=n; j+=i) if(spf[j]==j) spf[j]=i;
+    return spf;
+}
+// O(log n) 소인수분해
+vector&lt;int&gt; ff(int n, vector&lt;int&gt;&spf){ vector&lt;int&gt; f;
+    while(n&gt;1){f.push_back(spf[n]);n/=spf[n];} return f; }</code></pre>
+</div></div>
+
+<div class="concept" id="modular"><div class="ch" onclick="T(this)"><span class="ct">모듈러 산술</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="tw"><table>
+<tr><th>연산</th><th>공식</th></tr>
+<tr><td>(a+b)%m</td><td>((a%m)+(b%m))%m</td></tr>
+<tr><td>(a-b)%m</td><td>((a%m)-(b%m)+m)%m  ← +m 필수</td></tr>
+<tr><td>(a×b)%m</td><td>((a%m)×(b%m))%m</td></tr>
+<tr><td>a/b mod m</td><td>a × b⁻¹ mod m (모듈러 역원)</td></tr>
+</table></div>
+<pre><code class="language-cpp">const long long MOD=1e9+7;
+ll add(ll a,ll b){return(a+b)%MOD;}
+ll sub(ll a,ll b){return((a-b)%MOD+MOD)%MOD;}
+ll mul(ll a,ll b){return a%MOD*(b%MOD)%MOD;}</code></pre>
+</div></div>
+
+<div class="concept" id="fastpow"><div class="ch" onclick="T(this)"><span class="ct">빠른 거듭제곱 (Binary Exponentiation)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">지수를 이진수로 표현해 홀수 비트일 때만 곱함. O(log n). n=10^18도 처리 가능.</p>
+<div class="formula">a^13 = a^(1101₂) = a^8 × a^4 × a^1  →  5번 연산</div>
+<pre><code class="language-cpp">long long pw(long long b, long long e, long long m) {
+    long long r=1; b%=m;
+    for(;e;e>>=1){ if(e&1) r=r*b%m; b=b*b%m; }
+    return r;
+}</code></pre>
+</div></div>
+
+<div class="concept" id="fermat"><div class="ch" onclick="T(this)"><span class="ct">페르마 소정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">p가 소수, gcd(a,p)=1  →  a^(p-1) ≡ 1 (mod p)
+a^n mod p = a^(n mod (p-1)) mod p  [지수 축소]
+a⁻¹ ≡ a^(p-2) (mod p)  [모듈러 역원]</div>
+</div></div>
+
+<div class="concept" id="modinv"><div class="ch" onclick="T(this)"><span class="ct">모듈러 역원</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<pre><code class="language-cpp">ll inv(ll a, ll m) { return pw(a, m-2, m); }  // m이 소수일 때
+
+// 팩토리얼 역원 O(n) 전처리 → nCr mod p를 O(1)에
+vector&lt;ll&gt; fact(N), inv_fact(N);
+void pre(int n, ll mod) {
+    fact[0]=1;
+    for(int i=1;i&lt;=n;i++) fact[i]=fact[i-1]*i%mod;
+    inv_fact[n]=pw(fact[n],mod-2,mod);
+    for(int i=n-1;i&gt;=0;i--) inv_fact[i]=inv_fact[i+1]*(i+1)%mod;
+}
+ll C(int n,int r){ if(r&lt;0||r&gt;n)return 0;
+    return fact[n]%MOD*inv_fact[r]%MOD*inv_fact[n-r]%MOD; }</code></pre>
+</div></div>
+
+<div class="concept" id="eulerphi"><div class="ch" onclick="T(this)"><span class="ct">오일러 파이 함수 φ(n)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">1 이상 n 이하에서 n과 서로소인 수의 개수. φ(p)=p-1, Σ_{d|n}φ(d)=n.</p>
+<div class="formula">φ(n) = n × Π(1 - 1/p)  [p: n의 소인수]
+φ(12) = 12×(1-1/2)×(1-1/3) = 4</div>
+<pre><code class="language-cpp">int phi(int n) { int r=n;
+    for(int i=2;(long long)i*i&lt;=n;i++)
+        if(n%i==0){while(n%i==0)n/=i; r-=r/i;}
+    if(n&gt;1) r-=r/n; return r; }</code></pre>
+</div></div>
+
+<div class="concept" id="eulerthm"><div class="ch" onclick="T(this)"><span class="ct">오일러 정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">gcd(a,n)=1  →  a^φ(n) ≡ 1 (mod n)
+a^k mod n = a^(k mod φ(n)) mod n  [n이 소수면 페르마 소정리와 동치]</div>
+</div></div>
+
+<div class="concept" id="crt"><div class="ch" onclick="T(this)"><span class="ct">중국인 나머지 정리 (CRT)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">x≡r₁(mod m₁), x≡r₂(mod m₂) 등의 연립 합동식의 해를 구함. m들이 쌍마다 서로소면 해 유일.</p>
+<pre><code class="language-cpp">pair&lt;ll,ll&gt; crt(ll r1,ll m1,ll r2,ll m2) {
+    ll x,y; ll g=extGcd(m1,m2,x,y);
+    if((r2-r1)%g) return{-1,-1};
+    ll lcm=m1/g*m2;
+    ll ans=(r1+m1*((r2-r1)/g%(m2/g)*x%(m2/g)))%lcm;
+    return{(ans%lcm+lcm)%lcm,lcm};
+}</code></pre>
+</div></div>
+
+<div class="concept" id="mobius"><div class="ch" onclick="T(this)"><span class="ct">뫼비우스 함수와 반전 공식</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">μ(1)=1,  μ(n)=(-1)^k (n이 서로 다른 소수 k개의 곱),  μ(n)=0 (제곱 인수 있음)
+뫼비우스 반전: g(n)=Σ_{d|n}f(d)  ⟺  f(n)=Σ_{d|n}μ(n/d)g(d)</div>
+</div></div>
+
+<div class="concept" id="millerrabin"><div class="ch" onclick="T(this)"><span class="ct">밀러-라빈 소수 판별</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">n≤3.3×10^24 범위의 결정론적 소수 판별. 특정 증인 집합으로 O(k log²n).</p>
+<pre><code class="language-cpp">bool millerRabin(ll n,ll a){
+    if(n%a==0)return n==a;
+    ll d=n-1;int r=0;
+    while(d%2==0){d/=2;r++;}
+    ll x=pw(a,d,n);
+    if(x==1||x==n-1)return true;
+    for(int i=0;i&lt;r-1;i++){x=(__int128)x*x%n;if(x==n-1)return true;}
+    return false;
+}
+bool isPrime(ll n){
+    for(ll a:{2,3,5,7,11,13,17,19,23,29,31,37})
+        if(n&gt;1&amp;&amp;!millerRabin(n,a))return false;
+    return n&gt;1;
+}</code></pre>
+</div></div>
+
+<div class="concept" id="pollard"><div class="ch" onclick="T(this)"><span class="ct">폴라드 로 (Pollard's ρ)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">큰 수 소인수분해를 기대 O(n^(1/4))에. 밀러-라빈과 함께 사용해 임의의 수를 빠르게 완전 소인수분해.</p>
+<pre><code class="language-cpp">ll pollardRho(ll n){
+    if(n%2==0)return 2;
+    ll x=rand()%(n-2)+2,y=x,c=rand()%(n-1)+1,d=1;
+    while(d==1){
+        x=((__int128)x*x+c)%n;
+        y=((__int128)y*y+c)%n; y=((__int128)y*y+c)%n;
+        d=__gcd(abs(x-y),n);
+    }
+    return d;
+}</code></pre>
+</div></div>
+</section>
+
+<!-- ═══ UNIT II 조합론 ═══ -->
+<section class="us">
+<div class="uh"><span class="ubadge">Unit II</span><h2>조합론 (Combinatorics)</h2><span class="ucnt">15개 개념</span></div>
+
+<div class="concept" id="permcomb"><div class="ch" onclick="T(this)"><span class="ct">순열 · 조합 (nPr · nCr)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">nPr = n!/(n-r)!  [순서 있게 r개 선택]
+nCr = n!/(r!(n-r)!)  [순서 없이 r개 선택]
+nCr = nC(n-r)  [대칭성]
+nCr = (n-1)C(r-1) + (n-1)Cr  [파스칼 항등식]</div>
+</div></div>
+
+<div class="concept" id="binom"><div class="ch" onclick="T(this)"><span class="ct">이항계수 계산</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<pre><code class="language-cpp">// r이 작을 때 직접 계산
+ll comb(int n,int r){ if(r&gt;n-r)r=n-r;
+    ll res=1; for(int i=0;i&lt;r;i++) res=res*(n-i)/(i+1); return res; }
+// 큰 경우: 팩토리얼 + 역원 전처리 (Unit I 모듈러 역원 참고)</code></pre>
+</div></div>
+
+<div class="concept" id="pascal"><div class="ch" onclick="T(this)"><span class="ct">파스칼 삼각형 전처리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<pre><code class="language-cpp">ll C[3001][3001];
+void buildPascal(int n, ll mod) {
+    for(int i=0;i&lt;=n;i++){ C[i][0]=1;
+        for(int j=1;j&lt;=i;j++) C[i][j]=(C[i-1][j-1]+C[i-1][j])%mod; }
+}  // O(n²), n≤3000에 적합</code></pre>
+</div></div>
+
+<div class="concept" id="binomthm"><div class="ch" onclick="T(this)"><span class="ct">이항 정리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">(a+b)^n = Σ_{k=0}^{n} nCk · a^k · b^(n-k)
+Σ nCk = 2^n  [a=b=1]
+Σ nCk·(-1)^k = 0  [a=1,b=-1]
+Σ k·nCk = n·2^(n-1)  [미분 활용]</div>
+</div></div>
+
+<div class="concept" id="rep"><div class="ch" onclick="T(this)"><span class="ct">중복 순열 · 중복 조합</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">중복 순열 nΠr = n^r  [n종류, 중복 허용, r개 나열]
+중복 조합 nHr = (n+r-1)Cr  [n종류, 중복 허용, r개 선택]
+직관: r개 공을 n칸에 넣기 = (n-1)개 구분선 + r개 공</div>
+</div></div>
+
+<div class="concept" id="ie"><div class="ch" onclick="T(this)"><span class="ct">포함-배제 원리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">|A₁∪···∪Aₙ| = Σ|Aᵢ| - Σ|Aᵢ∩Aⱼ| + Σ|Aᵢ∩Aⱼ∩Aₖ| - ···</div>
+<pre><code class="language-cpp">// 비트마스크 포함-배제
+int ie(vector&lt;int&gt;&primes, int n){ int m=primes.size(),res=0;
+    for(int mask=1;mask&lt;(1&lt;&lt;m);mask++){
+        int prod=1,bits=__builtin_popcount(mask);
+        for(int i=0;i&lt;m;i++) if(mask&gt;&gt;i&amp;1) prod*=primes[i];
+        res+=(bits%2==1?1:-1)*(n/prod); }
+    return n-res; }</code></pre>
+</div></div>
+
+<div class="concept" id="pigeonhole"><div class="ch" onclick="T(this)"><span class="ct">비둘기집 원리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">n+1개를 n칸에 넣으면 한 칸에 2개 이상. 일반화: mn+1개를 n칸에 넣으면 한 칸에 m+1개 이상.</p>
+<ul class="pl">
+<li>n+1개 정수 중 mod n 나머지가 같은 두 수 존재</li>
+<li>n²+1 길이 수열에는 길이 n+1의 단조 부분수열 존재 (에르되시-세케레시)</li>
+</ul>
+</div></div>
+
+<div class="concept" id="catalan"><div class="ch" onclick="T(this)"><span class="ct">카탈란 수 (Catalan Number)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">C(n) = (2n)Cn / (n+1)  →  1,1,2,5,14,42,132,...
+점화식: C(n) = C(n-1)×2(2n-1)/(n+1)</div>
+<ul class="pl">
+<li>n쌍 올바른 괄호 배열 수</li>
+<li>n개 노드 이진 탐색 트리 모양 수</li>
+<li>(n+2)각형 삼각분할 수</li>
+<li>(0,0)→(n,n) 격자에서 y=x 안 넘는 경로 수</li>
+</ul>
+</div></div>
+
+<div class="concept" id="lucas"><div class="ch" onclick="T(this)"><span class="ct">뤼카 정리 (Lucas' Theorem)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">p 소수일 때 nCr mod p를 n,r을 p진수로 전개한 각 자리 이항계수의 곱으로 계산.</p>
+<div class="formula">nCr ≡ (n_k C r_k)···(n_0 C r_0) (mod p)</div>
+<pre><code class="language-cpp">ll lucas(ll n,ll r,ll p){ if(r==0)return 1;
+    return C_small(n%p,r%p,p)*lucas(n/p,r/p,p)%p; }</code></pre>
+</div></div>
+
+<div class="concept" id="partition"><div class="ch" onclick="T(this)"><span class="ct">분할수 (Partition Number)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">p(n): n을 자연수 합으로 나타내는 방법 (순서 무관)
+p: 1,2,3,5,7,11,15,22,30,42,...
+dp[i][j] = dp[i][j-1] + dp[i-j][j]  [i를 1~j로 분할]</div>
+</div></div>
+
+<div class="concept" id="stirling"><div class="ch" onclick="T(this)"><span class="ct">스털링 수 (Stirling Numbers)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">제2종 S(n,k): n개 구별 원소를 k개 비어있지 않은 집합으로 분할하는 방법.</p>
+<div class="formula">S(n,k) = k·S(n-1,k) + S(n-1,k-1)
+x^n = Σ S(n,k)·x↓k  [x↓k = x(x-1)···(x-k+1)]</div>
+</div></div>
+
+<div class="concept" id="burnside"><div class="ch" onclick="T(this)"><span class="ct">번사이드 보조정리</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">대칭(회전·반사)을 고려한 서로 다른 배치 수 = (1/|G|)×Σ|Fix(g)|.</p>
+<div class="formula">네클리스 공식: (1/n)Σ_{d|n} φ(d)·n^(n/d)  [n색 n각형 색칠]</div>
+</div></div>
+
+<div class="concept" id="genfunc"><div class="ch" onclick="T(this)"><span class="ct">생성함수 기초</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">OGF: f(x)=Σaₙxⁿ  [조합/무순]
+EGF: f(x)=Σaₙxⁿ/n!  [순열/유순]
+1/(1-x) = 1+x+x²+···  [무제한 선택]
+동전 문제 = 1/(1-x)·1/(1-x²)·1/(1-x⁵)···의 xⁿ 계수</div>
+</div></div>
+
+<div class="concept" id="countdp"><div class="ch" onclick="T(this)"><span class="ct">경우의 수 DP</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<pre><code class="language-cpp">// 해밀턴 경로 비트마스크 DP (n≤20)
+// dp[mask][v]: mask 방문 후 v에서 끝나는 경로 존재?
+vector&lt;vector&lt;bool&gt;&gt; dp(1&lt;&lt;n, vector&lt;bool&gt;(n,false));
+for(int v=0;v&lt;n;v++) dp[1&lt;&lt;v][v]=true;
+for(int mask=1;mask&lt;(1&lt;&lt;n);mask++)
+    for(int v=0;v&lt;n;v++) if(dp[mask][v])
+        for(int u:adj[v]) if(!(mask&gt;&gt;u&amp;1)) dp[mask|(1&lt;&lt;u)][u]=true;</code></pre>
+</div></div>
+
+<div class="concept" id="lattice"><div class="ch" onclick="T(this)"><span class="ct">격자 경로 카운팅</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">(0,0)→(n,m) 오른쪽/위만 이동 = (n+m)Cn
+대각선 안 넘는 (0,0)→(n,n) = C(n) [카탈란 수]
+장애물: 반사 원리 또는 포함-배제</div>
+</div></div>
+</section>
+
+<!-- ═══ UNIT III 그래프 이론 ═══ -->
+<section class="us">
+<div class="uh"><span class="ubadge">Unit III</span><h2>그래프 이론 (Graph Theory)</h2><span class="ucnt">14개 개념</span></div>
+
+<div class="concept" id="graphbasic"><div class="ch" onclick="T(this)"><span class="ct">그래프 기본 용어</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="tw"><table>
+<tr><th>용어</th><th>설명</th></tr>
+<tr><td>정점 V</td><td>노드, 꼭짓점</td></tr>
+<tr><td>간선 E</td><td>두 정점을 잇는 선 (유향/무향)</td></tr>
+<tr><td>차수 deg(v)</td><td>v에 연결된 간선 수</td></tr>
+<tr><td>경로</td><td>정점들의 순서열 (반복 없으면 단순)</td></tr>
+<tr><td>사이클</td><td>시작 = 끝인 경로</td></tr>
+<tr><td>연결 그래프</td><td>임의의 두 정점 사이에 경로 존재</td></tr>
+</table></div>
+</div></div>
+
+<div class="concept" id="graphrepr"><div class="ch" onclick="T(this)"><span class="ct">그래프 표현</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<pre><code class="language-cpp">// 인접 행렬 O(V²): 간선 확인 O(1), 밀집 그래프
+int adj[MAXV][MAXV];
+// 인접 리스트 O(V+E): 희소 그래프, BFS/DFS에 적합
+vector&lt;pair&lt;int,int&gt;&gt; adj[MAXV]; // {이웃, 가중치}
+adj[u].push_back({v, w});</code></pre>
+</div></div>
+
+<div class="concept" id="tree"><div class="ch" onclick="T(this)"><span class="ct">트리 (Tree)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">연결된 비순환 그래프. V개 정점, V-1개 간선. ①연결 ②사이클없음 ③|E|=|V|-1 중 두 개만 성립해도 트리.</p>
+<div class="formula">완전 이진 트리: n개 노드 → 높이 ⌊log₂n⌋
+케일리 공식: Kₙ의 스패닝 트리 수 = n^(n-2)</div>
+</div></div>
+
+<div class="concept" id="bipartite"><div class="ch" onclick="T(this)"><span class="ct">이분 그래프</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">정점을 U, V로 분할해 모든 간선이 U-V 사이에만. 이분 그래프 ⟺ 홀수 사이클 없음. BFS 2-컬러링으로 O(V+E) 판별.</p>
+<pre><code class="language-cpp">bool isBipartite(int n, vector&lt;int&gt; adj[]) {
+    vector&lt;int&gt; color(n,-1);
+    for(int s=0;s&lt;n;s++){
+        if(color[s]!=-1)continue;
+        queue&lt;int&gt; q; q.push(s); color[s]=0;
+        while(!q.empty()){ int u=q.front();q.pop();
+            for(int v:adj[u]){ if(color[v]==-1){color[v]=1-color[u];q.push(v);}
+                else if(color[v]==color[u])return false; } }
+    } return true; }</code></pre>
+</div></div>
+
+<div class="concept" id="eulerham"><div class="ch" onclick="T(this)"><span class="ct">오일러 경로 · 해밀턴 경로</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<ul class="pl">
+<li>오일러 경로: 모든 간선 정확히 한 번. 무방향: 홀수 차수 0개(회로) 또는 2개(경로)</li>
+<li>오일러 회로 (방향): 모든 정점 in-degree = out-degree</li>
+<li>해밀턴 경로: 모든 정점 정확히 한 번 방문 → NP-완전, n≤20은 비트마스크 DP</li>
+</ul>
+</div></div>
+
+<div class="concept" id="topo"><div class="ch" onclick="T(this)"><span class="ct">위상 정렬 (Topological Sort)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">DAG에서 간선 방향을 위반하지 않는 정점 순서. Kahn의 알고리즘(BFS 기반) O(V+E).</p>
+<pre><code class="language-cpp">vector&lt;int&gt; topoSort(int n, vector&lt;int&gt; adj[]) {
+    vector&lt;int&gt; indeg(n,0);
+    for(int u=0;u&lt;n;u++) for(int v:adj[u]) indeg[v]++;
+    queue&lt;int&gt; q; for(int i=0;i&lt;n;i++) if(!indeg[i]) q.push(i);
+    vector&lt;int&gt; order;
+    while(!q.empty()){ int u=q.front();q.pop();order.push_back(u);
+        for(int v:adj[u]) if(--indeg[v]==0) q.push(v); }
+    return order; // size&lt;n → 사이클 존재
+}</code></pre>
+</div></div>
+
+<div class="concept" id="scc"><div class="ch" onclick="T(this)"><span class="ct">강한 연결 성분 (SCC)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">방향 그래프에서 서로 도달 가능한 최대 정점 집합. 타잔 알고리즘: 한 번의 DFS O(V+E).</p>
+<pre><code class="language-cpp">// 타잔 (Tarjan) — 핵심 구조
+int idx=0,cnt=0;
+vector&lt;int&gt; id(n,-1),low(n),stk,comp(n,-1);
+vector&lt;bool&gt; onStk(n,false);
+function&lt;void(int)&gt; dfs=[&](int u){
+    low[u]=id[u]=idx++;stk.push_back(u);onStk[u]=true;
+    for(int v:adj[u]){
+        if(id[v]==-1){dfs(v);low[u]=min(low[u],low[v]);}
+        else if(onStk[v]) low[u]=min(low[u],id[v]);
+    }
+    if(low[u]==id[u]){
+        while(true){int v=stk.back();stk.pop_back();
+            onStk[v]=false;comp[v]=cnt;if(v==u)break;}cnt++;}
+};</code></pre>
+</div></div>
+
+<div class="concept" id="matching"><div class="ch" onclick="T(this)"><span class="ct">이분 매칭 (Bipartite Matching)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">이분 그래프 최대 매칭 O(VE). 쾨닉 정리: 최대 매칭 = 최소 정점 커버.</p>
+<pre><code class="language-cpp">vector&lt;int&gt; match(R,-1);
+function&lt;bool(int,vector&lt;bool&gt;&amp;)&gt; dfs=[&](int u,vector&lt;bool&gt;&amp;vis){
+    for(int v:adj[u]){if(vis[v])continue;vis[v]=true;
+        if(match[v]==-1||dfs(match[v],vis)){match[v]=u;return true;}}
+    return false;};
+int cnt=0; for(int u=0;u&lt;L;u++){vector&lt;bool&gt;vis(R,false);if(dfs(u,vis))cnt++;}</code></pre>
+</div></div>
+
+<div class="concept" id="coloring"><div class="ch" onclick="T(this)"><span class="ct">그래프 채색</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<ul class="pl">
+<li>χ(G): 인접 정점이 다른 색이 되도록 하는 최소 색 수</li>
+<li>트리: χ=2, 이분 그래프 ⟺ χ≤2, 평면 그래프: χ≤4 (4색 정리)</li>
+<li>χ(G) ≤ Δ(G)+1  [Δ=최대 차수, Vizing 정리]</li>
+</ul>
+</div></div>
+
+<div class="concept" id="planar"><div class="ch" onclick="T(this)"><span class="ct">평면 그래프와 오일러 공식</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">V - E + F = 2  [연결된 평면 그래프, F=면의 수(외부 포함)]
+단순 평면 그래프: E ≤ 3V-6
+K₅, K₃,₃은 평면 그래프 아님 (쿠라토프스키 정리)</div>
+</div></div>
+
+<div class="concept" id="handshake"><div class="ch" onclick="T(this)"><span class="ct">악수 보조정리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">Σ deg(v) = 2|E|  →  홀수 차수 정점의 수는 항상 짝수
+Kₙ: 각 차수 n-1, |E|=n(n-1)/2     Kₘ,ₙ: |E|=mn</div>
+</div></div>
+
+<div class="concept" id="spanning"><div class="ch" onclick="T(this)"><span class="ct">스패닝 트리 · 케일리 공식</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">케일리 공식: Kₙ의 스패닝 트리 수 = n^(n-2)
+행렬-나무 정리: 라플라시안 L의 임의 (n-1)×(n-1) 여인수 = 스패닝 트리 수</div>
+</div></div>
+
+<div class="concept" id="flow"><div class="ch" onclick="T(this)"><span class="ct">네트워크 플로우</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">s→t 최대 유량. 최대 유량 = 최소 컷 (Max-flow Min-cut 정리).</p>
+<ul class="pl">
+<li>디닉(Dinic): O(V²E), 이분 매칭엔 O(E√V)</li>
+<li>최대 이분 매칭 = 최대 유량</li>
+<li>DAG 최소 경로 커버 = V - 최대 이분 매칭</li>
+</ul>
+</div></div>
+
+<div class="concept" id="lca"><div class="ch" onclick="T(this)"><span class="ct">트리 지름 · LCA</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">트리 지름: 임의 점 u → 가장 먼 v → 가장 먼 w. dist(v,w)=지름. LCA: 희소 테이블 O(n log n) 전처리, O(log n) 쿼리.</p>
+<pre><code class="language-cpp">int up[MAXN][LOG]; // up[v][k] = v의 2^k번째 조상
+// 전처리: up[v][k]=up[up[v][k-1]][k-1]
+int lca(int u,int v){
+    if(depth[u]&lt;depth[v])swap(u,v);
+    for(int k=LOG-1;k&gt;=0;k--)
+        if(depth[u]-depth[v]&gt;=(1&lt;&lt;k)) u=up[u][k];
+    if(u==v) return u;
+    for(int k=LOG-1;k&gt;=0;k--)
+        if(up[u][k]!=up[v][k]){u=up[u][k];v=up[v][k];}
+    return up[u][0];
+}</code></pre>
+</div></div>
+</section>
+
+<!-- ═══ UNIT IV 논리·집합·귀납법 ═══ -->
+<section class="us">
+<div class="uh"><span class="ubadge">Unit IV</span><h2>논리 · 집합 · 귀납법</h2><span class="ucnt">10개 개념</span></div>
+
+<div class="concept" id="proposition"><div class="ch" onclick="T(this)"><span class="ct">명제 논리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="tw"><table>
+<tr><th>종류</th><th>형태</th><th>원명제와 동치?</th></tr>
+<tr><td>역 (Converse)</td><td>Q → P</td><td>아니오</td></tr>
+<tr><td>이 (Inverse)</td><td>¬P → ¬Q</td><td>아니오</td></tr>
+<tr><td>대우 (Contrapositive)</td><td>¬Q → ¬P</td><td>예 ✓</td></tr>
+</table></div>
+<p class="desc">P→Q 직접 증명이 어려울 때 대우 ¬Q→¬P를 증명하면 동치.</p>
+</div></div>
+
+<div class="concept" id="logicops"><div class="ch" onclick="T(this)"><span class="ct">논리 연산자</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="tw"><table>
+<tr><th>연산</th><th>기호</th><th>C++ 비트</th></tr>
+<tr><td>AND</td><td>P∧Q</td><td>a &amp; b</td></tr>
+<tr><td>OR</td><td>P∨Q</td><td>a | b</td></tr>
+<tr><td>NOT</td><td>¬P</td><td>~a</td></tr>
+<tr><td>XOR</td><td>P⊕Q</td><td>a ^ b</td></tr>
+<tr><td>함의</td><td>P→Q</td><td>¬P∨Q</td></tr>
+</table></div>
+</div></div>
+
+<div class="concept" id="demorgan"><div class="ch" onclick="T(this)"><span class="ct">드 모르간 법칙</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">¬(P∧Q) ≡ ¬P∨¬Q      ¬(P∨Q) ≡ ¬P∧¬Q
+집합: (A∩B)ᶜ=Aᶜ∪Bᶜ   (A∪B)ᶜ=Aᶜ∩Bᶜ
+비트: ~(a&amp;b)==(~a|~b)  ~(a|b)==(~a&amp;~b)</div>
+</div></div>
+
+<div class="concept" id="sets"><div class="ch" onclick="T(this)"><span class="ct">집합 연산</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="tw"><table>
+<tr><th>연산</th><th>표기</th></tr>
+<tr><td>합집합</td><td>A∪B</td></tr>
+<tr><td>교집합</td><td>A∩B</td></tr>
+<tr><td>차집합</td><td>A\B</td></tr>
+<tr><td>여집합</td><td>Aᶜ=U\A</td></tr>
+<tr><td>멱집합</td><td>2^A (모든 부분집합)</td></tr>
+</table></div>
+<div class="formula">|A∪B| = |A|+|B|-|A∩B|     |2^A| = 2^|A|</div>
+</div></div>
+
+<div class="concept" id="induction"><div class="ch" onclick="T(this)"><span class="ct">수학적 귀납법</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">①P(1) 증명(기저) ②P(k)→P(k+1) 증명(귀납) → 모든 자연수에서 성립.</p>
+<div class="formula">예: 1+2+···+n=n(n+1)/2
+P(k): 성립 가정 → P(k+1): k(k+1)/2+(k+1)=(k+1)(k+2)/2 ✓</div>
+</div></div>
+
+<div class="concept" id="strongind"><div class="ch" onclick="T(this)"><span class="ct">강한 귀납법</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">P(1),...,P(k) 모두 참 → P(k+1) 참. 게임 이론 증명, 피보나치 성질 등에 사용. 구조적 귀납법은 트리·그래프 등 재귀 구조에 적용.</p>
+</div></div>
+
+<div class="concept" id="boolean"><div class="ch" onclick="T(this)"><span class="ct">부울 대수</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">항등: a+0=a, a·1=a    영: a+1=1, a·0=0
+멱등: a+a=a, a·a=a   보: a+¬a=1, a·¬a=0
+분배: a(b+c)=ab+ac   이중부정: ¬(¬a)=a</div>
+</div></div>
+
+<div class="concept" id="bitops"><div class="ch" onclick="T(this)"><span class="ct">비트 연산 · 비트마스크</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<pre><code class="language-cpp">(a>>k)&1          // k번째 비트 확인
+a|(1&lt;&lt;k)          // k번째 비트 켜기
+a&~(1&lt;&lt;k)         // k번째 비트 끄기
+a^(1&lt;&lt;k)          // 토글
+a&(a-1)           // 최하위 1비트 끄기
+a&(-a)            // 최하위 1비트만 추출
+__builtin_popcount(a)  // 켜진 비트 수
+
+// 부분집합 순회 O(2^|mask|)
+for(int sub=mask;sub;sub=(sub-1)&mask){ /* sub: mask의 부분집합 */ }</code></pre>
+</div></div>
+
+<div class="concept" id="relations"><div class="ch" onclick="T(this)"><span class="ct">동치 · 편순서 관계</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="tw"><table>
+<tr><th>종류</th><th>성질</th><th>예시</th></tr>
+<tr><td>동치 관계</td><td>반사+대칭+추이</td><td>mod m 합동, 같은 SCC</td></tr>
+<tr><td>편순서 관계</td><td>반사+비대칭+추이</td><td>약수 관계, ⊆</td></tr>
+<tr><td>전순서 관계</td><td>편순서+임의 쌍 비교 가능</td><td>정수의 ≤</td></tr>
+</table></div>
+</div></div>
+
+<div class="concept" id="predicate"><div class="ch" onclick="T(this)"><span class="ct">술어 논리 · 한정 기호</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">∀x P(x): 모든 x에서 P(x) 참
+∃x P(x): P(x)가 참인 x 존재
+¬(∀x P(x)) ≡ ∃x ¬P(x)
+¬(∃x P(x)) ≡ ∀x ¬P(x)</div>
+</div></div>
+</section>
+
+<!-- ═══ UNIT V 기타 기법 ═══ -->
+<section class="us">
+<div class="uh"><span class="ubadge">Unit V</span><h2>기타 이산 수학 기법</h2><span class="ucnt">10개 개념</span></div>
+
+<div class="concept" id="recurrence"><div class="ch" onclick="T(this)"><span class="ct">점화식 (Recurrence Relations)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">선형 점화식 aₙ=c₁aₙ₋₁+···+cₖaₙ₋ₖ는 특성 방정식의 근으로 일반항을 구한다.</p>
+<div class="formula">피보나치: x²=x+1  →  r=(1±√5)/2
+Fₙ = (φⁿ-ψⁿ)/√5  (φ=(1+√5)/2≈1.618)</div>
+</div></div>
+
+<div class="concept" id="matpow"><div class="ch" onclick="T(this)"><span class="ct">행렬 거듭제곱으로 점화식 풀기</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">[Fₙ₊₁]   [1 1]ⁿ  [F₁]
+[Fₙ  ] = [1 0]  × [F₀]   →  O(k³ log n)</div>
+<pre><code class="language-cpp">typedef vector&lt;vector&lt;ll&gt;&gt; Mat;
+Mat mul(Mat&A,Mat&B,ll m){ int n=A.size(); Mat C(n,vector&lt;ll&gt;(n,0));
+    for(int i=0;i&lt;n;i++) for(int k=0;k&lt;n;k++) if(A[i][k])
+        for(int j=0;j&lt;n;j++) C[i][j]=(C[i][j]+A[i][k]*B[k][j])%m; return C; }
+Mat matpow(Mat A,ll e,ll m){ int n=A.size(); Mat R(n,vector&lt;ll&gt;(n,0));
+    for(int i=0;i&lt;n;i++)R[i][i]=1;
+    for(;e;e>>=1){if(e&1)R=mul(R,A,m);A=mul(A,A,m);} return R; }</code></pre>
+</div></div>
+
+<div class="concept" id="nim"><div class="ch" onclick="T(this)"><span class="ct">님 게임 · 스프라그-그런디 정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">님 필승: 모든 더미 XOR ≠ 0
+그런디 수: G(s) = mex{G(다음 상태들)}  [mex = 집합에 없는 최솟값≥0]
+합성 게임: G(A+B) = G(A) ⊕ G(B)</div>
+<pre><code class="language-cpp">int nimXOR=0;
+for(int x:piles) nimXOR^=x;
+// nimXOR != 0 → 현재 플레이어 승
+
+unordered_map&lt;int,int&gt; memo;
+int grundy(int s){ if(memo.count(s))return memo[s];
+    set&lt;int&gt; reach; for(int nx:moves(s)) reach.insert(grundy(nx));
+    int mex=0; while(reach.count(mex))mex++;
+    return memo[s]=mex; }</code></pre>
+</div></div>
+
+<div class="concept" id="probdp"><div class="ch" onclick="T(this)"><span class="ct">확률 · 기댓값 DP</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">기댓값의 선형성 E[X+Y]=E[X]+E[Y]는 독립성과 무관하게 성립 — DP에서 매우 강력.</p>
+<div class="formula">E[X] = Σ x·P(X=x)
+dp[state] = 1 + Σ P(state→next)·dp[next]
+DAG 구조: 위상 정렬 역순으로 계산</div>
+</div></div>
+
+<div class="concept" id="master"><div class="ch" onclick="T(this)"><span class="ct">마스터 정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">T(n)=aT(n/b)+f(n) 형태의 점화식 시간복잡도 판별.</p>
+<div class="tw"><table>
+<tr><th>조건</th><th>결과</th><th>예시</th></tr>
+<tr><td>f(n)=O(n^(log_b a-ε))</td><td>Θ(n^(log_b a))</td><td>행렬 곱 O(n³)</td></tr>
+<tr><td>f(n)=Θ(n^(log_b a))</td><td>Θ(n^(log_b a)·log n)</td><td>병합 정렬 O(n log n)</td></tr>
+<tr><td>f(n)=Ω(n^(log_b a+ε))</td><td>Θ(f(n))</td><td>이진 탐색 O(log n)</td></tr>
+</table></div>
+</div></div>
+
+<div class="concept" id="bsgs"><div class="ch" onclick="T(this)"><span class="ct">이산 로그 BSGS (Baby-Step Giant-Step)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">aˣ≡b (mod p) 에서 x를 O(√p)에 구한다. x=im-j로 분해해 해시맵 활용.</p>
+<pre><code class="language-cpp">ll bsgs(ll a,ll b,ll p){ int m=ceil(sqrt(p));
+    unordered_map&lt;ll,int&gt; tab; ll cur=b;
+    for(int j=0;j&lt;=m;j++){tab[cur]=j;cur=cur*a%p;}
+    ll am=pw(a,m,p); cur=1;
+    for(int i=1;i&lt;=m+1;i++){ cur=cur*am%p;
+        if(tab.count(cur))return(ll)i*m-tab[cur]; }
+    return -1; }</code></pre>
+</div></div>
+
+<div class="concept" id="fft"><div class="ch" onclick="T(this)"><span class="ct">FFT / NTT</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">길이 n, m 다항식의 곱을 O((n+m)log(n+m))에 계산. NTT는 소수 mod에서 정수 오차 없이 동작.</p>
+<div class="formula">NTT mod: 998244353 = 119×2²³+1  (원시근 3, KOI/ICPC 정석)
+활용: 다항식 곱, 큰 수 곱셈, 문자열 컨볼루션 매칭</div>
+</div></div>
+
+<div class="concept" id="latin"><div class="ch" onclick="T(this)"><span class="ct">라틴 방진 (Latin Square)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">n×n 배열에 n가지 기호를 각 행·열에서 정확히 한 번씩 배치. 직교 라틴 방진은 실험 설계, 오류 수정 코드에 활용.</p>
+</div></div>
+
+<div class="concept" id="hamming"><div class="ch" onclick="T(this)"><span class="ct">해밍 거리 (Hamming Distance)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<div class="formula">d(x,y) = popcount(x XOR y)  [서로 다른 비트 수]
+해밍 코드: 최소 거리 3 → 1비트 오류 수정 가능</div>
+</div></div>
+
+<div class="concept" id="sim"><div class="ch" onclick="T(this)"><span class="ct">시뮬레이션 카운팅</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<ul class="pl">
+<li>자리수 DP: n 이하에서 조건 만족 수의 개수</li>
+<li>프로파일 DP: 타일링·격자 문제에서 이전 열 상태를 비트마스크로 저장</li>
+<li>SOS DP: 부분집합 합 전처리 O(n×2ⁿ)</li>
+</ul>
+</div></div>
+</section>
+
+</div><!-- /cw -->
+</main>
+
+<script>
+hljs.highlightAll();
+function T(h){ h.parentElement.classList.toggle('open'); }
+const srch=document.getElementById('search');
+const nls=document.querySelectorAll('.nav-link');
+const cps=document.querySelectorAll('.concept');
+srch.addEventListener('input',function(){
+  const q=this.value.trim().toLowerCase();
+  cps.forEach(c=>{
+    const ok=!q||c.querySelector('.ct').textContent.toLowerCase().includes(q)||
+               (c.querySelector('.cb')||{}).textContent?.toLowerCase().includes(q);
+    c.style.display=ok?'':'none';
+    if(ok&&q)c.classList.add('open');else if(!q)c.classList.remove('open');
+  });
+  nls.forEach(a=>a.classList.toggle('hid',q&&!a.textContent.toLowerCase().includes(q)));
+});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+  nls.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}
+})},{rootMargin:'-30% 0px -65% 0px'});
+cps.forEach(c=>{if(c.id)obs.observe(c);});
+</script>
+</body>
+</html>
