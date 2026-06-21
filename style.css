@@ -131,3 +131,50 @@ td:first-child{color:var(--text);font-family:var(--mono);font-size:12px}
 .uc-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:1rem}
 .uc-cnt{font-size:12px;color:var(--primary);font-weight:600}
 
+
+
+/* ── quicklinks (사이드바) ── */
+.quicklinks{display:flex;gap:.4rem;padding:.55rem 1rem 0}
+.quicklinks a{flex:1;text-align:center;font-size:12px;font-weight:600;color:var(--text2);
+  background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem;
+  text-decoration:none;transition:all .15s}
+.quicklinks a:hover{border-color:var(--primary);color:var(--primary)}
+.quicklinks a.active{background:var(--pdim);color:var(--primary);border-color:var(--border2)}
+
+/* ── index 코스 배너 ── */
+.course-banner{display:flex;align-items:center;gap:1rem;
+  background:linear-gradient(120deg,var(--pdim),transparent);
+  border:1px solid var(--border2);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:1.4rem;
+  text-decoration:none;color:inherit;transition:transform .2s,border-color .2s}
+.course-banner:hover{transform:translateY(-2px);border-color:var(--primary)}
+.cb-title{font-size:1.05rem;font-weight:700;margin-bottom:.15rem}
+.cb-desc{font-size:13px;color:var(--text2)}
+.cb-go{margin-left:auto;font-size:13px;font-weight:600;color:var(--primary);white-space:nowrap}
+
+/* ── 학습 코스 (courses.html) ── */
+.course{margin-bottom:3rem}
+.course-head{display:flex;align-items:center;gap:.8rem;margin-bottom:1.3rem;
+  padding-bottom:.7rem;border-bottom:1px solid var(--border)}
+.course-num{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;
+  width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:8px;flex-shrink:0}
+.course-num.easy{background:var(--easybg);color:var(--easy)}
+.course-num.mid{background:var(--midbg);color:var(--mid)}
+.course-num.hard{background:var(--hardbg);color:var(--hard)}
+.course-title{font-size:1.3rem;font-weight:700}
+.course-meta{margin-left:auto;font-size:13px;color:var(--text3)}
+.stage{margin-bottom:1.4rem}
+.stage-head{font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:.55rem;
+  display:flex;align-items:center;gap:.5rem}
+.stage-num{font-family:'Space Grotesk',sans-serif;font-size:11px;background:var(--pdim);
+  color:var(--primary);padding:.15rem .5rem;border-radius:5px}
+.steps{display:flex;flex-direction:column;gap:.4rem;border-left:2px solid var(--border);
+  padding-left:1rem;margin-left:.5rem}
+.step{display:flex;align-items:center;gap:.7rem;background:var(--card);
+  border:1px solid var(--border);border-radius:8px;padding:.5rem .85rem;
+  text-decoration:none;color:var(--text);transition:all .15s}
+.step:hover{border-color:var(--border2);transform:translateX(3px)}
+.step-num{font-family:var(--mono);font-size:11px;color:var(--text3);width:1.4rem;flex-shrink:0}
+.step-title{font-size:14px;font-weight:500;flex:1}
+.step-unit{font-size:11px;color:var(--text3);background:var(--bg);
+  padding:.12rem .55rem;border-radius:10px;white-space:nowrap}

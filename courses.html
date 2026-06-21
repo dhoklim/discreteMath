@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학습 코스 · KOI 이산수학</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">
+    <a href="index.html" style="text-decoration:none;color:inherit;display:block">
+      <div class="logo-title">KOI 이산수학</div>
+      <div class="logo-sub">전체 개념 정리 · 66개 토픽</div>
+    </a>
+  </div>
+  <div class="quicklinks">
+    <a href="index.html">🏠 홈</a>
+    <a href="courses.html" class="active">📚 학습 코스</a>
+  </div>
+  <div class="search-wrap">
+    <input id="search" type="text" placeholder="개념 검색…" autocomplete="off">
+  </div>
+  <nav id="nav">
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">I</span>수론</div>
+      <a class="nav-link" href="01-number-theory.html#divisors">약수·배수</a>
+      <a class="nav-link" href="01-number-theory.html#primes">소수 판별</a>
+      <a class="nav-link" href="01-number-theory.html#factorize">소인수분해</a>
+      <a class="nav-link" href="01-number-theory.html#gcd">GCD / LCM</a>
+      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
+      <a class="nav-link" href="01-number-theory.html#sieve">에라토스테네스의 체</a>
+      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
+      <a class="nav-link" href="01-number-theory.html#modular">모듈러 산술</a>
+      <a class="nav-link" href="01-number-theory.html#fastpow">빠른 거듭제곱</a>
+      <a class="nav-link" href="01-number-theory.html#fermat">페르마 소정리</a>
+      <a class="nav-link" href="01-number-theory.html#modinv">모듈러 역원</a>
+      <a class="nav-link" href="01-number-theory.html#eulerphi">오일러 파이 함수</a>
+      <a class="nav-link" href="01-number-theory.html#eulerthm">오일러 정리</a>
+      <a class="nav-link" href="01-number-theory.html#crt">중국인 나머지 정리</a>
+      <a class="nav-link" href="01-number-theory.html#mobius">뫼비우스 함수</a>
+      <a class="nav-link" href="01-number-theory.html#millerrabin">밀러-라빈 소수 판별</a>
+      <a class="nav-link" href="01-number-theory.html#pollard">폴라드 로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">II</span>조합론</div>
+      <a class="nav-link" href="02-combinatorics.html#permcomb">순열·조합</a>
+      <a class="nav-link" href="02-combinatorics.html#binom">이항계수</a>
+      <a class="nav-link" href="02-combinatorics.html#pascal">파스칼 삼각형</a>
+      <a class="nav-link" href="02-combinatorics.html#binomthm">이항 정리</a>
+      <a class="nav-link" href="02-combinatorics.html#rep">중복 순열·조합</a>
+      <a class="nav-link" href="02-combinatorics.html#ie">포함-배제 원리</a>
+      <a class="nav-link" href="02-combinatorics.html#pigeonhole">비둘기집 원리</a>
+      <a class="nav-link" href="02-combinatorics.html#catalan">카탈란 수</a>
+      <a class="nav-link" href="02-combinatorics.html#lucas">뤼카 정리</a>
+      <a class="nav-link" href="02-combinatorics.html#partition">분할수</a>
+      <a class="nav-link" href="02-combinatorics.html#stirling">스털링 수</a>
+      <a class="nav-link" href="02-combinatorics.html#burnside">번사이드 보조정리</a>
+      <a class="nav-link" href="02-combinatorics.html#genfunc">생성함수 기초</a>
+      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
+      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">III</span>그래프 이론</div>
+      <a class="nav-link" href="03-graph-theory.html#graphbasic">그래프 기본 용어</a>
+      <a class="nav-link" href="03-graph-theory.html#graphrepr">그래프 표현</a>
+      <a class="nav-link" href="03-graph-theory.html#tree">트리</a>
+      <a class="nav-link" href="03-graph-theory.html#bipartite">이분 그래프</a>
+      <a class="nav-link" href="03-graph-theory.html#eulerham">오일러·해밀턴 경로</a>
+      <a class="nav-link" href="03-graph-theory.html#topo">위상 정렬</a>
+      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
+      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
+      <a class="nav-link" href="03-graph-theory.html#coloring">그래프 채색</a>
+      <a class="nav-link" href="03-graph-theory.html#planar">평면 그래프</a>
+      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
+      <a class="nav-link" href="03-graph-theory.html#spanning">스패닝 트리</a>
+      <a class="nav-link" href="03-graph-theory.html#flow">네트워크 플로우</a>
+      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">IV</span>논리·집합·귀납법</div>
+      <a class="nav-link" href="04-logic-sets.html#proposition">명제 논리</a>
+      <a class="nav-link" href="04-logic-sets.html#logicops">논리 연산자</a>
+      <a class="nav-link" href="04-logic-sets.html#demorgan">드 모르간 법칙</a>
+      <a class="nav-link" href="04-logic-sets.html#sets">집합 연산</a>
+      <a class="nav-link" href="04-logic-sets.html#induction">수학적 귀납법</a>
+      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
+      <a class="nav-link" href="04-logic-sets.html#boolean">부울 대수</a>
+      <a class="nav-link" href="04-logic-sets.html#bitops">비트 연산·비트마스크</a>
+      <a class="nav-link" href="04-logic-sets.html#relations">동치·편순서 관계</a>
+      <a class="nav-link" href="04-logic-sets.html#predicate">술어 논리</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">V</span>기타 기법</div>
+      <a class="nav-link" href="05-techniques.html#recurrence">점화식</a>
+      <a class="nav-link" href="05-techniques.html#matpow">행렬 거듭제곱</a>
+      <a class="nav-link" href="05-techniques.html#nim">님 게임·스프라그-그런디</a>
+      <a class="nav-link" href="05-techniques.html#probdp">확률·기댓값 DP</a>
+      <a class="nav-link" href="05-techniques.html#master">마스터 정리</a>
+      <a class="nav-link" href="05-techniques.html#bsgs">이산 로그 BSGS</a>
+      <a class="nav-link" href="05-techniques.html#fft">FFT / NTT</a>
+      <a class="nav-link" href="05-techniques.html#latin">라틴 방진</a>
+      <a class="nav-link" href="05-techniques.html#hamming">해밍 거리</a>
+      <a class="nav-link" href="05-techniques.html#sim">시뮬레이션 카운팅</a>
+    </div>
+  </nav>
+  <div class="legend">
+    <div class="legend-t">난이도</div>
+    <div class="legend-row">
+      <span class="badge easy">기초 KOI1차</span>
+      <span class="badge mid">중급 KOI2차</span>
+      <span class="badge hard">고급 IOI</span>
+    </div>
+  </div>
+</aside>
+<main>
+<header class="hero">
+  <div class="hero-lbl">Study Roadmap</div>
+  <h1>수준별 <span>학습 코스</span></h1>
+  <p>66개 개념을 입문 → KOI 2차 → IOI 순으로, 선수 개념에 맞춰 정렬했습니다. 학생 수준에 맞는 코스를 골라 위에서부터 따라가세요.</p>
+</header>
+
+<div class="cw">
+
+<section class="course">
+<div class="course-head"><span class="course-num easy">1</span><span class="course-title">입문 코스</span><span class="course-meta">기초 · KOI 1차 대비 · 24개 개념</span></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">1단계</span>정수론 첫걸음</div><div class="steps">
+<a class="step" href="01-number-theory.html#divisors"><span class="step-num">01</span><span class="step-title">약수와 배수</span><span class="step-unit">수론</span><span class="badge easy">기초</span></a>
+<a class="step" href="01-number-theory.html#primes"><span class="step-num">02</span><span class="step-title">소수 판별</span><span class="step-unit">수론</span><span class="badge easy">기초</span></a>
+<a class="step" href="01-number-theory.html#factorize"><span class="step-num">03</span><span class="step-title">소인수분해</span><span class="step-unit">수론</span><span class="badge easy">기초</span></a>
+<a class="step" href="01-number-theory.html#gcd"><span class="step-num">04</span><span class="step-title">GCD / LCM</span><span class="step-unit">수론</span><span class="badge easy">기초</span></a>
+<a class="step" href="01-number-theory.html#sieve"><span class="step-num">05</span><span class="step-title">에라토스테네스의 체</span><span class="step-unit">수론</span><span class="badge easy">기초</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">2단계</span>논리와 집합</div><div class="steps">
+<a class="step" href="04-logic-sets.html#proposition"><span class="step-num">06</span><span class="step-title">명제 논리</span><span class="step-unit">논리·집합</span><span class="badge easy">기초</span></a>
+<a class="step" href="04-logic-sets.html#logicops"><span class="step-num">07</span><span class="step-title">논리 연산자</span><span class="step-unit">논리·집합</span><span class="badge easy">기초</span></a>
+<a class="step" href="04-logic-sets.html#demorgan"><span class="step-num">08</span><span class="step-title">드 모르간 법칙</span><span class="step-unit">논리·집합</span><span class="badge easy">기초</span></a>
+<a class="step" href="04-logic-sets.html#sets"><span class="step-num">09</span><span class="step-title">집합 연산</span><span class="step-unit">논리·집합</span><span class="badge easy">기초</span></a>
+<a class="step" href="04-logic-sets.html#bitops"><span class="step-num">10</span><span class="step-title">비트 연산 · 비트마스크</span><span class="step-unit">논리·집합</span><span class="badge easy">기초</span></a>
+<a class="step" href="04-logic-sets.html#boolean"><span class="step-num">11</span><span class="step-title">부울 대수</span><span class="step-unit">논리·집합</span><span class="badge easy">기초</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">3단계</span>셈의 기초</div><div class="steps">
+<a class="step" href="02-combinatorics.html#permcomb"><span class="step-num">12</span><span class="step-title">순열 · 조합</span><span class="step-unit">조합론</span><span class="badge easy">기초</span></a>
+<a class="step" href="02-combinatorics.html#binom"><span class="step-num">13</span><span class="step-title">이항계수</span><span class="step-unit">조합론</span><span class="badge easy">기초</span></a>
+<a class="step" href="02-combinatorics.html#pascal"><span class="step-num">14</span><span class="step-title">파스칼 삼각형</span><span class="step-unit">조합론</span><span class="badge easy">기초</span></a>
+<a class="step" href="02-combinatorics.html#binomthm"><span class="step-num">15</span><span class="step-title">이항 정리</span><span class="step-unit">조합론</span><span class="badge easy">기초</span></a>
+<a class="step" href="02-combinatorics.html#rep"><span class="step-num">16</span><span class="step-title">중복 순열 · 조합</span><span class="step-unit">조합론</span><span class="badge easy">기초</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">4단계</span>그래프 입문</div><div class="steps">
+<a class="step" href="03-graph-theory.html#graphbasic"><span class="step-num">17</span><span class="step-title">그래프 기본 용어</span><span class="step-unit">그래프</span><span class="badge easy">기초</span></a>
+<a class="step" href="03-graph-theory.html#graphrepr"><span class="step-num">18</span><span class="step-title">그래프 표현</span><span class="step-unit">그래프</span><span class="badge easy">기초</span></a>
+<a class="step" href="03-graph-theory.html#handshake"><span class="step-num">19</span><span class="step-title">악수 보조정리</span><span class="step-unit">그래프</span><span class="badge easy">기초</span></a>
+<a class="step" href="03-graph-theory.html#tree"><span class="step-num">20</span><span class="step-title">트리</span><span class="step-unit">그래프</span><span class="badge easy">기초</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">5단계</span>증명과 점화</div><div class="steps">
+<a class="step" href="04-logic-sets.html#induction"><span class="step-num">21</span><span class="step-title">수학적 귀납법</span><span class="step-unit">논리·집합</span><span class="badge easy">기초</span></a>
+<a class="step" href="05-techniques.html#recurrence"><span class="step-num">22</span><span class="step-title">점화식</span><span class="step-unit">기타</span><span class="badge easy">기초</span></a>
+<a class="step" href="01-number-theory.html#modular"><span class="step-num">23</span><span class="step-title">모듈러 산술</span><span class="step-unit">수론</span><span class="badge easy">기초</span></a>
+<a class="step" href="01-number-theory.html#fastpow"><span class="step-num">24</span><span class="step-title">빠른 거듭제곱</span><span class="step-unit">수론</span><span class="badge easy">기초</span></a>
+</div></div>
+</section>
+<section class="course">
+<div class="course-head"><span class="course-num mid">2</span><span class="course-title">중급 코스</span><span class="course-meta">KOI 2차 대비 · 26개 개념</span></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">1단계</span>모듈러 정수론</div><div class="steps">
+<a class="step" href="01-number-theory.html#extgcd"><span class="step-num">01</span><span class="step-title">확장 유클리드</span><span class="step-unit">수론</span><span class="badge mid">중급</span></a>
+<a class="step" href="01-number-theory.html#fermat"><span class="step-num">02</span><span class="step-title">페르마 소정리</span><span class="step-unit">수론</span><span class="badge mid">중급</span></a>
+<a class="step" href="01-number-theory.html#modinv"><span class="step-num">03</span><span class="step-title">모듈러 역원</span><span class="step-unit">수론</span><span class="badge mid">중급</span></a>
+<a class="step" href="01-number-theory.html#eulerphi"><span class="step-num">04</span><span class="step-title">오일러 파이 함수</span><span class="step-unit">수론</span><span class="badge mid">중급</span></a>
+<a class="step" href="01-number-theory.html#eulerthm"><span class="step-num">05</span><span class="step-title">오일러 정리</span><span class="step-unit">수론</span><span class="badge mid">중급</span></a>
+<a class="step" href="01-number-theory.html#spf"><span class="step-num">06</span><span class="step-title">선형 체 SPF</span><span class="step-unit">수론</span><span class="badge mid">중급</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">2단계</span>조합 심화</div><div class="steps">
+<a class="step" href="02-combinatorics.html#ie"><span class="step-num">07</span><span class="step-title">포함-배제 원리</span><span class="step-unit">조합론</span><span class="badge mid">중급</span></a>
+<a class="step" href="02-combinatorics.html#pigeonhole"><span class="step-num">08</span><span class="step-title">비둘기집 원리</span><span class="step-unit">조합론</span><span class="badge mid">중급</span></a>
+<a class="step" href="02-combinatorics.html#lattice"><span class="step-num">09</span><span class="step-title">격자 경로</span><span class="step-unit">조합론</span><span class="badge mid">중급</span></a>
+<a class="step" href="02-combinatorics.html#catalan"><span class="step-num">10</span><span class="step-title">카탈란 수</span><span class="step-unit">조합론</span><span class="badge mid">중급</span></a>
+<a class="step" href="02-combinatorics.html#lucas"><span class="step-num">11</span><span class="step-title">뤼카 정리</span><span class="step-unit">조합론</span><span class="badge mid">중급</span></a>
+<a class="step" href="02-combinatorics.html#partition"><span class="step-num">12</span><span class="step-title">분할수</span><span class="step-unit">조합론</span><span class="badge mid">중급</span></a>
+<a class="step" href="02-combinatorics.html#countdp"><span class="step-num">13</span><span class="step-title">경우의 수 DP</span><span class="step-unit">조합론</span><span class="badge mid">중급</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">3단계</span>그래프 심화</div><div class="steps">
+<a class="step" href="03-graph-theory.html#bipartite"><span class="step-num">14</span><span class="step-title">이분 그래프</span><span class="step-unit">그래프</span><span class="badge mid">중급</span></a>
+<a class="step" href="03-graph-theory.html#topo"><span class="step-num">15</span><span class="step-title">위상 정렬</span><span class="step-unit">그래프</span><span class="badge mid">중급</span></a>
+<a class="step" href="03-graph-theory.html#eulerham"><span class="step-num">16</span><span class="step-title">오일러 · 해밀턴 경로</span><span class="step-unit">그래프</span><span class="badge mid">중급</span></a>
+<a class="step" href="03-graph-theory.html#coloring"><span class="step-num">17</span><span class="step-title">그래프 채색</span><span class="step-unit">그래프</span><span class="badge mid">중급</span></a>
+<a class="step" href="03-graph-theory.html#planar"><span class="step-num">18</span><span class="step-title">평면 그래프</span><span class="step-unit">그래프</span><span class="badge mid">중급</span></a>
+<a class="step" href="03-graph-theory.html#lca"><span class="step-num">19</span><span class="step-title">트리 지름 · LCA</span><span class="step-unit">그래프</span><span class="badge mid">중급</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">4단계</span>점화 · 확률 · 게임</div><div class="steps">
+<a class="step" href="05-techniques.html#matpow"><span class="step-num">20</span><span class="step-title">행렬 거듭제곱</span><span class="step-unit">기타</span><span class="badge mid">중급</span></a>
+<a class="step" href="05-techniques.html#master"><span class="step-num">21</span><span class="step-title">마스터 정리</span><span class="step-unit">기타</span><span class="badge mid">중급</span></a>
+<a class="step" href="05-techniques.html#nim"><span class="step-num">22</span><span class="step-title">님 게임 · 그런디</span><span class="step-unit">기타</span><span class="badge mid">중급</span></a>
+<a class="step" href="05-techniques.html#probdp"><span class="step-num">23</span><span class="step-title">확률 · 기댓값 DP</span><span class="step-unit">기타</span><span class="badge mid">중급</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">5단계</span>논리 심화</div><div class="steps">
+<a class="step" href="04-logic-sets.html#strongind"><span class="step-num">24</span><span class="step-title">강한 귀납법</span><span class="step-unit">논리·집합</span><span class="badge mid">중급</span></a>
+<a class="step" href="04-logic-sets.html#relations"><span class="step-num">25</span><span class="step-title">동치 · 편순서 관계</span><span class="step-unit">논리·집합</span><span class="badge mid">중급</span></a>
+<a class="step" href="04-logic-sets.html#predicate"><span class="step-num">26</span><span class="step-title">술어 논리</span><span class="step-unit">논리·집합</span><span class="badge mid">중급</span></a>
+</div></div>
+</section>
+<section class="course">
+<div class="course-head"><span class="course-num hard">3</span><span class="course-title">고급 코스</span><span class="course-meta">IOI 대비 · 16개 개념</span></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">1단계</span>고급 정수론</div><div class="steps">
+<a class="step" href="01-number-theory.html#crt"><span class="step-num">01</span><span class="step-title">중국인 나머지 정리</span><span class="step-unit">수론</span><span class="badge hard">고급</span></a>
+<a class="step" href="01-number-theory.html#mobius"><span class="step-num">02</span><span class="step-title">뫼비우스 함수</span><span class="step-unit">수론</span><span class="badge hard">고급</span></a>
+<a class="step" href="01-number-theory.html#millerrabin"><span class="step-num">03</span><span class="step-title">밀러-라빈</span><span class="step-unit">수론</span><span class="badge hard">고급</span></a>
+<a class="step" href="01-number-theory.html#pollard"><span class="step-num">04</span><span class="step-title">폴라드 로</span><span class="step-unit">수론</span><span class="badge hard">고급</span></a>
+<a class="step" href="05-techniques.html#bsgs"><span class="step-num">05</span><span class="step-title">이산 로그 BSGS</span><span class="step-unit">기타</span><span class="badge hard">고급</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">2단계</span>고급 조합</div><div class="steps">
+<a class="step" href="02-combinatorics.html#stirling"><span class="step-num">06</span><span class="step-title">스털링 수</span><span class="step-unit">조합론</span><span class="badge hard">고급</span></a>
+<a class="step" href="02-combinatorics.html#burnside"><span class="step-num">07</span><span class="step-title">번사이드 보조정리</span><span class="step-unit">조합론</span><span class="badge hard">고급</span></a>
+<a class="step" href="02-combinatorics.html#genfunc"><span class="step-num">08</span><span class="step-title">생성함수</span><span class="step-unit">조합론</span><span class="badge hard">고급</span></a>
+<a class="step" href="05-techniques.html#fft"><span class="step-num">09</span><span class="step-title">FFT / NTT</span><span class="step-unit">기타</span><span class="badge hard">고급</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">3단계</span>고급 그래프</div><div class="steps">
+<a class="step" href="03-graph-theory.html#scc"><span class="step-num">10</span><span class="step-title">강한 연결 성분 SCC</span><span class="step-unit">그래프</span><span class="badge hard">고급</span></a>
+<a class="step" href="03-graph-theory.html#matching"><span class="step-num">11</span><span class="step-title">이분 매칭</span><span class="step-unit">그래프</span><span class="badge hard">고급</span></a>
+<a class="step" href="03-graph-theory.html#flow"><span class="step-num">12</span><span class="step-title">네트워크 플로우</span><span class="step-unit">그래프</span><span class="badge hard">고급</span></a>
+<a class="step" href="03-graph-theory.html#spanning"><span class="step-num">13</span><span class="step-title">스패닝 트리</span><span class="step-unit">그래프</span><span class="badge hard">고급</span></a>
+</div></div>
+<div class="stage"><div class="stage-head"><span class="stage-num">4단계</span>그 외 심화</div><div class="steps">
+<a class="step" href="05-techniques.html#latin"><span class="step-num">14</span><span class="step-title">라틴 방진</span><span class="step-unit">기타</span><span class="badge hard">고급</span></a>
+<a class="step" href="05-techniques.html#hamming"><span class="step-num">15</span><span class="step-title">해밍 거리</span><span class="step-unit">기타</span><span class="badge hard">고급</span></a>
+<a class="step" href="05-techniques.html#sim"><span class="step-num">16</span><span class="step-title">시뮬레이션 카운팅</span><span class="step-unit">기타</span><span class="badge hard">고급</span></a>
+</div></div>
+</section>
+
+</div><!-- /cw -->
+</main>
+<script src="script.js"></script>
+</body>
+</html>
