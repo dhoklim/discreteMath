@@ -113,6 +113,21 @@ th{background:var(--bg);color:var(--text2);padding:.45rem .7rem;text-align:left;
 td{padding:.4rem .7rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text2)}
 tr:last-child td{border-bottom:none}
 td:first-child{color:var(--text);font-family:var(--mono);font-size:12px}
+
+.prob-box{margin:.9rem 0 0}
+.prob-t{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+.prob-t::before{content:'';display:block;width:14px;height:1px;background:var(--cyan)}
+.prob-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  margin-bottom:.45rem;overflow:hidden}
+.prob-q{padding:.5rem .85rem;font-size:13px;color:var(--text);cursor:pointer;
+  display:flex;gap:.5rem;align-items:flex-start;user-select:none}
+.prob-q:hover{background:rgba(255,255,255,.025)}
+.prob-qn{color:var(--primary);font-weight:700;flex-shrink:0;font-size:12px}
+.prob-a{display:none;padding:.5rem .85rem .6rem;border-top:1px solid var(--border);
+  font-size:13px;color:var(--text2);line-height:1.7}
+.ans-lbl{color:var(--easy);font-weight:700}
+.prob-item.open .prob-a{display:block}
 </style>
 </head>
 <body>
@@ -236,9 +251,10 @@ td:first-child{color:var(--text);font-family:var(--mono);font-size:12px}
 <div class="uh"><span class="ubadge">Unit I</span><h2>수론 (Number Theory)</h2><span class="ucnt">17개 개념</span></div>
 
 <div class="concept" id="divisors"><div class="ch" onclick="T(this)"><span class="ct">약수와 배수</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">a | b : a가 b를 나누어 떨어뜨린다. 약수는 √n 이하와 초과의 쌍으로 존재하므로 √n까지만 순회하면 O(√n).</p>
+<p class="desc">a | b : a가 b를 나누어 떨어뜨린다. 약수는 √n 이하와 초과의 쌍으로 존재하므로 √n까지만 순회하면 O(√n). n=p₁^a₁×p₂^a₂×···×pₖ^aₖ로 소인수분해하면 약수 개수와 합을 공식으로 구할 수 있다.</p>
 <div class="formula">d(n) = (a₁+1)(a₂+1)···(aₖ+1)  [약수의 개수, n=p₁^a₁×···]
-σ(n) = Π(pᵢ^(aᵢ+1)-1)/(pᵢ-1)  [약수의 합]</div>
+σ(n) = Π(pᵢ^(aᵢ+1)-1)/(pᵢ-1)  [약수의 합]
+예) n=12=2²×3 → d(12)=(2+1)(1+1)=6, σ(12)=(1+2+4)(1+3)=28</div>
 <pre><code class="language-cpp">vector&lt;int&gt; divisors(int n) {
     vector&lt;int&gt; d;
     for (int i = 1; (long long)i*i &lt;= n; i++) {
@@ -247,10 +263,15 @@ td:first-child{color:var(--text);font-family:var(--mono);font-size:12px}
     sort(d.begin(), d.end());
     return d;
 }  // O(√n)</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 720의 약수의 개수를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 720 = 2⁴ × 3² × 5¹ → 약수 개수 = (4+1)(2+1)(1+1) = <strong>30</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 36의 약수의 합을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 36 = 2² × 3² → σ(36) = (1+2+4)(1+3+9) = 7 × 13 = <strong>91</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 1~100 중 6의 배수의 합을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 6+12+18+···+96 = 6×(1+2+···+16) = 6×(16×17/2) = 6×136 = <strong>816</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="primes"><div class="ch" onclick="T(this)"><span class="ct">소수 판별 O(√n)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">합성수 n에는 √n 이하의 소인수가 반드시 존재 → √n까지만 나눠보면 충분. 짝수는 2만 소수이므로 홀수만 검사하면 2배 빠름.</p>
+<p class="desc">합성수 n에는 √n 이하의 소인수가 반드시 존재한다. 이유: n=a×b에서 a≤b이면 a≤√n. 따라서 √n까지만 나눠보면 충분. 짝수는 2만 소수이므로 i+=2로 홀수만 검사하면 상수 배 빠름. n이 작을 때(n≤10^7 단건) 적합.</p>
 <pre><code class="language-cpp">bool isPrime(int n) {
     if (n &lt; 2) return false;
     if (n == 2) return true;
@@ -259,10 +280,15 @@ td:first-child{color:var(--text);font-family:var(--mono);font-size:12px}
         if (n % i == 0) return false;
     return true;
 }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 97이 소수인지 판별하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> √97 ≈ 9.8이므로 2,3,5,7로만 나눠보면 된다. 97÷2=48.5, 97÷3=32.3, 97÷5=19.4, 97÷7=13.8 → 모두 나누어지지 않으므로 <strong>소수</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 2~30 사이의 소수를 모두 나열하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>2, 3, 5, 7, 11, 13, 17, 19, 23, 29</strong> (총 10개)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> isPrime(1), isPrime(4), isPrime(49)의 결과는?</div><div class="prob-a"><span class="ans-lbl">A.</span> isPrime(1)=<strong>false</strong> (n&lt;2), isPrime(4)=<strong>false</strong> (짝수), isPrime(49)=<strong>false</strong> (7×7=49, i=7에서 걸림)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="factorize"><div class="ch" onclick="T(this)"><span class="ct">소인수분해</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">유일 인수분해 정리: n &gt; 1은 소수의 곱으로 유일하게 표현된다. 2부터 √n까지 나누면 O(√n).</p>
+<p class="desc">유일 인수분해 정리(산술의 기본 정리): n &gt; 1은 소수의 곱으로 유일하게 표현된다. 2부터 √n까지 나누고, 루프 후 n>1이면 n 자체가 소인수(√n 초과 소인수는 하나뿐임에 주목). 소인수분해로 약수 개수·합·오일러 파이 등을 빠르게 계산할 수 있다.</p>
 <pre><code class="language-cpp">map&lt;int,int&gt; factorize(int n) {
     map&lt;int,int&gt; f;
     for (int i = 2; (long long)i*i &lt;= n; i++)
@@ -270,29 +296,45 @@ td:first-child{color:var(--text);font-family:var(--mono);font-size:12px}
     if (n &gt; 1) f[n]++;
     return f;
 }  // factorize(360) → {2:3, 3:2, 5:1}</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 360을 소인수분해하고 약수의 개수를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 360 = 2³ × 3² × 5¹ → 약수 개수 = (3+1)(2+1)(1+1) = <strong>24개</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> lcm(12, 18)을 소인수분해로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 12 = 2² × 3, 18 = 2 × 3² → lcm = 2² × 3² = <strong>36</strong> (각 소인수의 최대 지수를 취함)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> factorize(100)의 결과는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 100 = 2² × 5² → map에 {2:2, 5:2} 저장. 약수 개수 = (2+1)(2+1) = <strong>9</strong> (1,2,4,5,10,20,25,50,100)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="gcd"><div class="ch" onclick="T(this)"><span class="ct">GCD / LCM — 유클리드 호제법</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">gcd(a,b)=gcd(b, a mod b) 를 반복하면 O(log min(a,b))에 최대공약수를 구한다. gcd(48,36): 48→36→12→0, 답 12. lcm 계산 시 a*b 먼저 하면 오버플로가 날 수 있으므로 반드시 a/gcd(a,b)*b 순서로 계산한다.</p>
 <div class="formula">gcd(a,b) = gcd(b, a mod b),  gcd(a,0) = a
 lcm(a,b) = a / gcd(a,b) × b  [오버플로 방지: 나눗셈 먼저]</div>
 <pre><code class="language-cpp">int gcd(int a, int b) { return b ? gcd(b, a%b) : a; }
 long long lcm(long long a, long long b) { return a / gcd(a,b) * b; }
 // O(log min(a,b))
 // gcd(a,b) = gcd(a+b,b) = gcd(a-b,b),  gcd(ka,kb)=k·gcd(a,b)</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 유클리드 호제법으로 gcd(252, 105)를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd(252,105) → gcd(105,42) → gcd(42,21) → gcd(21,0) = <strong>21</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> lcm(12, 18)을 코드 공식으로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd(12,18)=6 → lcm = 12/6 × 18 = <strong>36</strong>. (12×18=216을 먼저 하면 안 넘치지만 큰 수에선 위험)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> gcd(a,b)×lcm(a,b)=a×b 임을 a=12, b=18로 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd=6, lcm=36 → 6×36=216 = 12×18=<strong>216</strong> ✓ (항상 성립하는 항등식)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="extgcd"><div class="ch" onclick="T(this)"><span class="ct">확장 유클리드 알고리즘</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">베주 항등식: ax + by = gcd(a,b)를 만족하는 정수 (x,y)가 항상 존재. 모듈러 역원·CRT·1차 디오판토스 방정식에 사용.</p>
+<p class="desc">베주 항등식: ax + by = gcd(a,b)를 만족하는 정수 (x,y)가 항상 존재. 재귀 역추적으로 구한다. 핵심 점화: extGcd(b, a%b)로 x₁,y₁ 획득 후 x=y₁, y=x₁-(a/b)×y₁. ax≡1(mod m) 형태의 모듈러 역원, CRT, 1차 디오판토스 방정식 ax+by=c (단, g|c)에 사용.</p>
 <pre><code class="language-cpp">long long extGcd(long long a, long long b, long long &x, long long &y) {
     if (!b) { x=1; y=0; return a; }
     long long x1,y1, g=extGcd(b, a%b, x1, y1);
     x=y1; y=x1-(a/b)*y1; return g;
 }
 // 일반해: x=x₀+(b/g)t,  y=y₀-(a/g)t</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3x + 5y = 1의 정수해를 확장 유클리드로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> extGcd(3,5): gcd(5,3)→gcd(3,2)→gcd(2,1)→gcd(1,0). 역추적: 1=3-2×1 = 3-(5-3)=2×3-5 → x=2, y=-1. 확인: 3×2+5×(-1)=1 ✓. 일반해: x=2+5t, y=-1-3t</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 7의 mod 11 역원을 확장 유클리드로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 7x ≡ 1 (mod 11) → extGcd(7,11): 7×(-3)+11×2=1 이므로 x=-3≡8 (mod 11). 확인: 7×8=56=5×11+1 ✓ → <strong>역원=8</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 3x ≡ 9 (mod 12)의 해를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd(3,12)=3, 3|9이므로 해 존재. 양변을 3으로 나눔: x ≡ 3 (mod 4). 해: x = 3, 7, 11, 15, … (mod 4 기준으로 4개 잉여류)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="sieve"><div class="ch" onclick="T(this)"><span class="ct">에라토스테네스의 체</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">소수의 배수를 제거해 N 이하 소수를 한번에 구함. i²부터 시작하는 이유: 이전 소수들이 이미 i×2 ~ i×(i-1)을 제거했기 때문.</p>
+<p class="desc">소수의 배수를 제거해 N 이하 소수를 한 번에 구함. j=i*i부터 시작하는 이유: j=i×2 ~ i×(i-1)는 이미 2~(i-1) 단계에서 제거됐기 때문. n=10⁷까지는 sieve, n=10^12까지 단건 소수 판별은 밀러-라빈 사용.</p>
 <div class="formula">O(n log log n) ≈ O(n)  [n=10⁷ 기준 ~0.1초]</div>
 <pre><code class="language-cpp">vector&lt;bool&gt; sieve(int n) {
     vector&lt;bool&gt; ip(n+1, true);
@@ -301,10 +343,15 @@ long long lcm(long long a, long long b) { return a / gcd(a,b) * b; }
         if (ip[i]) for (int j=i*i; j&lt;=n; j+=i) ip[j]=false;
     return ip;
 }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 에라토스테네스의 체로 30 이하 소수를 구하는 과정을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 2의 배수 제거(4,6,8…), 3의 배수 제거(9,15,21…), 5의 배수(25) 제거. √30≈5.4이므로 5까지 처리. 결과: <strong>2,3,5,7,11,13,17,19,23,29</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1~100 사이의 소수는 몇 개인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>25개</strong>. (2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n=10에서 체 동작 후 배열 ip[]의 값을 쓰시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ip[0]=F, ip[1]=F, ip[2]=T, ip[3]=T, ip[4]=F, ip[5]=T, ip[6]=F, ip[7]=T, ip[8]=F, ip[9]=F, ip[10]=F. 소수: 2,3,5,7</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="spf"><div class="ch" onclick="T(this)"><span class="ct">선형 체 (SPF — Smallest Prime Factor)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">각 수의 최솟소인수를 배열에 저장. 소인수분해 쿼리를 O(log n)에 반복 처리할 때 사용.</p>
+<p class="desc">각 수 i의 최솟소인수를 spf[i]에 저장. 초기화: spf[i]=i (자기 자신). 소수 i를 찾으면 i²부터 i의 배수 중 아직 처리 안 된 것의 spf를 i로 설정. Q개의 소인수분해 쿼리를 각 O(log n)에 처리 가능. 에라토스테네스와 달리 각 수를 정확히 한 번만 처리해 엄밀히 선형 O(n).</p>
 <pre><code class="language-cpp">vector&lt;int&gt; makeSPF(int n) {
     vector&lt;int&gt; spf(n+1); iota(spf.begin(),spf.end(),0);
     for (int i=2; (long long)i*i&lt;=n; i++)
@@ -314,9 +361,15 @@ long long lcm(long long a, long long b) { return a / gcd(a,b) * b; }
 // O(log n) 소인수분해
 vector&lt;int&gt; ff(int n, vector&lt;int&gt;&spf){ vector&lt;int&gt; f;
     while(n&gt;1){f.push_back(spf[n]);n/=spf[n];} return f; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> spf[] 배열에서 spf[12], spf[15], spf[7]의 값을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> spf[12]=<strong>2</strong> (12=2²×3), spf[15]=<strong>3</strong> (15=3×5), spf[7]=<strong>7</strong> (7은 소수, 자기 자신)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> SPF 배열을 이용해 360을 O(log n)에 소인수분해하는 과정을 쓰시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> spf[360]=2 → 360/2=180, spf[180]=2 → 180/2=90, spf[90]=2 → 90/2=45, spf[45]=3 → 45/3=15, spf[15]=3 → 15/3=5, spf[5]=5 → 5/5=1. 결과: <strong>2³×3²×5</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 쿼리가 Q=10만 개이고 각 수가 최대 10⁶일 때, 어떤 방법이 더 효율적인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> SPF 전처리 O(n)+각 쿼리 O(log n) = O(n + Q log n). vs 매 쿼리 √n 판별 O(Q√n). 10⁶+10⁵×20 = 3×10⁶ vs 10⁵×10³ = 10⁸ → <strong>SPF가 훨씬 빠름</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="modular"><div class="ch" onclick="T(this)"><span class="ct">모듈러 산술</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">a ≡ b (mod m): a와 b를 m으로 나눈 나머지가 같다. 덧셈·뺄셈·곱셈은 중간에 mod를 취해도 결과가 같다(합동 관계의 보존). 뺄셈은 음수가 나올 수 있어 +m 필수. 나눗셈은 직접 불가, 모듈러 역원을 곱해야 한다. KOI에서 답이 클 때 거의 항상 MOD=10⁹+7(소수)을 사용.</p>
 <div class="tw"><table>
 <tr><th>연산</th><th>공식</th></tr>
 <tr><td>(a+b)%m</td><td>((a%m)+(b%m))%m</td></tr>
@@ -328,25 +381,42 @@ vector&lt;int&gt; ff(int n, vector&lt;int&gt;&spf){ vector&lt;int&gt; f;
 ll add(ll a,ll b){return(a+b)%MOD;}
 ll sub(ll a,ll b){return((a-b)%MOD+MOD)%MOD;}
 ll mul(ll a,ll b){return a%MOD*(b%MOD)%MOD;}</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> (13 × 17) mod 5를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> (13 mod 5) × (17 mod 5) = 3 × 2 = 6, 6 mod 5 = <strong>1</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> C++에서 (-3) % 7의 결과와 올바른 음수 mod 처리 방법을 쓰시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> C++는 -3 % 7 = <strong>-3</strong> (구현 정의, 보통 음수). 올바른 처리: ((-3) % 7 + 7) % 7 = 4 또는 sub 함수를 사용.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 2^30 mod (10⁹+7)을 모듈러 곱셈으로 구하는 방법을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> mul을 30번 반복하면 O(30). 더 빠른 방법: 빠른 거듭제곱(다음 항목). 중간 값이 10¹⁸까지 올라가므로 long long 필요, mul 함수 내 a%MOD*(b%MOD)는 최대 (10⁹)²=10¹⁸으로 long long 범위 내.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="fastpow"><div class="ch" onclick="T(this)"><span class="ct">빠른 거듭제곱 (Binary Exponentiation)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">지수를 이진수로 표현해 홀수 비트일 때만 곱함. O(log n). n=10^18도 처리 가능.</p>
+<p class="desc">지수를 이진수로 표현해 홀수 비트일 때만 결과에 곱함. e가 홀수면 r에 b 누적, 항상 b=b²으로 올림. e가 0이 될 때까지 반복 → O(log e). 페르마 소정리·모듈러 역원 계산의 핵심 서브루틴.</p>
 <div class="formula">a^13 = a^(1101₂) = a^8 × a^4 × a^1  →  5번 연산</div>
 <pre><code class="language-cpp">long long pw(long long b, long long e, long long m) {
     long long r=1; b%=m;
     for(;e;e>>=1){ if(e&1) r=r*b%m; b=b*b%m; }
     return r;
 }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> pw(2, 10, 1000)을 손으로 추적하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> e=10(1010₂): r=1, b=2 → e=5(odd→r=2,b=4) → e=2(even,b=16) → e=1(odd→r=32,b=256) → e=0. pw(2,10,1000)=1024 mod 1000=<strong>24</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 3^50 mod 13을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 3³=27≡1(mod 13). 50=3×16+2이므로 3^50=(3³)^16×3²≡1^16×9=<strong>9</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 거듭제곱으로 n번 연산 없이 log n번에 계산하는 아이디어의 핵심을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a^n → a^(n/2)² 로 문제 크기를 절반씩 줄임(분할 정복). n이 2⁶⁰이어도 60번만 곱하면 됨. 이진 표현에서 켜진 비트에 해당하는 거듭제곱만 누적.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="fermat"><div class="ch" onclick="T(this)"><span class="ct">페르마 소정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">p가 소수이고 p∤a이면 a^(p-1)≡1(mod p). 지수가 매우 클 때(예: 2^10^18 mod p) 지수를 p-1로 mod 취해 크기를 줄일 수 있다. 또한 a×a^(p-2)=a^(p-1)≡1이므로 a^(p-2)가 a의 역원(오일러 정리의 소수 특수 경우).</p>
 <div class="formula">p가 소수, gcd(a,p)=1  →  a^(p-1) ≡ 1 (mod p)
 a^n mod p = a^(n mod (p-1)) mod p  [지수 축소]
 a⁻¹ ≡ a^(p-2) (mod p)  [모듈러 역원]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3^100 mod 7을 페르마 소정리로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 7은 소수, gcd(3,7)=1 → 3^6≡1(mod 7). 100=6×16+4 → 3^100≡3^4=81≡81-11×7=<strong>4</strong>(mod 7)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 2^(10^9) mod 13을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 13은 소수, 2^12≡1(mod 13). 10^9 mod 12=4 → 2^(10^9)≡2^4=16≡<strong>3</strong>(mod 13)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 5의 mod 7 역원을 페르마 소정리로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 5^(7-2)=5^5 mod 7. 5²=25≡4, 5⁴≡4²=16≡2, 5^5≡2×5=10≡<strong>3</strong>(mod 7). 확인: 5×3=15≡1(mod 7) ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="modinv"><div class="ch" onclick="T(this)"><span class="ct">모듈러 역원</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">a × a⁻¹ ≡ 1 (mod m). m이 소수이면 페르마 소정리로 a⁻¹=a^(m-2). m이 소수가 아니면 확장 유클리드 사용. 팩토리얼 역원을 O(n) 전처리하면 nCr mod p를 O(1)에 구할 수 있어 KOI 조합론 문제의 핵심 패턴.</p>
 <pre><code class="language-cpp">ll inv(ll a, ll m) { return pw(a, m-2, m); }  // m이 소수일 때
 
 // 팩토리얼 역원 O(n) 전처리 → nCr mod p를 O(1)에
@@ -359,25 +429,41 @@ void pre(int n, ll mod) {
 }
 ll C(int n,int r){ if(r&lt;0||r&gt;n)return 0;
     return fact[n]%MOD*inv_fact[r]%MOD*inv_fact[n-r]%MOD; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3의 mod 7 역원을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> inv(3,7)=pw(3,5,7)=3^5 mod 7. 3²=9≡2, 3⁴≡4, 3^5≡4×3=12≡<strong>5</strong>. 확인: 3×5=15≡1(mod 7) ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> C(10,3) mod (10⁹+7)을 팩토리얼 역원으로 계산하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> fact[10]=3628800, inv_fact[3]=inv(6)=..., 결과 = 10!/(3!×7!) = 3628800/(6×5040) = 3628800/30240 = <strong>120</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> inv_fact[] 역방향 전처리가 O(n)인 이유를 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> inv_fact[n]=pw(fact[n], m-2, m)으로 O(log m) 1번만 수행. 이후 inv_fact[i]=inv_fact[i+1]×(i+1) 점화식으로 O(1)씩 전파 → 전체 O(n + log m). 매번 pw()를 호출하면 O(n log m)이므로 이 방법이 더 빠름.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="eulerphi"><div class="ch" onclick="T(this)"><span class="ct">오일러 파이 함수 φ(n)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">1 이상 n 이하에서 n과 서로소인 수의 개수. φ(p)=p-1, Σ_{d|n}φ(d)=n.</p>
+<p class="desc">1 이상 n 이하에서 n과 서로소인 수의 개수. φ(p)=p-1(소수), φ(p^k)=p^k-p^(k-1), 곱셈적: gcd(m,n)=1이면 φ(mn)=φ(m)φ(n). 포함-배제로 공식을 유도. Σ_{d|n}φ(d)=n (약수들의 φ 합은 n).</p>
 <div class="formula">φ(n) = n × Π(1 - 1/p)  [p: n의 소인수]
-φ(12) = 12×(1-1/2)×(1-1/3) = 4</div>
+φ(12) = 12×(1-1/2)×(1-1/3) = 4  → 1,5,7,11이 12와 서로소</div>
 <pre><code class="language-cpp">int phi(int n) { int r=n;
     for(int i=2;(long long)i*i&lt;=n;i++)
         if(n%i==0){while(n%i==0)n/=i; r-=r/i;}
     if(n&gt;1) r-=r/n; return r; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> φ(36)을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 36=2²×3² → φ(36)=36×(1-1/2)×(1-1/3)=36×1/2×2/3=<strong>12</strong>. 직접 세면: 1~36 중 36과 서로소인 수 12개.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> φ(p²)의 공식을 유도하시오. (p는 소수)</div><div class="prob-a"><span class="ans-lbl">A.</span> φ(p²)=p²×(1-1/p)=p²-p=<strong>p(p-1)</strong>. 예) φ(9)=9×(2/3)=6, φ(25)=25×(4/5)=20</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 1~10 중 10과 서로소인 수를 나열하고 φ(10)을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 10=2×5 → 2의 배수(2,4,6,8,10)와 5의 배수(5,10) 제거 → 서로소: 1,3,7,9 → φ(10)=<strong>4</strong>. 공식: 10×(1-1/2)×(1-1/5)=4 ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="eulerthm"><div class="ch" onclick="T(this)"><span class="ct">오일러 정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">페르마 소정리를 소수가 아닌 임의의 n으로 일반화. gcd(a,n)=1인 경우에만 성립. n이 소수이면 φ(n)=n-1이 되어 페르마 소정리와 동일. 매우 큰 지수를 가진 거듭제곱 mod 합성수 문제에 사용.</p>
 <div class="formula">gcd(a,n)=1  →  a^φ(n) ≡ 1 (mod n)
 a^k mod n = a^(k mod φ(n)) mod n  [n이 소수면 페르마 소정리와 동치]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3^100 mod 10을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd(3,10)=1, φ(10)=4 → 3^4≡1(mod 10). 100=4×25 → 3^100=(3^4)^25≡1^25=<strong>1</strong>(mod 10). 실제로 3의 일의 자리: 3,9,7,1 주기 4.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 7^222 mod 9를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd(7,9)=1, φ(9)=6 → 7^6≡1(mod 9). 222=6×37 → 7^222≡<strong>1</strong>(mod 9)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 오일러 정리가 성립하지 않는 경우(gcd(a,n)≠1)의 예시를 드시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a=2, n=4: gcd(2,4)=2≠1, φ(4)=2. 2^2=4≡0(mod 4) ≠ 1. 즉 gcd조건을 어기면 공식이 틀림.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="crt"><div class="ch" onclick="T(this)"><span class="ct">중국인 나머지 정리 (CRT)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">x≡r₁(mod m₁), x≡r₂(mod m₂) 등의 연립 합동식의 해를 구함. m들이 쌍마다 서로소면 해 유일.</p>
+<p class="desc">연립 합동식 x≡r₁(mod m₁), x≡r₂(mod m₂)의 해. m₁과 m₂가 서로소이면 mod lcm(m₁,m₂) 범위에서 유일한 해가 존재. 서로소가 아닐 때는 gcd(m₁,m₂) | (r₂-r₁)이면 해 존재. KOI에서 여러 주기를 합치거나 큰 수를 분해해 처리할 때 사용.</p>
 <pre><code class="language-cpp">pair&lt;ll,ll&gt; crt(ll r1,ll m1,ll r2,ll m2) {
     ll x,y; ll g=extGcd(m1,m2,x,y);
     if((r2-r1)%g) return{-1,-1};
@@ -385,15 +471,26 @@ a^k mod n = a^(k mod φ(n)) mod n  [n이 소수면 페르마 소정리와 동치
     ll ans=(r1+m1*((r2-r1)/g%(m2/g)*x%(m2/g)))%lcm;
     return{(ans%lcm+lcm)%lcm,lcm};
 }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> x≡2(mod 3), x≡3(mod 5)를 손으로 풀어라.</div><div class="prob-a"><span class="ans-lbl">A.</span> x≡2(mod 3): x=2,5,8,<strong>11</strong>,14,... 중 x≡3(mod 5)인 것: 8≡3(mod 5) ✓. 해: x≡<strong>8</strong>(mod 15)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> x≡1(mod 2), x≡2(mod 3), x≡3(mod 5)를 풀어라.</div><div class="prob-a"><span class="ans-lbl">A.</span> 차례로 합치기: x≡1(2)∧x≡2(3) → x≡5(6). x≡5(6)∧x≡3(5): lcm=30, 검산: 23≡1(2)✓, 23≡2(3)✓, 23≡3(5)✓ → x≡<strong>23</strong>(mod 30)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> x≡4(mod 6), x≡3(mod 8)에서 해가 존재하는지 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd(6,8)=2. r₂-r₁=3-4=-1, -1 mod 2=1 ≠ 0 → <strong>해 없음</strong> (두 합동식이 모순)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="mobius"><div class="ch" onclick="T(this)"><span class="ct">뫼비우스 함수와 반전 공식</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">μ(n)은 포함-배제의 부호 역할. 제곱 인수가 있으면 0, 소수가 홀수 개 곱이면 -1, 짝수 개 곱이면 +1. Σ_{d|n}μ(d)=1(n=1) 또는 0(n>1). 반전 공식: g가 f의 약수합이면 μ로 f를 복원. 1~n 중 gcd(a,b)=1인 쌍 개수, 제곱자유수 개수 등에 활용.</p>
 <div class="formula">μ(1)=1,  μ(n)=(-1)^k (n이 서로 다른 소수 k개의 곱),  μ(n)=0 (제곱 인수 있음)
 뫼비우스 반전: g(n)=Σ_{d|n}f(d)  ⟺  f(n)=Σ_{d|n}μ(n/d)g(d)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> μ(1), μ(6), μ(4), μ(30)을 각각 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> μ(1)=<strong>1</strong> (정의), μ(6)=μ(2×3)=(-1)²=<strong>1</strong> (서로다른 소수 2개), μ(4)=μ(2²)=<strong>0</strong> (제곱 인수), μ(30)=μ(2×3×5)=(-1)³=<strong>-1</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> Σ_{d|6} μ(d)를 계산하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 6의 약수: 1,2,3,6 → μ(1)+μ(2)+μ(3)+μ(6) = 1+(-1)+(-1)+1 = <strong>0</strong>. n>1이면 항상 0 (뫼비우스 함수의 핵심 성질)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 1~n 중 제곱수로 나눠지지 않는 수(제곱자유수)의 개수 공식은?</div><div class="prob-a"><span class="ans-lbl">A.</span> Σ_{d=1}^{√n} μ(d) × ⌊n/d²⌋. 예) n=10: d=1: μ(1)×10=10, d=2: μ(2)×⌊10/4⌋=(-1)×2=-2, d=3: (-1)×1=-1 → 10-2-1=<strong>7</strong> (1,2,3,5,6,7,10)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="millerrabin"><div class="ch" onclick="T(this)"><span class="ct">밀러-라빈 소수 판별</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">n≤3.3×10^24 범위의 결정론적 소수 판별. 특정 증인 집합으로 O(k log²n).</p>
+<p class="desc">페르마 소정리의 강화 버전. n-1=2^r×d로 쓸 때, 소수 n에 대해 a^d≡1 또는 a^(2^i×d)≡-1(mod n)이 반드시 성립. 이를 만족하지 않으면 합성수. 특정 증인 집합{2,3,5,7,11,13,17,19,23,29,31,37}으로 n≤3.3×10^24에서 결정론적. x*x 과정에서 n²이 필요하므로 __int128 필수.</p>
 <pre><code class="language-cpp">bool millerRabin(ll n,ll a){
     if(n%a==0)return n==a;
     ll d=n-1;int r=0;
@@ -408,10 +505,15 @@ bool isPrime(ll n){
         if(n&gt;1&amp;&amp;!millerRabin(n,a))return false;
     return n&gt;1;
 }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> n=7에 대해 증인 a=2로 밀러-라빈 과정을 추적하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> n-1=6=2¹×3 → r=1, d=3. x=2^3 mod 7=8 mod 7=1 → x==1이므로 <strong>소수(pass)</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 에라토스테네스의 체 대신 밀러-라빈을 사용해야 하는 상황은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 단일 매우 큰 수(n≈10^18)가 소수인지 확인할 때. 체는 O(n log log n)으로 메모리 부족, 밀러-라빈은 O(k log²n)으로 빠름. 폴라드 로와 함께 대수 소인수분해에도 활용.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n=9에 대해 a=2로 밀러-라빈을 적용하면 합성수임이 드러나는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 9-1=8=2³×1 → r=3, d=1. x=2^1 mod 9=2. x≠1이고 x≠8. 반복: x=4, x=7(=8-1≠8이면 실패)... 7≠8(mod 9). 실패 → <strong>합성수 판별 성공</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="pollard"><div class="ch" onclick="T(this)"><span class="ct">폴라드 로 (Pollard's ρ)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">큰 수 소인수분해를 기대 O(n^(1/4))에. 밀러-라빈과 함께 사용해 임의의 수를 빠르게 완전 소인수분해.</p>
+<p class="desc">의사난수 수열 x_{i+1}=(x_i²+c) mod n 를 생성해 사이클(Floyd 알고리즘)을 탐지. 두 수의 차가 n의 인수를 공유할 확률이 높다는 생일 역설을 활용. 기대 O(n^(1/4)). 밀러-라빈으로 소수를 판별하면서 합성수면 재귀적으로 분해 → 임의 큰 수 완전 소인수분해.</p>
 <pre><code class="language-cpp">ll pollardRho(ll n){
     if(n%2==0)return 2;
     ll x=rand()%(n-2)+2,y=x,c=rand()%(n-1)+1,d=1;
@@ -422,6 +524,11 @@ bool isPrime(ll n){
     }
     return d;
 }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 폴라드 로가 O(n^(1/4))인 이유(생일 역설 관점)를 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> n=p×q(p≤q)에서 수열을 mod p로 보면 √p ≈ n^(1/4) 개 항 후 충돌(사이클) 발생. gcd(|x-y|,n)이 p의 배수가 되면 인수 발견. 생일 역설: p개 중 √p개만 뽑아도 충돌 가능.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> n=15에 x=2, c=1, y=2로 첫 두 스텝을 추적하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 스텝1: x=(4+1)%15=5, y=((4+1)²+1)%15=(26%15)=11. gcd(|5-11|,15)=gcd(6,15)=3 → <strong>인수 3 발견</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 밀러-라빈과 폴라드 로를 함께 사용하는 전략을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> isPrime(n)이면 소수로 반환. 아니면 pollardRho(n)으로 인수 d 발견 → d와 n/d 각각 재귀. 완전 소인수분해의 전체 기대 복잡도: O(n^(1/4) polylog n).</div></div>
+</div>
 </div></div>
 </section>
 
@@ -430,41 +537,72 @@ bool isPrime(ll n){
 <div class="uh"><span class="ubadge">Unit II</span><h2>조합론 (Combinatorics)</h2><span class="ucnt">15개 개념</span></div>
 
 <div class="concept" id="permcomb"><div class="ch" onclick="T(this)"><span class="ct">순열 · 조합 (nPr · nCr)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">순열(P): n개 중 r개를 순서를 고려해 나열. 조합(C): 순서 무시하고 선택. nPr = nCr × r!. nCr의 대칭성: r개 선택 = n-r개 제외, 계산 시 r>n/2이면 nC(n-r)로 바꾸면 빠름. 파스칼 항등식은 DP 전처리의 핵심 점화식.</p>
 <div class="formula">nPr = n!/(n-r)!  [순서 있게 r개 선택]
 nCr = n!/(r!(n-r)!)  [순서 없이 r개 선택]
 nCr = nC(n-r)  [대칭성]
 nCr = (n-1)C(r-1) + (n-1)Cr  [파스칼 항등식]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 10명 중 반장, 부반장, 총무를 뽑는 방법의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 순서가 있으므로 순열. 10P3 = 10×9×8 = <strong>720</strong>가지</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 10명 중 3명을 대표로 뽑는 방법의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 순서 없으므로 조합. 10C3 = 10!/(3!×7!) = (10×9×8)/(3×2×1) = <strong>120</strong>가지</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> KOREA 5글자를 배열하는 방법의 수와, K를 맨 앞에 고정했을 때의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 전체: 5! = <strong>120</strong>. K 고정 후 나머지 4글자: 4! = <strong>24</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="binom"><div class="ch" onclick="T(this)"><span class="ct">이항계수 계산</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">r이 작을 때 nCr = n(n-1)···(n-r+1)/r!을 순차 나눔으로 정수 오버플로 없이 계산. 단, 중간 나눗셈이 항상 정수임을 보장해야 함(i+1은 항상 나눠떨어짐). n과 r이 클 때는 팩토리얼+역원 전처리. mod가 소수가 아닐 때는 파스칼 삼각형이나 뤼카 정리 사용.</p>
 <pre><code class="language-cpp">// r이 작을 때 직접 계산
 ll comb(int n,int r){ if(r&gt;n-r)r=n-r;
     ll res=1; for(int i=0;i&lt;r;i++) res=res*(n-i)/(i+1); return res; }
 // 큰 경우: 팩토리얼 + 역원 전처리 (Unit I 모듈러 역원 참고)</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> comb(7,3)을 코드 공식으로 계산하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> r=3≤4(=7-3), res=1 → i=0: res=7/1=7 → i=1: res=7×6/2=21 → i=2: res=21×5/3=<strong>35</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> C(100,2)를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> C(100,2)=100×99/2=<strong>4950</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> r>n-r이면 n-r로 바꾸는 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> C(n,r)=C(n,n-r) 대칭성 이용. C(100,98)은 r=98번 루프 vs r→2로 바꾸면 2번만 루프. 속도 2배, 중간 값도 작아짐.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="pascal"><div class="ch" onclick="T(this)"><span class="ct">파스칼 삼각형 전처리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">파스칼 항등식 C[i][j]=C[i-1][j-1]+C[i-1][j]를 이용해 2D 배열 전처리. mod가 소수가 아닐 때도 사용 가능(팩토리얼 역원 불필요). n≤3000이면 O(n²)=9×10⁶으로 충분. 특성: 각 행의 합=2^n, 대각선=피보나치 수, 홀수 여부=시에르핀스키 삼각형.</p>
 <pre><code class="language-cpp">ll C[3001][3001];
 void buildPascal(int n, ll mod) {
     for(int i=0;i&lt;=n;i++){ C[i][0]=1;
         for(int j=1;j&lt;=i;j++) C[i][j]=(C[i-1][j-1]+C[i-1][j])%mod; }
 }  // O(n²), n≤3000에 적합</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 파스칼 삼각형으로 C[5][2]를 구하는 과정을 트레이스하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> C[2][1]=C[1][0]+C[1][1]=2, C[3][2]=C[2][1]+C[2][2]=3, C[4][2]=C[3][1]+C[3][2]=3+3=6, C[5][2]=C[4][1]+C[4][2]=4+6=<strong>10</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 6행(i=6)의 모든 C[6][j] 합은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 1+6+15+20+15+6+1=<strong>64=2^6</strong>. 일반적으로 i행 합=2^i.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 팩토리얼 역원 대신 파스칼 전처리를 사용해야 하는 경우는?</div><div class="prob-a"><span class="ans-lbl">A.</span> mod가 소수가 아닐 때(역원 계산 불가) 또는 n과 r 모두 3000 이하로 전처리가 메모리 상 허용될 때. 역원 방법은 mod 소수, 전처리가 O(1) 쿼리 가능하지만 O(n) 공간만 필요.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="binomthm"><div class="ch" onclick="T(this)"><span class="ct">이항 정리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">(a+b)^n을 전개하면 a^k × b^(n-k) 항의 계수가 nCk. 특수값 대입으로 여러 항등식 유도: a=b=1이면 모든 이항계수 합=2^n, a=1,b=-1이면 짝수 위치 계수 합=홀수 위치 계수 합=2^(n-1). 생성함수 관점: (1+x)^n의 xᵏ 계수가 nCk.</p>
 <div class="formula">(a+b)^n = Σ_{k=0}^{n} nCk · a^k · b^(n-k)
 Σ nCk = 2^n  [a=b=1]
 Σ nCk·(-1)^k = 0  [a=1,b=-1]
 Σ k·nCk = n·2^(n-1)  [미분 활용]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> (a+b)^4를 완전히 전개하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>a⁴ + 4a³b + 6a²b² + 4ab³ + b⁴</strong> (계수: 1,4,6,4,1 = C(4,0)~C(4,4))</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (x+2)^5에서 x²항의 계수를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> k=2인 항: C(5,2)×x²×2³ = 10×8×x² → 계수=<strong>80</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> Σ_{k=0}^{n} k × C(n,k)가 n×2^(n-1)임을 이항 정리로 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> (1+x)^n을 x에 대해 미분: n(1+x)^(n-1)=Σ k×C(n,k)×x^(k-1). x=1 대입: n×2^(n-1)=Σ k×C(n,k). ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="rep"><div class="ch" onclick="T(this)"><span class="ct">중복 순열 · 중복 조합</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">중복 순열: 각 위치마다 n가지 선택지 → n^r. 중복 조합(스타즈 앤 바): r개 물건을 n칸에 넣는 방법 = 막대기(n-1개)와 공(r개)을 나열하는 조합. 핵심: x₁+x₂+···+xₙ=r(xᵢ≥0 정수)의 해의 수가 nHr.</p>
 <div class="formula">중복 순열 nΠr = n^r  [n종류, 중복 허용, r개 나열]
 중복 조합 nHr = (n+r-1)Cr  [n종류, 중복 허용, r개 선택]
 직관: r개 공을 n칸에 넣기 = (n-1)개 구분선 + r개 공</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 1~4에서 중복 허용하여 3자리 수를 만드는 방법의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 중복 순열: 4^3 = <strong>64</strong>가지</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 편의점에서 3종류 음료를 중복 허용하여 4캔 고르는 방법의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 중복 조합 3H4 = C(3+4-1,4) = C(6,4) = <strong>15</strong>가지</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> x+y+z=10 (x,y,z≥0, 정수)의 해의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 3개 변수에 10을 분배 = 3H10 = C(12,10) = C(12,2) = <strong>66</strong>가지</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="ie"><div class="ch" onclick="T(this)"><span class="ct">포함-배제 원리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">여러 조건 중 하나 이상을 만족하는 원소의 수를 교집합 크기로 계산. 홀수개 교집합은 더하고 짝수개 교집합은 빼는 원리. 비트마스크로 모든 부분집합을 순회하며 구현. 소수 배수 제거, 완전 순열(교란 순열), 오일러 파이 함수 계산 등에 사용.</p>
 <div class="formula">|A₁∪···∪Aₙ| = Σ|Aᵢ| - Σ|Aᵢ∩Aⱼ| + Σ|Aᵢ∩Aⱼ∩Aₖ| - ···</div>
 <pre><code class="language-cpp">// 비트마스크 포함-배제
 int ie(vector&lt;int&gt;&primes, int n){ int m=primes.size(),res=0;
@@ -473,72 +611,132 @@ int ie(vector&lt;int&gt;&primes, int n){ int m=primes.size(),res=0;
         for(int i=0;i&lt;m;i++) if(mask&gt;&gt;i&amp;1) prod*=primes[i];
         res+=(bits%2==1?1:-1)*(n/prod); }
     return n-res; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 1~30 중 2 또는 3의 배수인 수의 개수를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> |A₂|=⌊30/2⌋=15, |A₃|=⌊30/3⌋=10, |A₂∩A₃|=|A₆|=⌊30/6⌋=5 → |A₂∪A₃|=15+10-5=<strong>20</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1~100 중 2,3,5 중 어느 것으로도 나눠지지 않는 수의 개수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> |A₂∪A₃∪A₅|=50+33+20-16-10-6+3=74 → 100-74=<strong>26</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 3명이 제자리를 찾지 못하는 완전 순열(교란 순열)의 수 D(3)은?</div><div class="prob-a"><span class="ans-lbl">A.</span> D(3)=3!×(1-1/1!+1/2!-1/3!)=6×(1-1+1/2-1/6)=6×1/3=<strong>2</strong>. (직접: (2,3,1),(3,1,2) 두 가지)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="pigeonhole"><div class="ch" onclick="T(this)"><span class="ct">비둘기집 원리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">n+1개를 n칸에 넣으면 한 칸에 2개 이상. 일반화: mn+1개를 n칸에 넣으면 한 칸에 m+1개 이상.</p>
+<p class="desc">n+1개를 n칸에 넣으면 한 칸에 2개 이상. 일반화: mn+1개를 n칸에 넣으면 한 칸에 m+1개 이상. 존재성 증명 도구 — 구체적인 위치는 알 수 없고 "반드시 존재"만 보임. 서랍 원리라고도 함.</p>
 <ul class="pl">
 <li>n+1개 정수 중 mod n 나머지가 같은 두 수 존재</li>
 <li>n²+1 길이 수열에는 길이 n+1의 단조 부분수열 존재 (에르되시-세케레시)</li>
 </ul>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 367명 중 반드시 생일이 같은 두 사람이 존재하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 생일은 366가지(윤년 포함). 367명 > 366 → 비둘기집 원리에 의해 <strong>반드시 같은 생일 두 명 존재</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1~100에서 51개를 뽑으면 합이 101인 두 수가 반드시 존재하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 쌍: {1,100},{2,99},…,{50,51} — 50쌍. 51개를 뽑으면(≥51>50) 한 쌍 완전히 포함. → <strong>반드시 존재</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 에르되시-세케레시: 길이 5 수열에 반드시 길이 3의 증가 또는 감소 부분수열이 있는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> n=2일 때 n²+1=5. 각 위치 i에서 (증가 최장 LIS, 감소 최장 LDS)를 쌍으로 보면 쌍이 (1..2)×(1..2)=4가지. 5번째 원소는 기존 쌍과 충돌 → 길이 3 존재. 일반: 길이 n²+1에 길이 n+1 단조열 보장.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="catalan"><div class="ch" onclick="T(this)"><span class="ct">카탈란 수 (Catalan Number)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">여러 조합론 문제에서 동일하게 등장하는 수열. C(n)=(2n)C(n)/(n+1). 격자 경로 관점: (0,0)→(n,n) 경로 C(2n,n)에서 대각선을 넘는 경로(반사 원리로 C(2n,n-1))를 뺀 값.</p>
 <div class="formula">C(n) = (2n)Cn / (n+1)  →  1,1,2,5,14,42,132,...
-점화식: C(n) = C(n-1)×2(2n-1)/(n+1)</div>
+점화식: C(n) = Σ_{k=0}^{n-1} C(k)×C(n-1-k)  [루트를 k+1번째로 선택]</div>
 <ul class="pl">
 <li>n쌍 올바른 괄호 배열 수</li>
-<li>n개 노드 이진 탐색 트리 모양 수</li>
+<li>n+1개 잎 이진 트리의 삼각분할 수</li>
 <li>(n+2)각형 삼각분할 수</li>
 <li>(0,0)→(n,n) 격자에서 y=x 안 넘는 경로 수</li>
 </ul>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3쌍 괄호의 올바른 배열을 모두 나열하고 C(3)을 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ()()(), (())(), ()(()), ((())), (()()) → <strong>5가지 = C(3)</strong>. 공식: C(6,3)/4=20/4=5 ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (0,0)→(4,4) 격자에서 y=x를 넘지 않는 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> C(4) = C(8,4)/5 = 70/5 = <strong>14</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> C(5)를 점화식으로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> C(5)=C(0)C(4)+C(1)C(3)+C(2)C(2)+C(3)C(1)+C(4)C(0)=1×14+1×5+2×2+5×1+14×1=14+5+4+5+14=<strong>42</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="lucas"><div class="ch" onclick="T(this)"><span class="ct">뤼카 정리 (Lucas' Theorem)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">p 소수일 때 nCr mod p를 n,r을 p진수로 전개한 각 자리 이항계수의 곱으로 계산.</p>
-<div class="formula">nCr ≡ (n_k C r_k)···(n_0 C r_0) (mod p)</div>
+<p class="desc">n,r이 매우 커서 팩토리얼 전처리 불가할 때(n>10^7), mod p(소수)가 작을 때 사용. n과 r을 p진수로 쓴 후 각 자리끼리 이항계수를 곱. 핵심 성질: rᵢ>nᵢ인 자리가 하나라도 있으면 결과=0.</p>
+<div class="formula">nCr ≡ (n_k C r_k)···(n_0 C r_0) (mod p)
+n,r의 p진수 전개: n=Σnᵢpⁱ, r=Σrᵢpⁱ</div>
 <pre><code class="language-cpp">ll lucas(ll n,ll r,ll p){ if(r==0)return 1;
     return C_small(n%p,r%p,p)*lucas(n/p,r/p,p)%p; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> C(10,4) mod 5를 뤼카 정리로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 10=(20)₅, 4=(04)₅ → C(2,0)×C(0,4). C(0,4)=0 (0개 중 4개 불가) → 결과=<strong>0</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> C(7,3) mod 7을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 7=(10)₇, 3=(03)₇ → C(1,0)×C(0,3)=1×0=<strong>0</strong>. 일반적으로 p가 소수이면 C(p,k)≡0(mod p) for 1≤k≤p-1.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> C(13,5) mod 7을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 13=(16)₇, 5=(05)₇ → C(1,0)×C(6,5)=1×6=<strong>6</strong>. 직접 계산: C(13,5)=1287, 1287 mod 7=183×7+6, ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="partition"><div class="ch" onclick="T(this)"><span class="ct">분할수 (Partition Number)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">n을 순서 없이 자연수의 합으로 나타내는 방법의 수. 가장 큰 성분을 j로 제한하는 DP: dp[i][j]=dp[i][j-1](j 미사용)+dp[i-j][j](j 1번 이상 사용). j→i로 1D로 최적화 가능. 분할수는 생성함수 Π 1/(1-x^k)의 계수.</p>
 <div class="formula">p(n): n을 자연수 합으로 나타내는 방법 (순서 무관)
-p: 1,2,3,5,7,11,15,22,30,42,...
-dp[i][j] = dp[i][j-1] + dp[i-j][j]  [i를 1~j로 분할]</div>
+p(1~8): 1,2,3,5,7,11,15,22,...
+dp[i][j] = dp[i][j-1] + dp[i-j][j]  [i를 1~j로 분할]
+p(4)=5: 4, 3+1, 2+2, 2+1+1, 1+1+1+1</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> p(5)를 직접 나열하여 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 5, 4+1, 3+2, 3+1+1, 2+2+1, 2+1+1+1, 1+1+1+1+1 → <strong>7가지</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> dp 테이블에서 dp[5][3]의 값은 무엇을 의미하며 얼마인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 5를 최대 3인 수의 합으로 분할하는 방법 수. 5=3+2=3+1+1=2+2+1=2+1+1+1=1+1+1+1+1 → <strong>5가지</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 분할과 "순서 있는 분할(조성, composition)"의 차이는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 분할: 순서 무관(p(4)=5). 조성: 순서 고려(4=1+3=3+1 다름). n의 조성 수=2^(n-1). 예) 4의 조성: {4,1+3,3+1,2+2,1+2+1,2+1+1,1+1+2,1+1+1+1}=8=2³</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="stirling"><div class="ch" onclick="T(this)"><span class="ct">스털링 수 (Stirling Numbers)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">제2종 S(n,k): n개 구별 원소를 k개 비어있지 않은 집합으로 분할하는 방법.</p>
+<p class="desc">제2종 S(n,k): n개 구별 원소를 k개 비어있지 않은 집합으로 분할하는 방법. 새 원소 n을 기존 k개 집합 중 하나에 넣거나(k가지) 새 집합 만들기(1가지) → 점화식. 제1종은 순열의 사이클 분해. 벨 수 B(n)=Σ_k S(n,k) = 총 집합 분할 수.</p>
 <div class="formula">S(n,k) = k·S(n-1,k) + S(n-1,k-1)
+경계: S(n,1)=1, S(n,n)=1, S(n,0)=0 (n>0)
 x^n = Σ S(n,k)·x↓k  [x↓k = x(x-1)···(x-k+1)]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> S(3,2)를 직접 나열하여 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> {1,2,3}을 2개 집합으로: {{1,2},{3}}, {{1,3},{2}}, {{2,3},{1}} → <strong>S(3,2)=3</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 점화식으로 S(4,2)를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> S(4,2)=2×S(3,2)+S(3,1)=2×3+1=<strong>7</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 벨 수 B(3)을 S(3,k)를 합산해 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> B(3)=S(3,1)+S(3,2)+S(3,3)=1+3+1=<strong>5</strong>. 직접: {1,2,3}의 모든 분할: {1,2,3}, {1,2}{3}, {1,3}{2}, {2,3}{1}, {1}{2}{3} → 5개 ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="burnside"><div class="ch" onclick="T(this)"><span class="ct">번사이드 보조정리</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">대칭(회전·반사)을 고려한 서로 다른 배치 수 = (1/|G|)×Σ|Fix(g)|.</p>
-<div class="formula">네클리스 공식: (1/n)Σ_{d|n} φ(d)·n^(n/d)  [n색 n각형 색칠]</div>
+<p class="desc">대칭군 G의 각 변환 g에 대해 g가 고정하는 배치 수 |Fix(g)|를 합산한 뒤 |G|로 나누면 본질적으로 다른 배치 수를 구함. 회전 동치, 반사 동치 문제에 적용. |Fix(g)|: 변환 g를 적용했을 때 변하지 않는 배치.</p>
+<div class="formula">서로 다른 배치 수 = (1/|G|) × Σ_{g∈G} |Fix(g)|
+네클리스: n개 구슬, k색 → (1/n)Σ_{d|n} φ(d)·k^(n/d)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정사각형 꼭짓점 4개를 2색으로 칠하는 (회전 동치) 경우의 수를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 회전군 4개: 0°(Fix=2⁴=16), 90°(4개 자리가 연결되므로 Fix=2¹=2), 180°(2쌍=2²=4), 270°(=90°, Fix=2). 합=16+2+4+2=24, 1/4×24=<strong>6</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 3개 구슬 목걸이를 3색으로 (회전+반사 동치) 색칠하는 경우의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 이면체군 D₃: 항등(27), 120°(3), 240°(3), 반사×3(각 9). 합=27+3+3+9+9+9=60. 1/6×60=<strong>10</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 번사이드와 폴리아 계산법의 차이는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 번사이드는 총 개수만 구함. 폴리아 열거 정리는 색별 개수 분포(생성함수)를 구함. 단순 개수가 필요하면 번사이드, 각 색의 사용 횟수 조건이 있으면 폴리아.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="genfunc"><div class="ch" onclick="T(this)"><span class="ct">생성함수 기초</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">수열 {aₙ}을 다항식의 계수로 인코딩. 곱셈이 합성(합산)에 대응: f(x)×g(x)의 xⁿ 계수 = Σaₖbₙ₋ₖ (컨볼루션). OGF: 집합 선택, EGF: 순열에 적합. 점화식을 대수 방정식으로 풀거나 닫힌 형태 구하는 강력한 도구.</p>
 <div class="formula">OGF: f(x)=Σaₙxⁿ  [조합/무순]
 EGF: f(x)=Σaₙxⁿ/n!  [순열/유순]
 1/(1-x) = 1+x+x²+···  [무제한 선택]
-동전 문제 = 1/(1-x)·1/(1-x²)·1/(1-x⁵)···의 xⁿ 계수</div>
+1/(1-x)^k의 xⁿ 계수 = C(n+k-1,k-1)
+동전 문제 = Π 1/(1-xᶜ)의 xⁿ 계수</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 1원·5원·10원으로 15원 만드는 방법의 수를 생성함수로 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> (1+x+x²+…)(1+x⁵+x¹⁰+…)(1+x¹⁰+…)의 x¹⁵ 계수를 구하면 됨. 15원: {15×1}, {10×1+5×1}, {10×1+1×5}, {5×3}, {5×2+1×5}, {5×1+1×10}, {1×15}... 실제로 6가지.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1/(1-x)^3의 xⁿ 계수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> C(n+2, 2) = <strong>(n+1)(n+2)/2</strong>. 예) x⁴ 계수=C(6,2)=15. 이는 k=3, nHr=C(n+k-1,k-1) 공식과 동일.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> EGF를 쓰는 상황: "n명을 k그룹으로 나누는 순서 있는 분할 수"를 EGF로?</div><div class="prob-a"><span class="ans-lbl">A.</span> 각 그룹의 EGF=(eˣ-1)/1. k그룹의 EGF=((eˣ-1)^k)/k! (비어있지 않은 집합). xⁿ/n! 계수×n! = k!S(n,k) → n명을 k그룹에 넣는 순서 있는 방법 수.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="countdp"><div class="ch" onclick="T(this)"><span class="ct">경우의 수 DP</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">방문한 정점 집합을 비트마스크로 상태로 표현해 부분 탐색을 DP로 중복 계산 방지. TSP/해밀턴 경로: O(2^n × n²). n≤20이면 2²⁰×20²≈4×10⁸로 가능. 숫자 DP(자리수 DP)는 각 자리를 상태로 사용해 큰 수 범위의 조건 만족 수를 셈.</p>
 <pre><code class="language-cpp">// 해밀턴 경로 비트마스크 DP (n≤20)
-// dp[mask][v]: mask 방문 후 v에서 끝나는 경로 존재?
-vector&lt;vector&lt;bool&gt;&gt; dp(1&lt;&lt;n, vector&lt;bool&gt;(n,false));
-for(int v=0;v&lt;n;v++) dp[1&lt;&lt;v][v]=true;
+// dp[mask][v]: mask 방문 후 v에서 끝나는 경로 수
+vector&lt;vector&lt;ll&gt;&gt; dp(1&lt;&lt;n, vector&lt;ll&gt;(n,0));
+for(int v=0;v&lt;n;v++) dp[1&lt;&lt;v][v]=1;
 for(int mask=1;mask&lt;(1&lt;&lt;n);mask++)
     for(int v=0;v&lt;n;v++) if(dp[mask][v])
-        for(int u:adj[v]) if(!(mask&gt;&gt;u&amp;1)) dp[mask|(1&lt;&lt;u)][u]=true;</code></pre>
+        for(int u:adj[v]) if(!(mask&gt;&gt;u&amp;1)) dp[mask|(1&lt;&lt;u)][u]+=dp[mask][v];</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 비트마스크 DP에서 n=3, 완전 그래프일 때 해밀턴 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 시작점을 0으로 고정: 0→1→2, 0→2→1 → 2가지. 시작점 무관하면 3×2=6 = 3!/(3-1)! = 3P2... 실제로 방향 해밀턴 경로 = n! → n=3이면 3!=6, 비방향이면 n!/2=3.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1~N 중 각 자리 숫자의 합이 S 이하인 수의 개수를 DP로 구하는 방법을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[자릿수][현재 합][N의 해당 자릿수를 넘겼는지 여부]. 자리수 DP(digit DP). O(자릿수 × S × 2). N의 각 자리를 순서대로 처리.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 비트마스크 DP로 TSP(최소 비용 해밀턴 사이클)의 시간복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 상태: 2^n×n, 전이: n → 총 <strong>O(2^n × n²)</strong>. n=20이면 약 4억 연산. n=25는 한계(32M×625=20G 초과).</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="lattice"><div class="ch" onclick="T(this)"><span class="ct">격자 경로 카운팅</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<div class="formula">(0,0)→(n,m) 오른쪽/위만 이동 = (n+m)Cn
-대각선 안 넘는 (0,0)→(n,n) = C(n) [카탈란 수]
-장애물: 반사 원리 또는 포함-배제</div>
+<p class="desc">오른쪽(R)과 위(U)만 이동할 때 경로는 R n개, U m개를 나열하는 순열 → (n+m)Cn. y=x를 넘으면 안 될 때는 반사 원리: 처음 y=x를 넘는 지점에서 경로를 반사하면 (−1,1)→(n,n) 경로와 1:1 대응 → 금지 경로 수=C(2n,n-1).</p>
+<div class="formula">(0,0)→(n,m) 오른쪽/위만 이동 = C(n+m, n)
+대각선 안 넘는 (0,0)→(n,n) = C(n) [카탈란 수] = C(2n,n)-C(2n,n-1)
+장애물 우회: 포함-배제 또는 반사 원리</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> (0,0)에서 (3,4)까지 오른쪽·위로만 이동하는 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> R 3번, U 4번, 총 7번 이동을 나열 → C(7,3) = <strong>35</strong>가지</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (0,0)→(3,3)에서 y>x 위로 올라가지 않는 경로 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 카탈란 수 C(3) = C(6,3) - C(6,2) = 20 - 15 = <strong>5</strong>가지</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> (0,0)→(4,4)에서 점 (2,1)을 반드시 통과하는 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> (0,0)→(2,1): C(3,2)=3, (2,1)→(4,4): C(5,2)=10 → 3×10 = <strong>30</strong>가지</div></div>
+</div>
 </div></div>
 </section>
 
@@ -547,6 +745,7 @@ for(int mask=1;mask&lt;(1&lt;&lt;n);mask++)
 <div class="uh"><span class="ubadge">Unit III</span><h2>그래프 이론 (Graph Theory)</h2><span class="ucnt">14개 개념</span></div>
 
 <div class="concept" id="graphbasic"><div class="ch" onclick="T(this)"><span class="ct">그래프 기본 용어</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">그래프 G=(V,E). 완전 그래프 Kₙ: 모든 정점 쌍이 간선으로 연결, |E|=n(n-1)/2. 방향 그래프에서 차수는 in-degree(들어오는)와 out-degree(나가는)로 구분. 연결 성분: 연결된 최대 부분 그래프.</p>
 <div class="tw"><table>
 <tr><th>용어</th><th>설명</th></tr>
 <tr><td>정점 V</td><td>노드, 꼭짓점</td></tr>
@@ -556,24 +755,41 @@ for(int mask=1;mask&lt;(1&lt;&lt;n);mask++)
 <tr><td>사이클</td><td>시작 = 끝인 경로</td></tr>
 <tr><td>연결 그래프</td><td>임의의 두 정점 사이에 경로 존재</td></tr>
 </table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정점 5개, 간선 7개인 그래프에서 모든 정점의 차수 합은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 악수 보조정리: Σdeg(v) = 2|E| = 2×7 = <strong>14</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 완전 그래프 K₆의 간선 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> |E| = 6×5/2 = <strong>15</strong>. 각 정점의 차수는 5.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 연결 그래프에서 간선 수의 최솟값과 최댓값은? (정점 수 n)</div><div class="prob-a"><span class="ans-lbl">A.</span> 최솟값: <strong>n-1</strong> (트리), 최댓값: <strong>n(n-1)/2</strong> (완전 그래프 Kₙ)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="graphrepr"><div class="ch" onclick="T(this)"><span class="ct">그래프 표현</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">인접 행렬: V²공간, 간선 존재 확인 O(1), 밀집 그래프(E≈V²)에 적합. 인접 리스트: V+E 공간, BFS/DFS 순회 O(V+E), 희소 그래프에 적합. 간선 리스트: 크루스칼 등 간선 정렬이 필요한 알고리즘에 사용.</p>
 <pre><code class="language-cpp">// 인접 행렬 O(V²): 간선 확인 O(1), 밀집 그래프
 int adj[MAXV][MAXV];
 // 인접 리스트 O(V+E): 희소 그래프, BFS/DFS에 적합
 vector&lt;pair&lt;int,int&gt;&gt; adj[MAXV]; // {이웃, 가중치}
 adj[u].push_back({v, w});</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> V=4, 간선 {(0,1),(1,2),(2,3),(0,3)}을 인접 행렬로 표현하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 4×4 대칭 행렬. [0][1]=1,[0][3]=1,[1][2]=1,[2][3]=1 (및 대칭). 나머지는 0. 간선 확인: adj[1][3]=0 → 간선 없음을 O(1)에 확인.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> V=10만, E=30만인 그래프에서 인접 행렬의 메모리는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 10만² × 4바이트 = 40GB → <strong>불가</strong>. 인접 리스트는 (V+E)×(int 크기) ≈ 1.6MB로 충분.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 무방향 간선을 인접 리스트에 추가할 때 두 방향 모두 push_back 해야 하는 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 인접 리스트는 "u에서 갈 수 있는 이웃"만 저장. 무방향이면 u→v와 v→u 모두 저장해야 양방향 탐색이 가능. push_back 1번만 하면 사실상 방향 그래프가 됨.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="tree"><div class="ch" onclick="T(this)"><span class="ct">트리 (Tree)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">연결된 비순환 그래프. V개 정점, V-1개 간선. ①연결 ②사이클없음 ③|E|=|V|-1 중 두 개만 성립해도 트리.</p>
+<p class="desc">연결된 비순환 그래프. V개 정점, V-1개 간선. 세 조건(①연결 ②비순환 ③|E|=|V|-1) 중 두 가지만 성립해도 트리. 루트 트리: 한 노드를 루트로 지정해 부모-자식 관계 정의. 이진 트리: 각 노드의 자식이 최대 2개.</p>
 <div class="formula">완전 이진 트리: n개 노드 → 높이 ⌊log₂n⌋
-케일리 공식: Kₙ의 스패닝 트리 수 = n^(n-2)</div>
+리프 수 = 내부 노드 수 + 1  [이진 트리에서 자식이 0 또는 2인 경우]
+케일리 공식: 레이블 있는 트리 수 = n^(n-2)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정점 7개인 트리의 간선 수는? 리프가 최대 몇 개 가능한가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 간선 수: <strong>6</strong> (|V|-1). 리프 최대: 내부 노드를 루트 1개만 남기면 리프 6개 (별 모양 그래프).</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 노드가 31개인 완전 이진 트리의 높이는?</div><div class="prob-a"><span class="ans-lbl">A.</span> ⌊log₂31⌋ = <strong>4</strong>. (2⁴=16≤31<32=2⁵). 리프는 16개, 내부 노드는 15개.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> K₄(레이블 있는 4개 정점)의 스패닝 트리 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 케일리 공식: 4^(4-2) = 4² = <strong>16</strong>개</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="bipartite"><div class="ch" onclick="T(this)"><span class="ct">이분 그래프</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">정점을 U, V로 분할해 모든 간선이 U-V 사이에만. 이분 그래프 ⟺ 홀수 사이클 없음. BFS 2-컬러링으로 O(V+E) 판별.</p>
+<p class="desc">정점을 U, V로 분할해 모든 간선이 U-V 사이에만 존재. 이분 그래프 ⟺ 홀수 사이클 없음 ⟺ 2-컬러링 가능. BFS로 인접 정점에 반대 색을 칠하다 같은 색 충돌 시 이분 그래프 아님. 이분 매칭, 최대 유량의 기반.</p>
 <pre><code class="language-cpp">bool isBipartite(int n, vector&lt;int&gt; adj[]) {
     vector&lt;int&gt; color(n,-1);
     for(int s=0;s&lt;n;s++){
@@ -583,18 +799,29 @@ adj[u].push_back({v, w});</code></pre>
             for(int v:adj[u]){ if(color[v]==-1){color[v]=1-color[u];q.push(v);}
                 else if(color[v]==color[u])return false; } }
     } return true; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 사이클 C₄(사각형)는 이분 그래프인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>Yes</strong>. 정점 {0,1,2,3}에서 U={0,2}, V={1,3}으로 분리. 간선 0-1, 1-2, 2-3, 3-0 모두 U-V 사이. 짝수 사이클이므로 이분.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 사이클 C₅(오각형)는 이분 그래프인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>No</strong>. 홀수 길이(5) 사이클 존재 → 2-컬러링 불가. BFS 진행 시 어느 시점에서 같은 색 정점끼리 간선 발생.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 트리는 항상 이분 그래프인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>Yes</strong>. 트리는 사이클이 없으므로 홀수 사이클도 없음 → 이분 그래프. 루트에서 BFS로 짝수 깊이=0색, 홀수 깊이=1색으로 2-컬러링이 항상 성공.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="eulerham"><div class="ch" onclick="T(this)"><span class="ct">오일러 경로 · 해밀턴 경로</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">오일러 경로: 모든 <b>간선</b>을 정확히 한 번 통과. 차수 조건으로 O(V+E)에 존재 여부 판별. 해밀턴 경로: 모든 <b>정점</b>을 정확히 한 번 방문 — NP-완전이라 일반 다항식 알고리즘 없음.</p>
 <ul class="pl">
-<li>오일러 경로: 모든 간선 정확히 한 번. 무방향: 홀수 차수 0개(회로) 또는 2개(경로)</li>
-<li>오일러 회로 (방향): 모든 정점 in-degree = out-degree</li>
-<li>해밀턴 경로: 모든 정점 정확히 한 번 방문 → NP-완전, n≤20은 비트마스크 DP</li>
+<li>오일러 경로(무방향): 홀수 차수 정점 0개(회로) 또는 정확히 2개(경로, 그 두 정점이 끝점)</li>
+<li>오일러 회로(방향): 모든 정점에서 in-degree = out-degree, 그래프 연결</li>
+<li>해밀턴 경로: NP-완전, n≤20은 비트마스크 DP O(2ⁿ×n²)</li>
 </ul>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 쾨니히스베르크 다리 문제: 4개 지역이 7개 다리로 연결될 때 오일러 경로가 존재하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 각 지역의 다리 수(차수): 3, 3, 3, 5 → 홀수 차수 정점이 4개. 오일러 경로 조건(홀수 0개 또는 2개)에 <strong>위배 → 존재하지 않음</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> K₅(완전 그래프, 5정점)에서 오일러 회로가 존재하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 각 정점의 차수=4(짝수). 홀수 차수 0개 → <strong>오일러 회로 존재</strong>. 연결 그래프이므로 조건 만족.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n≥3인 완전 그래프 Kₙ에서 해밀턴 사이클이 항상 존재하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>Yes</strong>. 디락 조건: 모든 정점의 차수≥n/2이면 해밀턴 사이클 존재. Kₙ에서 각 차수=n-1≥n/2. 예) K₃: 1→2→3→1.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="topo"><div class="ch" onclick="T(this)"><span class="ct">위상 정렬 (Topological Sort)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">DAG에서 간선 방향을 위반하지 않는 정점 순서. Kahn의 알고리즘(BFS 기반) O(V+E).</p>
+<p class="desc">DAG에서 "u→v 간선이 있으면 u가 v보다 앞"인 순서. Kahn: 진입차수 0인 정점을 큐에서 꺼내며 이웃의 진입차수 감소, 0이 되면 큐에 추가. 결과 크기&lt;n이면 사이클 존재. 과목 선수 과목, 빌드 의존성, 이벤트 순서에 활용.</p>
 <pre><code class="language-cpp">vector&lt;int&gt; topoSort(int n, vector&lt;int&gt; adj[]) {
     vector&lt;int&gt; indeg(n,0);
     for(int u=0;u&lt;n;u++) for(int v:adj[u]) indeg[v]++;
@@ -604,10 +831,15 @@ adj[u].push_back({v, w});</code></pre>
         for(int v:adj[u]) if(--indeg[v]==0) q.push(v); }
     return order; // size&lt;n → 사이클 존재
 }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 간선 {0→2, 1→2, 1→3, 2→4, 3→4}에서 위상 정렬 결과를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 진입차수: 0:0, 1:0, 2:2, 3:1, 4:2. 초기 큐: {0,1}. 0 처리→2의 indeg=1. 1 처리→2의 indeg=0→큐 추가, 3의 indeg=0→큐 추가. 순서 예시: <strong>0,1,2,3,4</strong> 또는 <strong>0,1,3,2,4</strong> (복수 가능)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 위상 정렬이 유일한 경우는 언제인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 매 단계에서 진입차수 0인 정점이 정확히 1개일 때. 즉 DAG가 하나의 해밀턴 경로를 가지면 위상 정렬이 유일.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 0→1→2→0 사이클이 있는 그래프에서 Kahn 알고리즘의 결과는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 사이클 내 정점들의 진입차수는 절대 0이 되지 않아 큐에 들어오지 못함. order.size()=0 &lt; 3=n → <strong>사이클 존재 감지</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="scc"><div class="ch" onclick="T(this)"><span class="ct">강한 연결 성분 (SCC)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">방향 그래프에서 서로 도달 가능한 최대 정점 집합. 타잔 알고리즘: 한 번의 DFS O(V+E).</p>
+<p class="desc">방향 그래프에서 u→v, v→u가 모두 가능한 최대 정점 집합. 타잔: DFS 탐색 순서(id)와 도달 가능한 최솟값(low)을 추적, low[u]==id[u]이면 스택에서 SCC 추출. SCC 압축 후 항상 DAG가 됨 → 위상 정렬 가능.</p>
 <pre><code class="language-cpp">// 타잔 (Tarjan) — 핵심 구조
 int idx=0,cnt=0;
 vector&lt;int&gt; id(n,-1),low(n),stk,comp(n,-1);
@@ -622,53 +854,96 @@ function&lt;void(int)&gt; dfs=[&](int u){
         while(true){int v=stk.back();stk.pop_back();
             onStk[v]=false;comp[v]=cnt;if(v==u)break;}cnt++;}
 };</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 간선 {0→1, 1→2, 2→0, 1→3, 3→4, 4→3}의 SCC를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> {0,1,2}: 0→1→2→0 사이클. {3,4}: 3→4→3 사이클. → SCC: <strong>{0,1,2}, {3,4}</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> SCC 압축 후 그래프가 항상 DAG인 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 두 SCC 간에 사이클이 있으면 두 SCC가 사실 같은 하나의 SCC (모순). 따라서 SCC 간 간선은 단방향만 → <strong>DAG</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 2-SAT에서 SCC가 어떻게 활용되는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 변수 xᵢ와 ¬xᵢ를 정점으로, 절 (a∨b)를 ¬a→b, ¬b→a 간선으로 변환. xᵢ와 ¬xᵢ가 같은 SCC이면 <strong>불가능</strong>. 아니면 위상 정렬 역순으로 진리값 결정.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="matching"><div class="ch" onclick="T(this)"><span class="ct">이분 매칭 (Bipartite Matching)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">이분 그래프 최대 매칭 O(VE). 쾨닉 정리: 최대 매칭 = 최소 정점 커버.</p>
+<p class="desc">이분 그래프 U-V에서 간선을 통해 최대 짝을 만드는 문제. 증가 경로(현재 매칭되지 않은 U 정점 → 매칭된 V 정점 → 그 V와 매칭된 U → ...)를 DFS로 탐색. 경로가 있으면 매칭 1 증가. 쾨닉: 최대 매칭 = 최소 정점 커버. 딜워스: 최소 사슬 커버 = 전체 - 최대 매칭.</p>
 <pre><code class="language-cpp">vector&lt;int&gt; match(R,-1);
 function&lt;bool(int,vector&lt;bool&gt;&amp;)&gt; dfs=[&](int u,vector&lt;bool&gt;&amp;vis){
     for(int v:adj[u]){if(vis[v])continue;vis[v]=true;
         if(match[v]==-1||dfs(match[v],vis)){match[v]=u;return true;}}
     return false;};
 int cnt=0; for(int u=0;u&lt;L;u++){vector&lt;bool&gt;vis(R,false);if(dfs(u,vis))cnt++;}</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 학생 3명(A,B,C)과 과제 3개(1,2,3)에서 A→{1,2}, B→{2,3}, C→{1,3}일 때 최대 매칭은?</div><div class="prob-a"><span class="ans-lbl">A.</span> A→1, B→2, C→3 또는 A→2, B→3, C→1 등. 최대 매칭 = <strong>3</strong> (완전 매칭 존재)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 쾨닉 정리: 최대 매칭=2인 이분 그래프의 최소 정점 커버 크기는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 쾨닉 정리에 의해 최소 정점 커버 = 최대 매칭 = <strong>2</strong>. 즉 2개의 정점으로 모든 간선을 커버 가능.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> "n×n 체스판에서 룩(Rook) n개를 서로 공격하지 않게 배치하는 최대 수"를 이분 매칭으로 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 행(U)과 열(V)을 정점으로. 격자 (i,j)를 간선으로 표현. 매칭: 같은 행/열에 하나씩 → 최대 매칭 = <strong>n</strong> (항상 완전 매칭).</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="coloring"><div class="ch" onclick="T(this)"><span class="ct">그래프 채색</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">인접한 정점에 같은 색을 쓰지 않으며 칠하는 최소 색 수 χ(G)를 색수라 함. 일반적으로 최소 색수를 구하는 문제는 NP-하드이나 특수 그래프(트리, 이분, 평면)는 공식이 있다.</p>
 <ul class="pl">
-<li>χ(G): 인접 정점이 다른 색이 되도록 하는 최소 색 수</li>
-<li>트리: χ=2, 이분 그래프 ⟺ χ≤2, 평면 그래프: χ≤4 (4색 정리)</li>
-<li>χ(G) ≤ Δ(G)+1  [Δ=최대 차수, Vizing 정리]</li>
+<li>χ(G): 색수, 인접 정점이 다른 색이 되도록 하는 최소 색 수</li>
+<li>트리: χ=2, 이분 그래프 ⟺ χ≤2, 완전 그래프 Kₙ: χ=n</li>
+<li>평면 그래프: χ≤4 (4색 정리, 컴퓨터로 증명)</li>
+<li>χ(G) ≤ Δ(G)+1  [Δ=최대 차수, Vizing 정리의 정점 채색 버전]</li>
 </ul>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 6각형(사이클 C₆)의 색수 χ는?</div><div class="prob-a"><span class="ans-lbl">A.</span> C₆는 짝수 사이클 → 이분 그래프 → χ = <strong>2</strong>. (짝수 위치=빨강, 홀수 위치=파랑)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 5각형(C₅)의 색수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 홀수 사이클 → 이분 그래프 아님 → χ ≥ 3. 3색으로 가능: 1,2,1,2,3 배치. → χ(C₅) = <strong>3</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> K₄(4정점 완전 그래프)의 색수와 최대 차수 Δ는?</div><div class="prob-a"><span class="ans-lbl">A.</span> χ(K₄)=<strong>4</strong> (n개 서로 인접), Δ=3. χ=Δ+1이 성립. Vizing 정리(간선 채색): 간선 채색 색수=Δ 또는 Δ+1.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="planar"><div class="ch" onclick="T(this)"><span class="ct">평면 그래프와 오일러 공식</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">평면 그래프: 간선이 교차하지 않게 평면에 그릴 수 있는 그래프. 오일러 공식 V-E+F=2는 연결된 평면 그래프에서 항상 성립(외부 면 포함). 각 면은 최소 3개 간선으로 둘러싸이므로 3F≤2E → E≤3V-6 도출.</p>
 <div class="formula">V - E + F = 2  [연결된 평면 그래프, F=면의 수(외부 포함)]
-단순 평면 그래프: E ≤ 3V-6
-K₅, K₃,₃은 평면 그래프 아님 (쿠라토프스키 정리)</div>
+단순 평면 그래프: E ≤ 3V-6  (이분이면 E ≤ 2V-4)
+K₅(V=5,E=10>9), K₃,₃(V=6,E=9>8)은 비평면 (쿠라토프스키)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정육면체 그래프(V=8, E=12)에서 면의 수 F는?</div><div class="prob-a"><span class="ans-lbl">A.</span> V-E+F=2 → 8-12+F=2 → F=<strong>6</strong>. 정육면체의 면 6개와 일치.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> K₅가 평면 그래프가 아님을 E≤3V-6으로 보이시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> K₅: V=5, E=10. 3V-6=9. E=10 > 9 → <strong>평면 그래프 불가</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 정이십면체(V=12, E=30)의 면의 수를 오일러 공식으로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 12-30+F=2 → F=<strong>20</strong>. 정이십면체의 삼각형 면 20개와 일치.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="handshake"><div class="ch" onclick="T(this)"><span class="ct">악수 보조정리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">각 간선은 두 끝점의 차수를 각각 1씩 늘리므로 차수의 합=2|E|. 따라서 차수의 합은 항상 짝수, 홀수 차수 정점의 개수도 항상 짝수. 오일러 경로 조건 증명에도 사용.</p>
 <div class="formula">Σ deg(v) = 2|E|  →  홀수 차수 정점의 수는 항상 짝수
-Kₙ: 각 차수 n-1, |E|=n(n-1)/2     Kₘ,ₙ: |E|=mn</div>
+Kₙ: 각 차수 n-1, |E|=n(n-1)/2
+Kₘ,ₙ(완전 이분): |E|=mn, U쪽 차수=n, V쪽 차수=m</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 파티에서 6명이 악수를 총 10번 했다. 평균 악수 횟수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Σdeg = 2×10 = 20. 평균 = 20/6 = <strong>10/3 ≈ 3.3회</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 5명 중 홀수 번 악수한 사람이 홀수 명일 수 있는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>불가능</strong>. 악수 보조정리: 홀수 차수 정점의 수는 항상 짝수. 따라서 홀수 명은 모순.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> k-정규 그래프(모든 정점 차수=k)에서 V=8, k=3일 때 간선 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Σdeg = k×V = 3×8 = 24 = 2|E| → |E| = <strong>12</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="spanning"><div class="ch" onclick="T(this)"><span class="ct">스패닝 트리 · 케일리 공식</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<div class="formula">케일리 공식: Kₙ의 스패닝 트리 수 = n^(n-2)
-행렬-나무 정리: 라플라시안 L의 임의 (n-1)×(n-1) 여인수 = 스패닝 트리 수</div>
+<p class="desc">스패닝 트리: 그래프의 모든 정점을 포함하는 트리 부분 그래프(V개 정점, V-1개 간선). 최소 스패닝 트리(MST): 가중치 합 최소. 크루스칼(간선 정렬+유니온 파인드 O(E log E)), 프림(우선순위 큐 O(E log V)). 행렬-나무 정리로 스패닝 트리 개수를 세는 것은 IOI 수준.</p>
+<div class="formula">케일리 공식: 레이블 있는 n개 정점 트리 수 = n^(n-2)
+행렬-나무 정리: 라플라시안 L의 임의 (n-1)×(n-1) 여인수 = 스패닝 트리 수
+L = D - A  [D: 차수 행렬, A: 인접 행렬]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> K₃의 스패닝 트리 수를 케일리 공식과 직접 나열로 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 케일리: 3^(3-2)=3. 직접: 정점 {0,1,2}에서 간선 3개 중 하나 제거 → {0-1,1-2}, {0-1,0-2}, {0-2,1-2} → <strong>3가지</strong> ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> MST를 구하는 크루스칼 알고리즘의 핵심 아이디어는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 간선을 가중치 오름차순 정렬 후 사이클을 만들지 않는 간선을 V-1개 선택. 사이클 여부는 유니온-파인드로 O(α(n))≈O(1). 전체 O(E log E).</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> K₄의 스패닝 트리 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 케일리: 4^(4-2) = 4² = <strong>16</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="flow"><div class="ch" onclick="T(this)"><span class="ct">네트워크 플로우</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">s→t 최대 유량. 최대 유량 = 최소 컷 (Max-flow Min-cut 정리).</p>
+<p class="desc">s(소스)→t(싱크)로 흐를 수 있는 최대 유량. 각 간선에 용량 c(u,v)가 있고 플로우 f(u,v)≤c(u,v)를 만족. 잔여 그래프에서 증가 경로를 찾아 플로우를 늘리는 Ford-Fulkerson 계열. 디닉은 레벨 그래프 BFS+블로킹 플로우로 최악 O(V²E).</p>
 <ul class="pl">
 <li>디닉(Dinic): O(V²E), 이분 매칭엔 O(E√V)</li>
-<li>최대 이분 매칭 = 최대 유량</li>
+<li>Max-flow Min-cut 정리: 최대 유량 = 최소 컷</li>
+<li>이분 매칭 = 최대 유량 (소스→U 용량1, U→V 간선, V→싱크 용량1)</li>
 <li>DAG 최소 경로 커버 = V - 최대 이분 매칭</li>
 </ul>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> s→a(용량3), s→b(용량2), a→t(용량2), b→t(용량3), a→b(용량1)의 최대 유량은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 경로 s→a→t: 유량2. 경로 s→b→t: 유량2. 경로 s→a→b→t: 남은 a 용량 1, b→t 남은 용량 1 → 유량1. 총 = <strong>5</strong>. 최소 컷: {s}↔{a,b,t}, 용량=3+2=5 ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 최대 유량 = 최소 컷의 직관적 의미는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 가장 병목이 되는 간선 집합(컷)의 용량 합이 최대로 보낼 수 있는 유량의 상한이며, 실제로 그 값에 도달할 수 있음. s와 t를 분리하는 최소 용량의 간선 집합을 제거하면 유량이 0이 됨.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n개 작업의 DAG에서 최소 경로 커버를 이분 매칭으로 구하는 방법은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 각 작업 i를 U의 i와 V의 i'로 복제. DAG 간선 i→j를 U의 i → V의 j' 간선으로. 최소 경로 커버 = n - 최대 이분 매칭. (매칭 = 작업들을 연결해 경로로 합치는 것)</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="lca"><div class="ch" onclick="T(this)"><span class="ct">트리 지름 · LCA</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">트리 지름: 임의 점 u → 가장 먼 v → 가장 먼 w. dist(v,w)=지름. LCA: 희소 테이블 O(n log n) 전처리, O(log n) 쿼리.</p>
+<p class="desc">트리 지름: BFS/DFS 2회. 임의 점 u에서 가장 먼 v, v에서 가장 먼 w까지 dist(v,w)가 지름. LCA(Least Common Ancestor): u와 v의 공통 조상 중 가장 깊은 것. 희소 테이블로 O(n log n) 전처리, O(log n) 쿼리. 두 노드 거리=depth[u]+depth[v]-2×depth[lca(u,v)].</p>
 <pre><code class="language-cpp">int up[MAXN][LOG]; // up[v][k] = v의 2^k번째 조상
 // 전처리: up[v][k]=up[up[v][k-1]][k-1]
 int lca(int u,int v){
@@ -680,6 +955,11 @@ int lca(int u,int v){
         if(up[u][k]!=up[v][k]){u=up[u][k];v=up[v][k];}
     return up[u][0];
 }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 트리 지름을 BFS 2회로 구하는 알고리즘이 올바른 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 임의 시작점에서 가장 먼 점 v는 반드시 지름의 한 끝점. 증명: v가 지름 끝점이 아니라면 지름을 이루는 두 점 a,b 중 하나가 v보다 멀어야 하는데 모순. 따라서 v→w가 지름.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 루트=1인 트리에서 depth[3]=4, depth[7]=6, lca(3,7)=2(depth=2)일 때 dist(3,7)은?</div><div class="prob-a"><span class="ans-lbl">A.</span> dist = depth[3]+depth[7]-2×depth[lca] = 4+6-2×2 = <strong>6</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> up[v][k]의 희소 테이블이 O(n log n)으로 전처리되는 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> up[v][0]=부모(DFS 1회 O(n)). up[v][k]=up[up[v][k-1]][k-1]으로 k=1~LOG-1 계산. 총 n×LOG개 항목, 각 O(1) → O(n log n). 이후 LCA 쿼리: 깊이 맞추기+공통 조상 찾기 각 O(log n).</div></div>
+</div>
 </div></div>
 </section>
 
@@ -688,16 +968,22 @@ int lca(int u,int v){
 <div class="uh"><span class="ubadge">Unit IV</span><h2>논리 · 집합 · 귀납법</h2><span class="ucnt">10개 개념</span></div>
 
 <div class="concept" id="proposition"><div class="ch" onclick="T(this)"><span class="ct">명제 논리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">명제: 참/거짓이 명확한 문장. P→Q(함의): P가 참이면 Q도 참. P가 거짓이면 Q와 무관하게 전체는 참. 역(Q→P)과 이(¬P→¬Q)는 원명제와 동치가 아님. 대우(¬Q→¬P)만 동치. 귀류법: P를 거짓이라 가정하면 모순 도출 → P는 참.</p>
 <div class="tw"><table>
 <tr><th>종류</th><th>형태</th><th>원명제와 동치?</th></tr>
 <tr><td>역 (Converse)</td><td>Q → P</td><td>아니오</td></tr>
 <tr><td>이 (Inverse)</td><td>¬P → ¬Q</td><td>아니오</td></tr>
 <tr><td>대우 (Contrapositive)</td><td>¬Q → ¬P</td><td>예 ✓</td></tr>
 </table></div>
-<p class="desc">P→Q 직접 증명이 어려울 때 대우 ¬Q→¬P를 증명하면 동치.</p>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> "n이 짝수이면 n²도 짝수이다"의 역·이·대우를 쓰시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 역: "n²이 짝수이면 n도 짝수". 이: "n이 홀수이면 n²도 홀수". 대우: "n²이 홀수이면 n도 홀수". 원명제와 대우만 동치이고 실제로 모두 참임.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> P=거짓, Q=참일 때 P→Q의 진리값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 함의 P→Q는 P=거짓이면 Q에 상관없이 <strong>참</strong>. "거짓이 전제인 약속은 항상 지킨 것"으로 이해.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> √2가 무리수임을 귀류법으로 증명하시오 (개요).</div><div class="prob-a"><span class="ans-lbl">A.</span> √2=p/q (기약분수)라 가정 → 2=p²/q² → p²=2q² → p는 짝수(p=2k) → 4k²=2q² → q²=2k² → q도 짝수. p,q 모두 짝수 → 기약분수 모순 → <strong>√2는 무리수</strong> ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="logicops"><div class="ch" onclick="T(this)"><span class="ct">논리 연산자</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">논리 연산은 비트 연산과 직결. AND는 둘 다 참, OR은 하나라도 참, XOR은 홀수 개 참. 함의 P→Q = ¬P∨Q (P가 거짓이거나 Q가 참). 쌍조건 P↔Q = (P→Q)∧(Q→P).</p>
 <div class="tw"><table>
 <tr><th>연산</th><th>기호</th><th>C++ 비트</th></tr>
 <tr><td>AND</td><td>P∧Q</td><td>a &amp; b</td></tr>
@@ -706,43 +992,78 @@ int lca(int u,int v){
 <tr><td>XOR</td><td>P⊕Q</td><td>a ^ b</td></tr>
 <tr><td>함의</td><td>P→Q</td><td>¬P∨Q</td></tr>
 </table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> P=참, Q=거짓일 때 P∧Q, P∨Q, P→Q, P⊕Q의 진리값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> P∧Q=<strong>거짓</strong>, P∨Q=<strong>참</strong>, P→Q=<strong>거짓</strong>(참인 P가 거짓 Q를 함의 불가), P⊕Q=<strong>참</strong>(서로 다름)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> a=5(=101₂), b=3(=011₂)에서 a&b, a|b, a^b를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a&b=001₂=<strong>1</strong>, a|b=111₂=<strong>7</strong>, a^b=110₂=<strong>6</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> XOR의 항등원과 역원은 무엇인가? 실제 응용은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 항등원: 0 (a^0=a). 역원: 자기 자신 (a^a=0). 응용: 님 게임 필승 전략(XOR≠0), 배열에서 중복 없는 유일 원소 찾기(모두 XOR하면 쌍들이 0이 됨), 스왑 (a^=b; b^=a; a^=b).</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="demorgan"><div class="ch" onclick="T(this)"><span class="ct">드 모르간 법칙</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">AND/OR의 부정을 분배할 때 연산자가 반전됨. 논리·집합·비트 모두 동일하게 적용. 복잡한 조건의 NOT을 구현할 때 자주 사용(루프 탈출 조건 변환, 쿼리 조건 반전 등).</p>
 <div class="formula">¬(P∧Q) ≡ ¬P∨¬Q      ¬(P∨Q) ≡ ¬P∧¬Q
 집합: (A∩B)ᶜ=Aᶜ∪Bᶜ   (A∪B)ᶜ=Aᶜ∩Bᶜ
 비트: ~(a&amp;b)==(~a|~b)  ~(a|b)==(~a&amp;~b)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> ¬(P∧¬Q)를 드 모르간으로 단순화하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ¬(P∧¬Q) = ¬P∨¬(¬Q) = ¬P∨Q = <strong>P→Q</strong> (함의와 동치)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (A∩B)ᶜ = Aᶜ∪Bᶜ를 원소 증명으로 보이시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> x∈(A∩B)ᶜ ⟺ x∉(A∩B) ⟺ ¬(x∈A∧x∈B) ⟺ x∉A∨x∉B ⟺ x∈Aᶜ∨x∈Bᶜ ⟺ x∈Aᶜ∪Bᶜ ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> C++ 조건 !(a>0 && b>0)를 드 모르간으로 변환하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> !(a>0 && b>0) = !(a>0) || !(b>0) = <strong>(a<=0 || b<=0)</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="sets"><div class="ch" onclick="T(this)"><span class="ct">집합 연산</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">집합: 중복 없는 원소의 모음. 비트마스크로 집합을 표현하면 합집합=OR, 교집합=AND, 차집합=AND NOT, 여집합=NOT. 멱집합 2^A: A의 모든 부분집합 집합, |A|=n이면 |2^A|=2^n.</p>
 <div class="tw"><table>
-<tr><th>연산</th><th>표기</th></tr>
-<tr><td>합집합</td><td>A∪B</td></tr>
-<tr><td>교집합</td><td>A∩B</td></tr>
-<tr><td>차집합</td><td>A\B</td></tr>
-<tr><td>여집합</td><td>Aᶜ=U\A</td></tr>
-<tr><td>멱집합</td><td>2^A (모든 부분집합)</td></tr>
+<tr><th>연산</th><th>표기</th><th>비트마스크</th></tr>
+<tr><td>합집합</td><td>A∪B</td><td>a | b</td></tr>
+<tr><td>교집합</td><td>A∩B</td><td>a &amp; b</td></tr>
+<tr><td>차집합</td><td>A\B</td><td>a &amp; ~b</td></tr>
+<tr><td>여집합</td><td>Aᶜ=U\A</td><td>~a (전체 mask 기준)</td></tr>
+<tr><td>멱집합</td><td>2^A</td><td>0 ~ (1&lt;&lt;n)-1</td></tr>
 </table></div>
 <div class="formula">|A∪B| = |A|+|B|-|A∩B|     |2^A| = 2^|A|</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> A={1,2,3,4}, B={3,4,5,6}일 때 A∩B, A∪B, A\B를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> A∩B=<strong>{3,4}</strong>, A∪B=<strong>{1,2,3,4,5,6}</strong>, A\B=<strong>{1,2}</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> |A|=20, |B|=15, |A∩B|=8이면 |A∪B|는?</div><div class="prob-a"><span class="ans-lbl">A.</span> |A∪B| = 20+15-8 = <strong>27</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> {0,1,2,3}의 부분집합 {1,3}을 비트마스크로 표현하고, 전체집합 대비 여집합을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> {1,3} → 비트 1,3번이 켜짐 → 0b1010 = <strong>10</strong>. 전체집합=0b1111=15. 여집합=15 & ~10 = 0b0101 = <strong>5</strong> → {0,2}</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="induction"><div class="ch" onclick="T(this)"><span class="ct">수학적 귀납법</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">①P(1) 증명(기저) ②P(k)→P(k+1) 증명(귀납) → 모든 자연수에서 성립.</p>
+<p class="desc">①P(1)(또는 P(0)) 기저 사례 증명 ②P(k)가 참이라 가정 후 P(k+1) 증명 → 모든 자연수에서 P(n) 성립. 도미노 원리와 동일. 기저를 여럿 필요로 하거나 이전 여러 단계가 필요하면 강한 귀납법 사용.</p>
 <div class="formula">예: 1+2+···+n=n(n+1)/2
 P(k): 성립 가정 → P(k+1): k(k+1)/2+(k+1)=(k+1)(k+2)/2 ✓</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 1+3+5+···+(2n-1)=n²를 귀납법으로 증명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: n=1, 1=1² ✓. 귀납: P(k) 가정: 1+3+···+(2k-1)=k². P(k+1): k²+(2k+1)=k²+2k+1=(k+1)² ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 2^n > n (n≥1)을 귀납법으로 증명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: 2^1=2>1 ✓. 귀납: 2^k>k 가정 → 2^(k+1)=2×2^k>2k=k+k≥k+1 (k≥1이므로 k≥1). 따라서 2^(k+1)>k+1 ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> Σᵢ₌₁ⁿ i² = n(n+1)(2n+1)/6을 귀납법으로 증명 (귀납 단계만).</div><div class="prob-a"><span class="ans-lbl">A.</span> P(k) 가정 후 P(k+1): k(k+1)(2k+1)/6 + (k+1)² = (k+1)[k(2k+1)/6+(k+1)] = (k+1)[(2k²+k+6k+6)/6] = (k+1)(k+2)(2k+3)/6 ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="strongind"><div class="ch" onclick="T(this)"><span class="ct">강한 귀납법</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">P(1),...,P(k) 모두 참 → P(k+1) 참. 게임 이론 증명, 피보나치 성질 등에 사용. 구조적 귀납법은 트리·그래프 등 재귀 구조에 적용.</p>
+<p class="desc">일반(약한) 귀납법: P(k)→P(k+1). 강한 귀납법: P(1)∧P(2)∧···∧P(k)→P(k+1). 이전 모든 단계를 쓸 수 있어 더 강력. 소인수분해 유일성, 피보나치 점화식, 게임 이론 Grundy 수 증명에 필수. 구조적 귀납법은 트리·식 등 재귀 구조에 적용.</p>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> "n>1인 모든 정수는 소수의 곱으로 표현된다"를 강한 귀납법으로 증명 (개요).</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: n=2, 소수 2 = 소수 곱 ✓. 귀납: 2~k까지 성립 가정. k+1이 소수면 자명. 합성수면 k+1=a×b(2≤a,b≤k) → a,b 각각 소수 곱 표현 가능(강한 귀납 가정) → k+1도 소수 곱 ✓. 약한 귀납으로는 a,b가 k이하임을 활용 불가.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 피보나치 Fₙ≤2^n을 강한 귀납법으로 증명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: F₁=1≤2, F₂=1≤4 ✓. 귀납: F(k)≤2^k, F(k-1)≤2^(k-1) 가정. F(k+1)=F(k)+F(k-1)≤2^k+2^(k-1)=2^(k-1)×3<2^(k-1)×4=2^(k+1) ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 님 게임에서 강한 귀납법이 필요한 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Grundy(s)=mex{Grundy(next)} 정의에서 다음 상태가 여러 단계 이전일 수 있음. 약한 귀납: P(k-1)→P(k)만 사용 가능. 강한 귀납: 모든 이전 상태의 Grundy 값이 정확히 계산됐다고 가정 → P(k) 증명 가능.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="boolean"><div class="ch" onclick="T(this)"><span class="ct">부울 대수</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">0과 1로 이루어진 대수 체계. 논리회로와 직결. 흡수 법칙: a+ab=a, a(a+b)=a. 불 합(+)=OR, 불 곱(·)=AND. 카르노 맵으로 부울 식을 최소화해 게이트 수를 줄임. NAND 하나로 AND·OR·NOT 모두 구현 가능(기능적 완전성).</p>
 <div class="formula">항등: a+0=a, a·1=a    영: a+1=1, a·0=0
 멱등: a+a=a, a·a=a   보: a+¬a=1, a·¬a=0
-분배: a(b+c)=ab+ac   이중부정: ¬(¬a)=a</div>
+분배: a(b+c)=ab+ac   흡수: a+ab=a, a(a+b)=a
+이중부정: ¬(¬a)=a</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> a+a·b를 부울 대수로 단순화하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a+a·b = a·1+a·b = a(1+b) = a·1 = <strong>a</strong> (흡수 법칙 직접 적용)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (A+B)(A+C)를 곱의 합(SOP) 형태로 전개하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> (A+B)(A+C) = A·A+A·C+B·A+B·C = A+AC+AB+BC = A(1+C+B)+BC = <strong>A+BC</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> NAND 게이트만으로 NOT을 구현하는 방법은?</div><div class="prob-a"><span class="ans-lbl">A.</span> ¬A = NAND(A,A). 왜냐면 NAND(a,a)=¬(a·a)=¬a. 또한 AND(a,b)=NAND(NAND(a,b),NAND(a,b)), OR(a,b)=NAND(NAND(a,a),NAND(b,b)).</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="bitops"><div class="ch" onclick="T(this)"><span class="ct">비트 연산 · 비트마스크</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">정수를 집합으로 표현: k번째 비트=원소 k 포함 여부. a&(a-1): 최하위 1비트 제거(핵심 트릭). n&(n-1)==0이면 2의 거듭제곱. 부분집합 순회는 SOS DP, 비트마스크 DP의 핵심.</p>
 <pre><code class="language-cpp">(a>>k)&1          // k번째 비트 확인
 a|(1&lt;&lt;k)          // k번째 비트 켜기
 a&~(1&lt;&lt;k)         // k번째 비트 끄기
@@ -753,22 +1074,40 @@ __builtin_popcount(a)  // 켜진 비트 수
 
 // 부분집합 순회 O(2^|mask|)
 for(int sub=mask;sub;sub=(sub-1)&mask){ /* sub: mask의 부분집합 */ }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> n=12(=1100₂)에서 n&(n-1)과 n&(-n)을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> n-1=11(=1011₂). n&(n-1)=1100&1011=1000=<strong>8</strong> (최하위 1비트 제거). -n=…10100₂(2의 보수). n&(-n)=0100=<strong>4</strong> (최하위 1비트만 추출)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> mask=7(=111₂)의 부분집합 순회에서 방문하는 값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> sub=7→6→5→4→3→2→1 (총 7회, 공집합=0 제외). 모두 방문: 7,6,5,4,3,2,1 → 비어있지 않은 부분집합 <strong>7=2³-1개</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n이 2의 거듭제곱인지 O(1)에 확인하는 방법은?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>n>0 && (n&(n-1))==0</strong>. 2의 거듭제곱은 비트가 정확히 하나만 켜짐. n&(n-1)이 그 비트를 끄면 0이 됨. 예) 8=1000, 7=0111, 8&7=0 ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="relations"><div class="ch" onclick="T(this)"><span class="ct">동치 · 편순서 관계</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">관계 R⊆A×A. 반사: aRa 항상 성립. 대칭: aRb→bRa. 추이: aRb∧bRc→aRc. 반대칭: aRb∧bRa→a=b. 동치 관계는 집합을 동치류로 분할(서로소 분할). 편순서의 Hasse 다이어그램으로 시각화.</p>
 <div class="tw"><table>
 <tr><th>종류</th><th>성질</th><th>예시</th></tr>
 <tr><td>동치 관계</td><td>반사+대칭+추이</td><td>mod m 합동, 같은 SCC</td></tr>
-<tr><td>편순서 관계</td><td>반사+비대칭+추이</td><td>약수 관계, ⊆</td></tr>
-<tr><td>전순서 관계</td><td>편순서+임의 쌍 비교 가능</td><td>정수의 ≤</td></tr>
+<tr><td>편순서 관계</td><td>반사+반대칭+추이</td><td>약수 관계 |, 집합 포함 ⊆</td></tr>
+<tr><td>전순서 관계</td><td>편순서+임의 쌍 비교 가능</td><td>정수의 ≤, 사전순</td></tr>
 </table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정수에서 "mod 3 합동(≡₃)"이 동치 관계임을 세 성질로 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 반사: a≡a(mod 3) ✓. 대칭: a≡b→b≡a(mod 3) ✓. 추이: a≡b, b≡c→a≡c(mod 3) ✓ → <strong>동치 관계</strong>. 동치류: {…,-3,0,3,6,…}, {…,-2,1,4,7,…}, {…,-1,2,5,8,…}</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 자연수에서 "약수 관계 a|b"가 편순서임을 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 반사: a|a ✓. 반대칭: a|b∧b|a → a=b(양수) ✓. 추이: a|b∧b|c → a|c ✓. 하지만 임의 쌍에서 2|3은 성립 안 하므로 <strong>전순서가 아닌 편순서</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 그래프의 SCC와 동치 관계의 연결을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 방향 그래프에서 "u에서 v에 도달 가능하고 v에서 u에도 도달 가능"이 동치 관계. 반사(자기 자신 도달), 대칭(정의상), 추이(경로 합성). 각 동치류 = <strong>SCC</strong>.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="predicate"><div class="ch" onclick="T(this)"><span class="ct">술어 논리 · 한정 기호</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">술어 P(x): x에 따라 참/거짓이 달라지는 명제 함수. ∀(전칭): 모든 x, ∃(존재): 어떤 x. 부정 시 한정 기호가 반전되고 술어도 부정됨(드 모르간의 한정 기호 버전). 유일 존재 ∃!x P(x) = ∃x(P(x)∧∀y(P(y)→y=x)).</p>
 <div class="formula">∀x P(x): 모든 x에서 P(x) 참
 ∃x P(x): P(x)가 참인 x 존재
 ¬(∀x P(x)) ≡ ∃x ¬P(x)
-¬(∃x P(x)) ≡ ∀x ¬P(x)</div>
+¬(∃x P(x)) ≡ ∀x ¬P(x)
+∀x∃y P(x,y) ≢ ∃y∀x P(x,y)  [순서 중요]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> "모든 소수는 홀수이다"를 술어 논리로 쓰고 참/거짓을 판단하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ∀x(Prime(x)→Odd(x)). <strong>거짓</strong>. 반례: 2는 소수이나 짝수. 즉 ¬(∀x P(x))=∃x¬P(x) → 2라는 반례가 존재.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> ¬(∃x(x>0 ∧ x²<0))를 단순화하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ¬∃x P(x) = ∀x¬P(x) = ∀x¬(x>0∧x²<0) = ∀x(x≤0∨x²≥0). 실제로 모든 실수에서 x²≥0이므로 이 명제는 <strong>참</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> "모든 x에 대해 어떤 y>x가 존재한다"와 "어떤 y가 모든 x보다 크다"의 차이를 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ∀x∃y(y>x): 정수에서 <strong>참</strong> (y=x+1). ∃y∀x(y>x): 정수에서 <strong>거짓</strong> (최대 정수 없음). ∀x∃y는 y가 x에 따라 달라질 수 있음, ∃y∀x는 고정된 하나의 y가 모든 x에 성립해야 함.</div></div>
+</div>
 </div></div>
 </section>
 
@@ -777,12 +1116,19 @@ for(int sub=mask;sub;sub=(sub-1)&mask){ /* sub: mask의 부분집합 */ }</code>
 <div class="uh"><span class="ubadge">Unit V</span><h2>기타 이산 수학 기법</h2><span class="ucnt">10개 개념</span></div>
 
 <div class="concept" id="recurrence"><div class="ch" onclick="T(this)"><span class="ct">점화식 (Recurrence Relations)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">선형 점화식 aₙ=c₁aₙ₋₁+···+cₖaₙ₋ₖ는 특성 방정식의 근으로 일반항을 구한다.</p>
+<p class="desc">선형 동차 점화식 aₙ=c₁aₙ₋₁+···+cₖaₙ₋ₖ의 일반항: 특성 방정식 r^k=c₁r^(k-1)+···+cₖ의 근 r₁,…,rₖ로 aₙ=A₁r₁ⁿ+A₂r₂ⁿ+···. 비동차는 특수해를 더함. 피보나치의 황금비는 특성 방정식 x²=x+1의 근.</p>
 <div class="formula">피보나치: x²=x+1  →  r=(1±√5)/2
-Fₙ = (φⁿ-ψⁿ)/√5  (φ=(1+√5)/2≈1.618)</div>
+Fₙ = (φⁿ-ψⁿ)/√5  (φ=(1+√5)/2≈1.618)
+등비수열 aₙ=r·aₙ₋₁의 일반항: aₙ=a₁·r^(n-1)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> aₙ=2aₙ₋₁+1, a₁=1의 일반항을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 동차 해: aₙ=C·2^n. 특수해: aₙ=-1 (상수 추정). 일반해: aₙ=C·2^n-1. a₁=1: 2C-1=1 → C=1. 따라서 aₙ=<strong>2^n-1</strong>. 확인: a₁=1, a₂=3, a₃=7 ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> F₁=F₂=1, Fₙ=Fₙ₋₁+Fₙ₋₂일 때 F₁₀은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 1,1,2,3,5,8,13,21,34,<strong>55</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 하노이 탑 점화식 T(n)=2T(n-1)+1, T(1)=1의 일반항은?</div><div class="prob-a"><span class="ans-lbl">A.</span> T(n)=2^n-1. 증명: T(1)=1=2¹-1 ✓, T(n)=2T(n-1)+1=2(2^(n-1)-1)+1=2^n-2+1=<strong>2^n-1</strong> ✓</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="matpow"><div class="ch" onclick="T(this)"><span class="ct">행렬 거듭제곱으로 점화식 풀기</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">k항 선형 점화식을 k×k 전이 행렬 M으로 변환: [aₙ,…,aₙ₋ₖ₊₁]ᵀ=Mⁿ×[a₁,…,aₖ]ᵀ. 행렬 거듭제곱 O(k³ log n)으로 매우 큰 n번째 항을 구함. n이 10^18이어도 처리 가능.</p>
 <div class="formula">[Fₙ₊₁]   [1 1]ⁿ  [F₁]
 [Fₙ  ] = [1 0]  × [F₀]   →  O(k³ log n)</div>
 <pre><code class="language-cpp">typedef vector&lt;vector&lt;ll&gt;&gt; Mat;
@@ -792,10 +1138,16 @@ Mat mul(Mat&A,Mat&B,ll m){ int n=A.size(); Mat C(n,vector&lt;ll&gt;(n,0));
 Mat matpow(Mat A,ll e,ll m){ int n=A.size(); Mat R(n,vector&lt;ll&gt;(n,0));
     for(int i=0;i&lt;n;i++)R[i][i]=1;
     for(;e;e>>=1){if(e&1)R=mul(R,A,m);A=mul(A,A,m);} return R; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> aₙ=3aₙ₋₁+2aₙ₋₂를 행렬 형태로 변환하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> [aₙ₊₁, aₙ]ᵀ = [[3,2],[1,0]] × [aₙ, aₙ₋₁]ᵀ. 전이 행렬 M=[[3,2],[1,0]]. n번째 항: Mⁿ×[a₁,a₀]ᵀ.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 피보나치 F(10^9) mod (10^9+7)을 어떻게 구하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> M=[[1,1],[1,0]]으로 matpow(M, 10^9-1, MOD) 계산 후 [0][0]이 F(10^9). 총 연산: 2³×log₂(10^9)≈8×30=<strong>240회</strong> 행렬 곱셈.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 행렬 거듭제곱 vs DP의 선택 기준은?</div><div class="prob-a"><span class="ans-lbl">A.</span> n이 작으면(≤10^7) DP가 O(n)으로 더 빠름. n이 매우 크면(10^9~10^18) 행렬 거듭제곱 O(k³ log n) 필수. 쿼리가 Q개이고 n이 다양하면 행렬 거듭제곱.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="nim"><div class="ch" onclick="T(this)"><span class="ct">님 게임 · 스프라그-그런디 정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<div class="formula">님 필승: 모든 더미 XOR ≠ 0
+<p class="desc">님: 돌 더미에서 번갈아 가져가고 마지막을 가져가면 승. 필승: 모든 더미의 XOR(님 합)이 0이면 후공 필승, 아니면 선공 필승. 스프라그-그런디: 임의의 공정 게임을 님과 동치로 변환. mex(최소 제외 값)가 핵심.</p>
+<div class="formula">님 필승: 모든 더미 XOR ≠ 0 → 선공 필승
 그런디 수: G(s) = mex{G(다음 상태들)}  [mex = 집합에 없는 최솟값≥0]
 합성 게임: G(A+B) = G(A) ⊕ G(B)</div>
 <pre><code class="language-cpp">int nimXOR=0;
@@ -807,27 +1159,42 @@ int grundy(int s){ if(memo.count(s))return memo[s];
     set&lt;int&gt; reach; for(int nx:moves(s)) reach.insert(grundy(nx));
     int mex=0; while(reach.count(mex))mex++;
     return memo[s]=mex; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 더미 {3,5,6}의 님 게임에서 선공이 이기는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 3⊕5⊕6 = (011)⊕(101)⊕(110) = 000 = 0 → <strong>후공 필승</strong>. 선공이 어떻게 두든 후공은 XOR=0으로 만드는 수 존재.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 더미 {1,2,4}에서 XOR를 구하고 선공의 필승 전략 첫 수를 찾으시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 1⊕2⊕4=7≠0 → 선공 필승. XOR=7=111₂. 더미4(100₂)에서 4⊕7=011₂=3을 남기면: {1,2,3}, 1⊕2⊕3=0 → 후공(=상대)이 후공이 됨. <strong>더미 4를 3으로 줄이면 됨(1개 제거)</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 돌 1개에서 1개 또는 2개 가져갈 수 있는 게임의 Grundy 수열은?</div><div class="prob-a"><span class="ans-lbl">A.</span> G(0)=0(종료), G(1)=mex{G(0)}=mex{0}=1, G(2)=mex{G(0),G(1)}=mex{0,1}=2, G(3)=mex{G(1),G(2)}=mex{1,2}=0. 주기 3: <strong>0,1,2,0,1,2,…</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="probdp"><div class="ch" onclick="T(this)"><span class="ct">확률 · 기댓값 DP</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">기댓값의 선형성 E[X+Y]=E[X]+E[Y]는 독립성과 무관하게 성립 — DP에서 매우 강력.</p>
+<p class="desc">기댓값의 선형성 E[X+Y]=E[X]+E[Y]는 X,Y가 독립이 아니어도 성립 — DP에서 매우 강력. dp[state]=해당 상태에서 목표까지 기대 횟수. 사이클이 없는 DAG: 위상 정렬 역순. 사이클 있으면 연립방정식(가우스 소거법).</p>
 <div class="formula">E[X] = Σ x·P(X=x)
-dp[state] = 1 + Σ P(state→next)·dp[next]
-DAG 구조: 위상 정렬 역순으로 계산</div>
+dp[s] = 1 + Σ_{s'} P(s→s')·dp[s']  [기대 스텝 수]
+기댓값의 선형성: E[X₁+X₂+···+Xₙ] = E[X₁]+···+E[Xₙ]  (항상 성립)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 공정한 동전을 앞면이 나올 때까지 던지는 기댓값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> E=Σₙ₌₁∞ n×(1/2)ⁿ=2. 또는: E=1+(1/2)E (앞=1번, 뒤=1번+다시E) → E/2=1 → E=<strong>2</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> n=4 카드(1~4)를 랜덤 셔플할 때 원래 위치에 있는 카드 수의 기댓값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 기댓값의 선형성 사용. 카드 i가 제자리에 있을 확률=1/4. 4장 각각 E[Xᵢ]=1/4 → E[X₁+X₂+X₃+X₄]=4×1/4=<strong>1</strong>. 독립이 아니어도 성립.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 주사위 1~3이 나오면 그 수만큼 전진, 목표 칸 6에 도달하는 기대 횟수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[6]=0(도착), dp[i]=1+(dp[i+1]+dp[i+2]+dp[i+3])/3. dp[5]=1+dp[6]/3×3=1+0... 역방향 계산: dp[5]=4/3, dp[4]=3/2+dp[5]/3+dp[6]/3... 실제 dp[0]≈<strong>12/5=2.4</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="master"><div class="ch" onclick="T(this)"><span class="ct">마스터 정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">T(n)=aT(n/b)+f(n) 형태의 점화식 시간복잡도 판별.</p>
+<p class="desc">분할 정복 점화식 T(n)=aT(n/b)+f(n)의 복잡도를 세 경우로 판별. log_b a: 재귀 트리의 리프 수 증가율. f(n): 각 레벨의 병합 비용. 둘을 비교해 어느 쪽이 지배하는지 결정.</p>
 <div class="tw"><table>
 <tr><th>조건</th><th>결과</th><th>예시</th></tr>
-<tr><td>f(n)=O(n^(log_b a-ε))</td><td>Θ(n^(log_b a))</td><td>행렬 곱 O(n³)</td></tr>
-<tr><td>f(n)=Θ(n^(log_b a))</td><td>Θ(n^(log_b a)·log n)</td><td>병합 정렬 O(n log n)</td></tr>
-<tr><td>f(n)=Ω(n^(log_b a+ε))</td><td>Θ(f(n))</td><td>이진 탐색 O(log n)</td></tr>
+<tr><td>f(n)=O(n^(log_b a-ε))</td><td>Θ(n^(log_b a))</td><td>a=8,b=2,f=O(n²): Θ(n³)</td></tr>
+<tr><td>f(n)=Θ(n^(log_b a))</td><td>Θ(n^(log_b a)·log n)</td><td>병합 정렬: Θ(n log n)</td></tr>
+<tr><td>f(n)=Ω(n^(log_b a+ε))</td><td>Θ(f(n))</td><td>이진 탐색: Θ(log n)</td></tr>
 </table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 병합 정렬 T(n)=2T(n/2)+n의 복잡도를 마스터 정리로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a=2, b=2, f(n)=n. log₂2=1, f(n)=n=Θ(n¹)=Θ(n^(log_b a)) → 2번째 경우 → <strong>Θ(n log n)</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> T(n)=4T(n/2)+n의 복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> a=4, b=2, f(n)=n. log₂4=2, f(n)=n=O(n^(2-1))=O(n^(log_b a-ε)) → 1번째 경우 → <strong>Θ(n²)</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> T(n)=T(n/2)+1(이진 탐색)의 복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> a=1, b=2, f(n)=1. log₂1=0, f(n)=1=Θ(n⁰)=Θ(n^(log_b a)) → 2번째 경우 → <strong>Θ(log n)</strong></div></div>
+</div>
 </div></div>
 
 <div class="concept" id="bsgs"><div class="ch" onclick="T(this)"><span class="ct">이산 로그 BSGS (Baby-Step Giant-Step)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">aˣ≡b (mod p) 에서 x를 O(√p)에 구한다. x=im-j로 분해해 해시맵 활용.</p>
+<p class="desc">aˣ≡b (mod p) 에서 x를 O(√p)에 구한다. x=im-j(0≤j&lt;m, m=⌈√p⌉)로 분해: aⁱᵐ≡b×aʲ (mod p). Baby step: b×aʲ를 해시맵에 저장. Giant step: aⁱᵐ를 계산하며 해시맵에서 충돌 탐색.</p>
 <pre><code class="language-cpp">ll bsgs(ll a,ll b,ll p){ int m=ceil(sqrt(p));
     unordered_map&lt;ll,int&gt; tab; ll cur=b;
     for(int j=0;j&lt;=m;j++){tab[cur]=j;cur=cur*a%p;}
@@ -835,29 +1202,64 @@ DAG 구조: 위상 정렬 역순으로 계산</div>
     for(int i=1;i&lt;=m+1;i++){ cur=cur*am%p;
         if(tab.count(cur))return(ll)i*m-tab[cur]; }
     return -1; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3ˣ≡4 (mod 7)을 손으로 풀어 BSGS를 검증하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 3¹=3, 3²=2, 3³=6, 3⁴=4 → x=<strong>4</strong>. bsgs(3,4,7): m=3. baby={4:0, 5:1, 1:2, 3:3}. giant: 3³=6, 6∉tab; 3⁶=1∈tab(값2) → x=2×3-2=<strong>4</strong> ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> BSGS가 O(√p)인 이유를 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> m=⌈√p⌉. baby step: m번 계산+해시맵 저장. giant step: 최대 m번 aⁱᵐ 계산+조회. 총 2m=2√p 연산. 브루트포스 O(p) 대비 루트 개선.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 이산 로그가 어려워야 하는 암호학적 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Diffie-Hellman·타원 곡선 암호 등은 aˣ=b에서 x를 알아내기 어렵다는 것에 기반. BSGS는 O(√p)라 소수 p가 충분히 크면(2²⁵⁶ 이상) 실용 불가. 양자 알고리즘(쇼어)은 다항식 시간에 가능.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="fft"><div class="ch" onclick="T(this)"><span class="ct">FFT / NTT</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">길이 n, m 다항식의 곱을 O((n+m)log(n+m))에 계산. NTT는 소수 mod에서 정수 오차 없이 동작.</p>
+<p class="desc">다항식 곱 A(x)×B(x)의 계수를 직접 구하면 O(n²). FFT는 각 다항식을 n+m개 점의 값으로 변환→점별 곱셈→역변환으로 O(n log n). NTT는 FFT를 정수 체계로 구현해 부동소수점 오차 없음. 분할 정복으로 짝수/홀수 계수 분리가 핵심.</p>
 <div class="formula">NTT mod: 998244353 = 119×2²³+1  (원시근 3, KOI/ICPC 정석)
-활용: 다항식 곱, 큰 수 곱셈, 문자열 컨볼루션 매칭</div>
+10⁹+7은 NTT mod 불가 (2^23 인수 없음, 별도 처리 필요)
+활용: 다항식 곱, 큰 수 곱셈, 문자열 컨볼루션 매칭, 부분집합 합</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> (1+2x+x²)×(1+x)를 직접 계산하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 1×(1+x)+2x×(1+x)+x²×(1+x) = 1+x+2x+2x²+x²+x³ = <strong>1+3x+3x²+x³</strong>. FFT는 이를 O(n log n)에 자동화.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> NTT와 FFT의 가장 큰 차이점은?</div><div class="prob-a"><span class="ans-lbl">A.</span> FFT는 복소수 단위근 사용 → 부동소수점 오차 발생. NTT는 원시근 g(mod p)를 단위근으로 사용 → <strong>정수 연산, 오차 없음</strong>. 단, NTT는 특정 소수(NTT 소수) mod에서만 동작.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 998244353이 NTT 소수인 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 998244353-1 = 119×2²³. FFT에서 n이 최대 2²³까지 지원(분할 정복 깊이). 원시근 3이 존재. 반면 10⁹+7-1 = 2×500000003으로 2의 인수가 적어 큰 NTT 불가.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="latin"><div class="ch" onclick="T(this)"><span class="ct">라틴 방진 (Latin Square)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">n×n 배열에 n가지 기호를 각 행·열에서 정확히 한 번씩 배치. 직교 라틴 방진은 실험 설계, 오류 수정 코드에 활용.</p>
+<p class="desc">n×n 배열에 n가지 기호를 각 행·열에서 정확히 한 번씩 배치. 스도쿠의 일반화(9×9 라틴 방진 + 3×3 블록 제약). 직교 라틴 방진 두 개를 겹치면 모든 (기호, 기호) 쌍이 정확히 한 번 나타남 → 실험 설계, Reed-Solomon 코드에 활용. n≠2,6이면 직교 라틴 방진 존재.</p>
+<div class="formula">n×n 라틴 방진 수: n=1:1, 2:1, 3:1, 4:4, 5:56, ...
+가장 단순한 구성: L[i][j] = (i+j) mod n</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> L[i][j]=(i+j) mod 3으로 3×3 라틴 방진을 구성하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 행0: 0,1,2 / 행1: 1,2,0 / 행2: 2,0,1. 각 행·열에 0,1,2가 정확히 한 번 → <strong>올바른 라틴 방진</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 스도쿠와 라틴 방진의 관계는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 9×9 스도쿠는 1~9의 라틴 방진 + 9개의 3×3 서브 박스에도 1~9가 모두 등장해야 하는 추가 제약. 라틴 방진 ⊃ 스도쿠(더 강한 조건).</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 직교 라틴 방진이 n=2일 때 존재하지 않는 이유는?</div><div class="prev-a"><span class="ans-lbl">A.</span> 2×2 라틴 방진: [[0,1],[1,0]]뿐. 두 방진을 겹치면 (0,0),(1,1),(1,0),(0,1) → 쌍 (0,0)과(1,1) 각 1번이지만 이미 두 방진이 동일 → 겹침 불가. 오일러가 n=2,6일 때 직교 라틴 방진 없음을 추측, n=6은 컴퓨터로 1901년 증명.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="hamming"><div class="ch" onclick="T(this)"><span class="ct">해밍 거리 (Hamming Distance)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">두 등길이 문자열(또는 정수)에서 같은 위치에 다른 기호가 있는 위치의 수. 오류 수정 코드에서 최소 해밍 거리가 d이면 ⌊(d-1)/2⌋개 비트 오류를 수정 가능. 해밍 코드(7,4): 4비트 데이터+3비트 패리티, 최소 거리 3, 1비트 수정.</p>
 <div class="formula">d(x,y) = popcount(x XOR y)  [서로 다른 비트 수]
-해밍 코드: 최소 거리 3 → 1비트 오류 수정 가능</div>
+최소 해밍 거리 d인 코드: ⌊(d-1)/2⌋비트 오류 수정, d-1비트 오류 감지
+해밍 한계: 코드워드 수 ≤ 2^n / Σ_{i=0}^{t} C(n,i)  [t=수정 가능 비트 수]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> d(1010₂, 1100₂)를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> XOR: 1010⊕1100=0110. popcount(0110)=<strong>2</strong>. 즉 2번째, 3번째 비트 위치가 다름.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 최소 해밍 거리가 3인 코드로 몇 비트까지 수정 가능한가?</div><div class="prob-a"><span class="ans-lbl">A.</span> ⌊(3-1)/2⌋=<strong>1비트</strong> 수정 가능. 1비트가 틀려도 다른 유효 코드워드까지 거리가 2이므로 가장 가까운 코드워드로 복원.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> ASCII 'A'(65=1000001₂)와 'a'(97=1100001₂)의 해밍 거리는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 65⊕97=32=0100000₂. popcount(32)=<strong>1</strong>. 즉 대소문자는 6번째 비트 하나만 다름. a|=32로 소문자 변환, a&=~32로 대문자 변환.</div></div>
+</div>
 </div></div>
 
 <div class="concept" id="sim"><div class="ch" onclick="T(this)"><span class="ct">시뮬레이션 카운팅</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">세 가지 중요 DP 패턴. 자리수 DP: 각 자릿수를 상태로 상한보다 작은지 여부 추적. 프로파일 DP: 타일링·격자에서 이전 열(행) 상태를 비트마스크로 압축. SOS DP(Sum over Subsets): f[mask]=Σ_{sub⊆mask} a[sub]를 O(n×2^n)에 전처리.</p>
 <ul class="pl">
-<li>자리수 DP: n 이하에서 조건 만족 수의 개수</li>
+<li>자리수 DP: n 이하에서 조건 만족 수의 개수 — dp[자릿수][합/조건][tight여부]</li>
 <li>프로파일 DP: 타일링·격자 문제에서 이전 열 상태를 비트마스크로 저장</li>
-<li>SOS DP: 부분집합 합 전처리 O(n×2ⁿ)</li>
+<li>SOS DP: f[mask]=Σ_{sub⊆mask} a[sub], O(n×2ⁿ) 전처리</li>
 </ul>
+<pre><code class="language-cpp">// SOS DP
+for(int i=0;i&lt;n;i++)
+    for(int mask=0;mask&lt;(1&lt;&lt;n);mask++)
+        if(mask>>i&1) f[mask]+=f[mask^(1&lt;&lt;i)];</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 1~999 중 각 자리 숫자 합이 10 이하인 수의 개수를 자리수 DP로 구하는 상태는?</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[자릿수 위치][현재까지 숫자 합][tight(상한에 딱 붙어있는지)]. 전이: 현재 자리에 0~9(또는 tight이면 0~상한숫자)를 넣어 합 갱신. 최종: dp[3][≤10][any] 합산.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 2×n 타일링(1×2 타일)의 점화식과 복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[n]=dp[n-1]+dp[n-2] (피보나치). dp[n-1]: n번째 열에 세로 타일, dp[n-2]: n-1,n번째 열에 가로 타일 2개. O(n). 프로파일 DP는 더 복잡한 m×n에서 O(n×2^m).</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> SOS DP의 응용: a[]={1,0,3,2}(n=2)에서 f[mask]=Σa[sub] 결과는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 초기: f=a. i=0: f[01]+=f[00]=1+1=2, f[11]+=f[10]=2+3=5. i=1: f[10]+=f[00]=3+1=4, f[11]+=f[01]=5+2=7. 결과: f[00]=1,f[01]=2,f[10]=4,f[11]=<strong>7</strong>=(1+0+3+2+합산=6? 아니라 f[11]=a[00]+a[01]+a[10]+a[11]=1+0+3+2=6). 계산 재확인: f[11]=7은 오류. 초기f=a=[1,0,3,2]. i=0후: f[01]=f[01]+f[00]=0+1=1, f[11]=f[11]+f[10]=2+3=5. i=1후: f[10]=f[10]+f[00]=3+1=4, f[11]=f[11]+f[01]=5+1=6. 결과: f={1,1,4,<strong>6</strong>}=1+0+3+2=6 ✓</div></div>
+</div>
 </div></div>
 </section>
 
@@ -867,6 +1269,7 @@ DAG 구조: 위상 정렬 역순으로 계산</div>
 <script>
 hljs.highlightAll();
 function T(h){ h.parentElement.classList.toggle('open'); }
+function PT(el){ el.parentElement.classList.toggle('open'); }
 const srch=document.getElementById('search');
 const nls=document.querySelectorAll('.nav-link');
 const cps=document.querySelectorAll('.concept');
