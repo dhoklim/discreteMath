@@ -32,11 +32,11 @@
       <a class="nav-link" href="01-number-theory.html#primes">소수 판별</a>
       <a class="nav-link" href="01-number-theory.html#factorize">소인수분해</a>
       <a class="nav-link" href="01-number-theory.html#gcd">GCD / LCM</a>
-      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
       <a class="nav-link" href="01-number-theory.html#sieve">에라토스테네스의 체</a>
-      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
       <a class="nav-link" href="01-number-theory.html#modular">모듈러 산술</a>
       <a class="nav-link" href="01-number-theory.html#fastpow">빠른 거듭제곱</a>
+      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
+      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
       <a class="nav-link" href="01-number-theory.html#fermat">페르마 소정리</a>
       <a class="nav-link" href="01-number-theory.html#modinv">모듈러 역원</a>
       <a class="nav-link" href="01-number-theory.html#eulerphi">오일러 파이 함수</a>
@@ -58,28 +58,28 @@
       <a class="nav-link" href="02-combinatorics.html#catalan">카탈란 수</a>
       <a class="nav-link" href="02-combinatorics.html#lucas">뤼카 정리</a>
       <a class="nav-link" href="02-combinatorics.html#partition">분할수</a>
+      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
+      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
       <a class="nav-link" href="02-combinatorics.html#stirling">스털링 수</a>
       <a class="nav-link" href="02-combinatorics.html#burnside">번사이드 보조정리</a>
       <a class="nav-link" href="02-combinatorics.html#genfunc">생성함수 기초</a>
-      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
-      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
     </div>
     <div class="nav-unit">
       <div class="nav-unit-head"><span class="unum">III</span>그래프 이론</div>
       <a class="nav-link" href="03-graph-theory.html#graphbasic">그래프 기본 용어</a>
       <a class="nav-link" href="03-graph-theory.html#graphrepr">그래프 표현</a>
       <a class="nav-link" href="03-graph-theory.html#tree">트리</a>
+      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
       <a class="nav-link" href="03-graph-theory.html#bipartite">이분 그래프</a>
       <a class="nav-link" href="03-graph-theory.html#eulerham">오일러·해밀턴 경로</a>
       <a class="nav-link" href="03-graph-theory.html#topo">위상 정렬</a>
-      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
-      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
       <a class="nav-link" href="03-graph-theory.html#coloring">그래프 채색</a>
       <a class="nav-link" href="03-graph-theory.html#planar">평면 그래프</a>
-      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
+      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
+      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
+      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
       <a class="nav-link" href="03-graph-theory.html#spanning">스패닝 트리</a>
       <a class="nav-link" href="03-graph-theory.html#flow">네트워크 플로우</a>
-      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
     </div>
     <div class="nav-unit">
       <div class="nav-unit-head"><span class="unum">IV</span>논리·집합·귀납법</div>
@@ -88,9 +88,9 @@
       <a class="nav-link" href="04-logic-sets.html#demorgan">드 모르간 법칙</a>
       <a class="nav-link" href="04-logic-sets.html#sets">집합 연산</a>
       <a class="nav-link" href="04-logic-sets.html#induction">수학적 귀납법</a>
-      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
       <a class="nav-link" href="04-logic-sets.html#boolean">부울 대수</a>
       <a class="nav-link" href="04-logic-sets.html#bitops">비트 연산·비트마스크</a>
+      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
       <a class="nav-link" href="04-logic-sets.html#relations">동치·편순서 관계</a>
       <a class="nav-link" href="04-logic-sets.html#predicate">술어 논리</a>
     </div>
@@ -270,6 +270,34 @@ p(4)=5: 4, 3+1, 2+2, 2+1+1, 1+1+1+1</div>
 </div>
 </div></div>
 
+<div class="concept" id="countdp"><div class="ch" onclick="T(this)"><span class="ct">경우의 수 DP</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">방문한 정점 집합을 비트마스크로 상태로 표현해 부분 탐색을 DP로 중복 계산 방지. TSP/해밀턴 경로: O(2^n × n²). n≤20이면 2²⁰×20²≈4×10⁸로 가능. 숫자 DP(자리수 DP)는 각 자리를 상태로 사용해 큰 수 범위의 조건 만족 수를 셈.</p>
+<pre><code class="language-cpp">// 해밀턴 경로 비트마스크 DP (n≤20)
+// dp[mask][v]: mask 방문 후 v에서 끝나는 경로 수
+vector&lt;vector&lt;ll&gt;&gt; dp(1&lt;&lt;n, vector&lt;ll&gt;(n,0));
+for(int v=0;v&lt;n;v++) dp[1&lt;&lt;v][v]=1;
+for(int mask=1;mask&lt;(1&lt;&lt;n);mask++)
+    for(int v=0;v&lt;n;v++) if(dp[mask][v])
+        for(int u:adj[v]) if(!(mask&gt;&gt;u&amp;1)) dp[mask|(1&lt;&lt;u)][u]+=dp[mask][v];</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 비트마스크 DP에서 n=3, 완전 그래프일 때 해밀턴 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[mask][v]는 시작점을 구분해 세므로 정점들의 모든 순열이 곧 경로가 된다. K₃의 <strong>방향 해밀턴 경로 = 3! = 6가지</strong> (012, 021, 102, 120, 201, 210). 방향을 구분하지 않으면 6/2 = 3가지.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1~N 중 각 자리 숫자의 합이 S 이하인 수의 개수를 DP로 구하는 방법을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[자릿수][현재 합][N의 해당 자릿수를 넘겼는지 여부]. 자리수 DP(digit DP). O(자릿수 × S × 2). N의 각 자리를 순서대로 처리.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 비트마스크 DP로 TSP(최소 비용 해밀턴 사이클)의 시간복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 상태: 2^n×n, 전이: n → 총 <strong>O(2^n × n²)</strong>. n=20이면 약 4억 연산. n=25는 한계(32M×625=20G 초과).</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="lattice"><div class="ch" onclick="T(this)"><span class="ct">격자 경로 카운팅</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">오른쪽(R)과 위(U)만 이동할 때 경로는 R n개, U m개를 나열하는 순열 → (n+m)Cn. y=x를 넘으면 안 될 때는 반사 원리: 처음 y=x를 넘는 지점에서 경로를 반사하면 (−1,1)→(n,n) 경로와 1:1 대응 → 금지 경로 수=C(2n,n-1).</p>
+<div class="formula">(0,0)→(n,m) 오른쪽/위만 이동 = C(n+m, n)
+대각선 안 넘는 (0,0)→(n,n) = C(n) [카탈란 수] = C(2n,n)-C(2n,n-1)
+장애물 우회: 포함-배제 또는 반사 원리</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> (0,0)에서 (3,4)까지 오른쪽·위로만 이동하는 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> R 3번, U 4번, 총 7번 이동을 나열 → C(7,3) = <strong>35</strong>가지</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (0,0)→(3,3)에서 y>x 위로 올라가지 않는 경로 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 카탈란 수 C(3) = C(6,3) - C(6,2) = 20 - 15 = <strong>5</strong>가지</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> (0,0)→(4,4)에서 점 (2,1)을 반드시 통과하는 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> (0,0)→(2,1): C(3,2)=3, (2,1)→(4,4): C(5,2)=10 → 3×10 = <strong>30</strong>가지</div></div>
+</div>
+</div></div>
+
 <div class="concept" id="stirling"><div class="ch" onclick="T(this)"><span class="ct">스털링 수 (Stirling Numbers)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
 <p class="desc">제2종 S(n,k): n개 구별 원소를 k개 비어있지 않은 집합으로 분할하는 방법. 새 원소 n을 기존 k개 집합 중 하나에 넣거나(k가지) 새 집합 만들기(1가지) → 점화식. 제1종은 순열의 사이클 분해. 벨 수 B(n)=Σ_k S(n,k) = 총 집합 분할 수.</p>
 <div class="formula">S(n,k) = k·S(n-1,k) + S(n-1,k-1)
@@ -304,34 +332,6 @@ EGF: f(x)=Σaₙxⁿ/n!  [순열/유순]
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 1원·5원·10원으로 15원 만드는 방법의 수를 생성함수로 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> (1+x+x²+…)(1+x⁵+x¹⁰+…)(1+x¹⁰+…)의 x¹⁵ 계수를 구하면 됨. 15원: {15×1}, {10×1+5×1}, {10×1+1×5}, {5×3}, {5×2+1×5}, {5×1+1×10}, {1×15}... 실제로 6가지.</div></div>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1/(1-x)^3의 xⁿ 계수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> C(n+2, 2) = <strong>(n+1)(n+2)/2</strong>. 예) x⁴ 계수=C(6,2)=15. 이는 k=3, nHr=C(n+k-1,k-1) 공식과 동일.</div></div>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> EGF를 쓰는 상황: "n명을 k그룹으로 나누는 순서 있는 분할 수"를 EGF로?</div><div class="prob-a"><span class="ans-lbl">A.</span> 각 그룹의 EGF=(eˣ-1)/1. k그룹의 EGF=((eˣ-1)^k)/k! (비어있지 않은 집합). xⁿ/n! 계수×n! = k!S(n,k) → n명을 k그룹에 넣는 순서 있는 방법 수.</div></div>
-</div>
-</div></div>
-
-<div class="concept" id="countdp"><div class="ch" onclick="T(this)"><span class="ct">경우의 수 DP</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">방문한 정점 집합을 비트마스크로 상태로 표현해 부분 탐색을 DP로 중복 계산 방지. TSP/해밀턴 경로: O(2^n × n²). n≤20이면 2²⁰×20²≈4×10⁸로 가능. 숫자 DP(자리수 DP)는 각 자리를 상태로 사용해 큰 수 범위의 조건 만족 수를 셈.</p>
-<pre><code class="language-cpp">// 해밀턴 경로 비트마스크 DP (n≤20)
-// dp[mask][v]: mask 방문 후 v에서 끝나는 경로 수
-vector&lt;vector&lt;ll&gt;&gt; dp(1&lt;&lt;n, vector&lt;ll&gt;(n,0));
-for(int v=0;v&lt;n;v++) dp[1&lt;&lt;v][v]=1;
-for(int mask=1;mask&lt;(1&lt;&lt;n);mask++)
-    for(int v=0;v&lt;n;v++) if(dp[mask][v])
-        for(int u:adj[v]) if(!(mask&gt;&gt;u&amp;1)) dp[mask|(1&lt;&lt;u)][u]+=dp[mask][v];</code></pre>
-<div class="prob-box"><div class="prob-t">예시 문제</div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 비트마스크 DP에서 n=3, 완전 그래프일 때 해밀턴 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[mask][v]는 시작점을 구분해 세므로 정점들의 모든 순열이 곧 경로가 된다. K₃의 <strong>방향 해밀턴 경로 = 3! = 6가지</strong> (012, 021, 102, 120, 201, 210). 방향을 구분하지 않으면 6/2 = 3가지.</div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1~N 중 각 자리 숫자의 합이 S 이하인 수의 개수를 DP로 구하는 방법을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[자릿수][현재 합][N의 해당 자릿수를 넘겼는지 여부]. 자리수 DP(digit DP). O(자릿수 × S × 2). N의 각 자리를 순서대로 처리.</div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 비트마스크 DP로 TSP(최소 비용 해밀턴 사이클)의 시간복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 상태: 2^n×n, 전이: n → 총 <strong>O(2^n × n²)</strong>. n=20이면 약 4억 연산. n=25는 한계(32M×625=20G 초과).</div></div>
-</div>
-</div></div>
-
-<div class="concept" id="lattice"><div class="ch" onclick="T(this)"><span class="ct">격자 경로 카운팅</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">오른쪽(R)과 위(U)만 이동할 때 경로는 R n개, U m개를 나열하는 순열 → (n+m)Cn. y=x를 넘으면 안 될 때는 반사 원리: 처음 y=x를 넘는 지점에서 경로를 반사하면 (−1,1)→(n,n) 경로와 1:1 대응 → 금지 경로 수=C(2n,n-1).</p>
-<div class="formula">(0,0)→(n,m) 오른쪽/위만 이동 = C(n+m, n)
-대각선 안 넘는 (0,0)→(n,n) = C(n) [카탈란 수] = C(2n,n)-C(2n,n-1)
-장애물 우회: 포함-배제 또는 반사 원리</div>
-<div class="prob-box"><div class="prob-t">예시 문제</div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> (0,0)에서 (3,4)까지 오른쪽·위로만 이동하는 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> R 3번, U 4번, 총 7번 이동을 나열 → C(7,3) = <strong>35</strong>가지</div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (0,0)→(3,3)에서 y>x 위로 올라가지 않는 경로 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 카탈란 수 C(3) = C(6,3) - C(6,2) = 20 - 15 = <strong>5</strong>가지</div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> (0,0)→(4,4)에서 점 (2,1)을 반드시 통과하는 경로의 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> (0,0)→(2,1): C(3,2)=3, (2,1)→(4,4): C(5,2)=10 → 3×10 = <strong>30</strong>가지</div></div>
 </div>
 </div></div>
 </section>

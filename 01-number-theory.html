@@ -32,11 +32,11 @@
       <a class="nav-link" href="01-number-theory.html#primes">소수 판별</a>
       <a class="nav-link" href="01-number-theory.html#factorize">소인수분해</a>
       <a class="nav-link" href="01-number-theory.html#gcd">GCD / LCM</a>
-      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
       <a class="nav-link" href="01-number-theory.html#sieve">에라토스테네스의 체</a>
-      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
       <a class="nav-link" href="01-number-theory.html#modular">모듈러 산술</a>
       <a class="nav-link" href="01-number-theory.html#fastpow">빠른 거듭제곱</a>
+      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
+      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
       <a class="nav-link" href="01-number-theory.html#fermat">페르마 소정리</a>
       <a class="nav-link" href="01-number-theory.html#modinv">모듈러 역원</a>
       <a class="nav-link" href="01-number-theory.html#eulerphi">오일러 파이 함수</a>
@@ -58,28 +58,28 @@
       <a class="nav-link" href="02-combinatorics.html#catalan">카탈란 수</a>
       <a class="nav-link" href="02-combinatorics.html#lucas">뤼카 정리</a>
       <a class="nav-link" href="02-combinatorics.html#partition">분할수</a>
+      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
+      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
       <a class="nav-link" href="02-combinatorics.html#stirling">스털링 수</a>
       <a class="nav-link" href="02-combinatorics.html#burnside">번사이드 보조정리</a>
       <a class="nav-link" href="02-combinatorics.html#genfunc">생성함수 기초</a>
-      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
-      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
     </div>
     <div class="nav-unit">
       <div class="nav-unit-head"><span class="unum">III</span>그래프 이론</div>
       <a class="nav-link" href="03-graph-theory.html#graphbasic">그래프 기본 용어</a>
       <a class="nav-link" href="03-graph-theory.html#graphrepr">그래프 표현</a>
       <a class="nav-link" href="03-graph-theory.html#tree">트리</a>
+      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
       <a class="nav-link" href="03-graph-theory.html#bipartite">이분 그래프</a>
       <a class="nav-link" href="03-graph-theory.html#eulerham">오일러·해밀턴 경로</a>
       <a class="nav-link" href="03-graph-theory.html#topo">위상 정렬</a>
-      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
-      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
       <a class="nav-link" href="03-graph-theory.html#coloring">그래프 채색</a>
       <a class="nav-link" href="03-graph-theory.html#planar">평면 그래프</a>
-      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
+      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
+      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
+      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
       <a class="nav-link" href="03-graph-theory.html#spanning">스패닝 트리</a>
       <a class="nav-link" href="03-graph-theory.html#flow">네트워크 플로우</a>
-      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
     </div>
     <div class="nav-unit">
       <div class="nav-unit-head"><span class="unum">IV</span>논리·집합·귀납법</div>
@@ -88,9 +88,9 @@
       <a class="nav-link" href="04-logic-sets.html#demorgan">드 모르간 법칙</a>
       <a class="nav-link" href="04-logic-sets.html#sets">집합 연산</a>
       <a class="nav-link" href="04-logic-sets.html#induction">수학적 귀납법</a>
-      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
       <a class="nav-link" href="04-logic-sets.html#boolean">부울 대수</a>
       <a class="nav-link" href="04-logic-sets.html#bitops">비트 연산·비트마스크</a>
+      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
       <a class="nav-link" href="04-logic-sets.html#relations">동치·편순서 관계</a>
       <a class="nav-link" href="04-logic-sets.html#predicate">술어 논리</a>
     </div>
@@ -200,21 +200,6 @@ long long lcm(long long a, long long b) { return a / gcd(a,b) * b; }
 </div>
 </div></div>
 
-<div class="concept" id="extgcd"><div class="ch" onclick="T(this)"><span class="ct">확장 유클리드 알고리즘</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">베주 항등식: ax + by = gcd(a,b)를 만족하는 정수 (x,y)가 항상 존재. 재귀 역추적으로 구한다. 핵심 점화: extGcd(b, a%b)로 x₁,y₁ 획득 후 x=y₁, y=x₁-(a/b)×y₁. ax≡1(mod m) 형태의 모듈러 역원, CRT, 1차 디오판토스 방정식 ax+by=c (단, g|c)에 사용.</p>
-<pre><code class="language-cpp">long long extGcd(long long a, long long b, long long &x, long long &y) {
-    if (!b) { x=1; y=0; return a; }
-    long long x1,y1, g=extGcd(b, a%b, x1, y1);
-    x=y1; y=x1-(a/b)*y1; return g;
-}
-// 일반해: x=x₀+(b/g)t,  y=y₀-(a/g)t</code></pre>
-<div class="prob-box"><div class="prob-t">예시 문제</div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3x + 5y = 1의 정수해를 확장 유클리드로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> extGcd(3,5): gcd(5,3)→gcd(3,2)→gcd(2,1)→gcd(1,0). 역추적: 1=3-2×1 = 3-(5-3)=2×3-5 → x=2, y=-1. 확인: 3×2+5×(-1)=1 ✓. 일반해: x=2+5t, y=-1-3t</div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 7의 mod 11 역원을 확장 유클리드로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 7x ≡ 1 (mod 11) → extGcd(7,11): 7×(-3)+11×2=1 이므로 x=-3≡8 (mod 11). 확인: 7×8=56=5×11+1 ✓ → <strong>역원=8</strong></div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 3x ≡ 9 (mod 12)의 해를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd(3,12)=3, 3|9이므로 해 존재. 양변을 3으로 나눔: x ≡ 3 (mod 4). mod 12 범위에서는 x = 3, 7, 11의 <strong>3개</strong>(=gcd). ax≡b(mod m)은 gcd(a,m)|b일 때 mod m에서 정확히 gcd(a,m)개의 해를 가짐.</div></div>
-</div>
-</div></div>
-
 <div class="concept" id="sieve"><div class="ch" onclick="T(this)"><span class="ct">에라토스테네스의 체</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
 <p class="desc">소수의 배수를 제거해 N 이하 소수를 한 번에 구함. j=i*i부터 시작하는 이유: j=i×2 ~ i×(i-1)는 이미 2~(i-1) 단계에서 제거됐기 때문. n=10⁷까지는 sieve, n=10^12까지 단건 소수 판별은 밀러-라빈 사용.</p>
 <div class="formula">O(n log log n) ≈ O(n)  [n=10⁷ 기준 ~0.1초]</div>
@@ -229,29 +214,6 @@ long long lcm(long long a, long long b) { return a / gcd(a,b) * b; }
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 에라토스테네스의 체로 30 이하 소수를 구하는 과정을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 2의 배수 제거(4,6,8…), 3의 배수 제거(9,15,21…), 5의 배수(25) 제거. √30≈5.4이므로 5까지 처리. 결과: <strong>2,3,5,7,11,13,17,19,23,29</strong></div></div>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 1~100 사이의 소수는 몇 개인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>25개</strong>. (2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97)</div></div>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n=10에서 체 동작 후 배열 ip[]의 값을 쓰시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ip[0]=F, ip[1]=F, ip[2]=T, ip[3]=T, ip[4]=F, ip[5]=T, ip[6]=F, ip[7]=T, ip[8]=F, ip[9]=F, ip[10]=F. 소수: 2,3,5,7</div></div>
-</div>
-</div></div>
-
-<div class="concept" id="spf"><div class="ch" onclick="T(this)"><span class="ct">선형 체 (SPF — Smallest Prime Factor)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">각 수 i의 최솟소인수를 spf[i]에 저장. 핵심: 각 합성수를 "최솟소인수 × i" 형태로 <b>정확히 한 번만</b> 표시하면 전체가 엄밀히 선형 O(n). 내부 루프에서 p &gt; spf[i]일 때 멈추는 조건이 "한 번만 표시"를 보장한다(에라토스테네스식 SPF는 O(n log log n)). 이 spf[]로 Q개의 소인수분해 쿼리를 각 O(log n)에 처리.</p>
-<pre><code class="language-cpp">vector&lt;int&gt; makeSPF(int n) {            // 진짜 선형 체 O(n)
-    vector&lt;int&gt; spf(n+1,0), primes;
-    for (int i=2; i&lt;=n; i++) {
-        if (!spf[i]) { spf[i]=i; primes.push_back(i); }  // i가 소수
-        for (int p : primes) {
-            if (p&gt;spf[i] || (long long)i*p&gt;n) break;
-            spf[i*p]=p;                  // 합성수 i*p를 최솟소인수 p로 단 한 번 표시
-        }
-    }
-    return spf;
-}
-// O(log n) 소인수분해
-vector&lt;int&gt; ff(int n, vector&lt;int&gt;&spf){ vector&lt;int&gt; f;
-    while(n&gt;1){f.push_back(spf[n]);n/=spf[n];} return f; }</code></pre>
-<div class="prob-box"><div class="prob-t">예시 문제</div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> spf[] 배열에서 spf[12], spf[15], spf[7]의 값을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> spf[12]=<strong>2</strong> (12=2²×3), spf[15]=<strong>3</strong> (15=3×5), spf[7]=<strong>7</strong> (7은 소수, 자기 자신)</div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> SPF 배열을 이용해 360을 O(log n)에 소인수분해하는 과정을 쓰시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> spf[360]=2 → 360/2=180, spf[180]=2 → 180/2=90, spf[90]=2 → 90/2=45, spf[45]=3 → 45/3=15, spf[15]=3 → 15/3=5, spf[5]=5 → 5/5=1. 결과: <strong>2³×3²×5</strong></div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 쿼리가 Q=10만 개이고 각 수가 최대 10⁶일 때, 어떤 방법이 더 효율적인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> SPF 전처리 O(n)+각 쿼리 O(log n) = O(n + Q log n). vs 매 쿼리 √n 판별 O(Q√n). 10⁶+10⁵×20 = 3×10⁶ vs 10⁵×10³ = 10⁸ → <strong>SPF가 훨씬 빠름</strong></div></div>
 </div>
 </div></div>
 
@@ -287,6 +249,44 @@ ll mul(ll a,ll b){return a%MOD*(b%MOD)%MOD;}</code></pre>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> pw(2, 10, 1000)을 손으로 추적하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> r=1, b=2. e=10(1010₂)을 LSB부터 처리: bit0=0 → b=4. bit1=1 → r=1×4=4, b=16. bit2=0 → b=256. bit3=1 → r=4×256=1024, b=536. pw(2,10,1000)=1024 mod 1000=<strong>24</strong></div></div>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 3^50 mod 13을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 3³=27≡1(mod 13). 50=3×16+2이므로 3^50=(3³)^16×3²≡1^16×9=<strong>9</strong></div></div>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 거듭제곱으로 n번 연산 없이 log n번에 계산하는 아이디어의 핵심을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a^n → a^(n/2)² 로 문제 크기를 절반씩 줄임(분할 정복). n이 2⁶⁰이어도 60번만 곱하면 됨. 이진 표현에서 켜진 비트에 해당하는 거듭제곱만 누적.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="extgcd"><div class="ch" onclick="T(this)"><span class="ct">확장 유클리드 알고리즘</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">베주 항등식: ax + by = gcd(a,b)를 만족하는 정수 (x,y)가 항상 존재. 재귀 역추적으로 구한다. 핵심 점화: extGcd(b, a%b)로 x₁,y₁ 획득 후 x=y₁, y=x₁-(a/b)×y₁. ax≡1(mod m) 형태의 모듈러 역원, CRT, 1차 디오판토스 방정식 ax+by=c (단, g|c)에 사용.</p>
+<pre><code class="language-cpp">long long extGcd(long long a, long long b, long long &x, long long &y) {
+    if (!b) { x=1; y=0; return a; }
+    long long x1,y1, g=extGcd(b, a%b, x1, y1);
+    x=y1; y=x1-(a/b)*y1; return g;
+}
+// 일반해: x=x₀+(b/g)t,  y=y₀-(a/g)t</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3x + 5y = 1의 정수해를 확장 유클리드로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> extGcd(3,5): gcd(5,3)→gcd(3,2)→gcd(2,1)→gcd(1,0). 역추적: 1=3-2×1 = 3-(5-3)=2×3-5 → x=2, y=-1. 확인: 3×2+5×(-1)=1 ✓. 일반해: x=2+5t, y=-1-3t</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 7의 mod 11 역원을 확장 유클리드로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 7x ≡ 1 (mod 11) → extGcd(7,11): 7×(-3)+11×2=1 이므로 x=-3≡8 (mod 11). 확인: 7×8=56=5×11+1 ✓ → <strong>역원=8</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 3x ≡ 9 (mod 12)의 해를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> gcd(3,12)=3, 3|9이므로 해 존재. 양변을 3으로 나눔: x ≡ 3 (mod 4). mod 12 범위에서는 x = 3, 7, 11의 <strong>3개</strong>(=gcd). ax≡b(mod m)은 gcd(a,m)|b일 때 mod m에서 정확히 gcd(a,m)개의 해를 가짐.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="spf"><div class="ch" onclick="T(this)"><span class="ct">선형 체 (SPF — Smallest Prime Factor)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">각 수 i의 최솟소인수를 spf[i]에 저장. 핵심: 각 합성수를 "최솟소인수 × i" 형태로 <b>정확히 한 번만</b> 표시하면 전체가 엄밀히 선형 O(n). 내부 루프에서 p &gt; spf[i]일 때 멈추는 조건이 "한 번만 표시"를 보장한다(에라토스테네스식 SPF는 O(n log log n)). 이 spf[]로 Q개의 소인수분해 쿼리를 각 O(log n)에 처리.</p>
+<pre><code class="language-cpp">vector&lt;int&gt; makeSPF(int n) {            // 진짜 선형 체 O(n)
+    vector&lt;int&gt; spf(n+1,0), primes;
+    for (int i=2; i&lt;=n; i++) {
+        if (!spf[i]) { spf[i]=i; primes.push_back(i); }  // i가 소수
+        for (int p : primes) {
+            if (p&gt;spf[i] || (long long)i*p&gt;n) break;
+            spf[i*p]=p;                  // 합성수 i*p를 최솟소인수 p로 단 한 번 표시
+        }
+    }
+    return spf;
+}
+// O(log n) 소인수분해
+vector&lt;int&gt; ff(int n, vector&lt;int&gt;&spf){ vector&lt;int&gt; f;
+    while(n&gt;1){f.push_back(spf[n]);n/=spf[n];} return f; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> spf[] 배열에서 spf[12], spf[15], spf[7]의 값을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> spf[12]=<strong>2</strong> (12=2²×3), spf[15]=<strong>3</strong> (15=3×5), spf[7]=<strong>7</strong> (7은 소수, 자기 자신)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> SPF 배열을 이용해 360을 O(log n)에 소인수분해하는 과정을 쓰시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> spf[360]=2 → 360/2=180, spf[180]=2 → 180/2=90, spf[90]=2 → 90/2=45, spf[45]=3 → 45/3=15, spf[15]=3 → 15/3=5, spf[5]=5 → 5/5=1. 결과: <strong>2³×3²×5</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 쿼리가 Q=10만 개이고 각 수가 최대 10⁶일 때, 어떤 방법이 더 효율적인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> SPF 전처리 O(n)+각 쿼리 O(log n) = O(n + Q log n). vs 매 쿼리 √n 판별 O(Q√n). 10⁶+10⁵×20 = 3×10⁶ vs 10⁵×10³ = 10⁸ → <strong>SPF가 훨씬 빠름</strong></div></div>
 </div>
 </div></div>
 

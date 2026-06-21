@@ -32,11 +32,11 @@
       <a class="nav-link" href="01-number-theory.html#primes">소수 판별</a>
       <a class="nav-link" href="01-number-theory.html#factorize">소인수분해</a>
       <a class="nav-link" href="01-number-theory.html#gcd">GCD / LCM</a>
-      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
       <a class="nav-link" href="01-number-theory.html#sieve">에라토스테네스의 체</a>
-      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
       <a class="nav-link" href="01-number-theory.html#modular">모듈러 산술</a>
       <a class="nav-link" href="01-number-theory.html#fastpow">빠른 거듭제곱</a>
+      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
+      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
       <a class="nav-link" href="01-number-theory.html#fermat">페르마 소정리</a>
       <a class="nav-link" href="01-number-theory.html#modinv">모듈러 역원</a>
       <a class="nav-link" href="01-number-theory.html#eulerphi">오일러 파이 함수</a>
@@ -58,28 +58,28 @@
       <a class="nav-link" href="02-combinatorics.html#catalan">카탈란 수</a>
       <a class="nav-link" href="02-combinatorics.html#lucas">뤼카 정리</a>
       <a class="nav-link" href="02-combinatorics.html#partition">분할수</a>
+      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
+      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
       <a class="nav-link" href="02-combinatorics.html#stirling">스털링 수</a>
       <a class="nav-link" href="02-combinatorics.html#burnside">번사이드 보조정리</a>
       <a class="nav-link" href="02-combinatorics.html#genfunc">생성함수 기초</a>
-      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
-      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
     </div>
     <div class="nav-unit">
       <div class="nav-unit-head"><span class="unum">III</span>그래프 이론</div>
       <a class="nav-link" href="03-graph-theory.html#graphbasic">그래프 기본 용어</a>
       <a class="nav-link" href="03-graph-theory.html#graphrepr">그래프 표현</a>
       <a class="nav-link" href="03-graph-theory.html#tree">트리</a>
+      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
       <a class="nav-link" href="03-graph-theory.html#bipartite">이분 그래프</a>
       <a class="nav-link" href="03-graph-theory.html#eulerham">오일러·해밀턴 경로</a>
       <a class="nav-link" href="03-graph-theory.html#topo">위상 정렬</a>
-      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
-      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
       <a class="nav-link" href="03-graph-theory.html#coloring">그래프 채색</a>
       <a class="nav-link" href="03-graph-theory.html#planar">평면 그래프</a>
-      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
+      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
+      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
+      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
       <a class="nav-link" href="03-graph-theory.html#spanning">스패닝 트리</a>
       <a class="nav-link" href="03-graph-theory.html#flow">네트워크 플로우</a>
-      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
     </div>
     <div class="nav-unit">
       <div class="nav-unit-head"><span class="unum">IV</span>논리·집합·귀납법</div>
@@ -88,9 +88,9 @@
       <a class="nav-link" href="04-logic-sets.html#demorgan">드 모르간 법칙</a>
       <a class="nav-link" href="04-logic-sets.html#sets">집합 연산</a>
       <a class="nav-link" href="04-logic-sets.html#induction">수학적 귀납법</a>
-      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
       <a class="nav-link" href="04-logic-sets.html#boolean">부울 대수</a>
       <a class="nav-link" href="04-logic-sets.html#bitops">비트 연산·비트마스크</a>
+      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
       <a class="nav-link" href="04-logic-sets.html#relations">동치·편순서 관계</a>
       <a class="nav-link" href="04-logic-sets.html#predicate">술어 논리</a>
     </div>
@@ -205,15 +205,6 @@ P(k): 성립 가정 → P(k+1): k(k+1)/2+(k+1)=(k+1)(k+2)/2 ✓</div>
 </div>
 </div></div>
 
-<div class="concept" id="strongind"><div class="ch" onclick="T(this)"><span class="ct">강한 귀납법</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
-<p class="desc">일반(약한) 귀납법: P(k)→P(k+1). 강한 귀납법: P(1)∧P(2)∧···∧P(k)→P(k+1). 이전 모든 단계를 쓸 수 있어 더 강력. 소인수분해 유일성, 피보나치 점화식, 게임 이론 Grundy 수 증명에 필수. 구조적 귀납법은 트리·식 등 재귀 구조에 적용.</p>
-<div class="prob-box"><div class="prob-t">예시 문제</div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> "n>1인 모든 정수는 소수의 곱으로 표현된다"를 강한 귀납법으로 증명 (개요).</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: n=2, 소수 2 = 소수 곱 ✓. 귀납: 2~k까지 성립 가정. k+1이 소수면 자명. 합성수면 k+1=a×b(2≤a,b≤k) → a,b 각각 소수 곱 표현 가능(강한 귀납 가정) → k+1도 소수 곱 ✓. 약한 귀납으로는 a,b가 k이하임을 활용 불가.</div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 피보나치 Fₙ≤2^n을 강한 귀납법으로 증명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: F₁=1≤2, F₂=1≤4 ✓. 귀납: F(k)≤2^k, F(k-1)≤2^(k-1) 가정. F(k+1)=F(k)+F(k-1)≤2^k+2^(k-1)=2^(k-1)×3<2^(k-1)×4=2^(k+1) ✓</div></div>
-<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 님 게임에서 강한 귀납법이 필요한 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Grundy(s)=mex{Grundy(next)} 정의에서 다음 상태가 여러 단계 이전일 수 있음. 약한 귀납: P(k-1)→P(k)만 사용 가능. 강한 귀납: 모든 이전 상태의 Grundy 값이 정확히 계산됐다고 가정 → P(k) 증명 가능.</div></div>
-</div>
-</div></div>
-
 <div class="concept" id="boolean"><div class="ch" onclick="T(this)"><span class="ct">부울 대수</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
 <p class="desc">0과 1로 이루어진 대수 체계. 논리회로와 직결. 흡수 법칙: a+ab=a, a(a+b)=a. 불 합(+)=OR, 불 곱(·)=AND. 카르노 맵으로 부울 식을 최소화해 게이트 수를 줄임. NAND 하나로 AND·OR·NOT 모두 구현 가능(기능적 완전성).</p>
 <div class="formula">항등: a+0=a, a·1=a    영: a+1=1, a·0=0
@@ -243,6 +234,15 @@ for(int sub=mask;sub;sub=(sub-1)&mask){ /* sub: mask의 부분집합 */ }</code>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> n=12(=1100₂)에서 n&(n-1)과 n&(-n)을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> n-1=11(=1011₂). n&(n-1)=1100&1011=1000=<strong>8</strong> (최하위 1비트 제거). -n=…10100₂(2의 보수). n&(-n)=0100=<strong>4</strong> (최하위 1비트만 추출)</div></div>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> mask=7(=111₂)의 부분집합 순회에서 방문하는 값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> sub=7→6→5→4→3→2→1 (총 7회, 공집합=0 제외). 모두 방문: 7,6,5,4,3,2,1 → 비어있지 않은 부분집합 <strong>7=2³-1개</strong></div></div>
 <div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n이 2의 거듭제곱인지 O(1)에 확인하는 방법은?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>n>0 && (n&(n-1))==0</strong>. 2의 거듭제곱은 비트가 정확히 하나만 켜짐. n&(n-1)이 그 비트를 끄면 0이 됨. 예) 8=1000, 7=0111, 8&7=0 ✓</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="strongind"><div class="ch" onclick="T(this)"><span class="ct">강한 귀납법</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">일반(약한) 귀납법: P(k)→P(k+1). 강한 귀납법: P(1)∧P(2)∧···∧P(k)→P(k+1). 이전 모든 단계를 쓸 수 있어 더 강력. 소인수분해 유일성, 피보나치 점화식, 게임 이론 Grundy 수 증명에 필수. 구조적 귀납법은 트리·식 등 재귀 구조에 적용.</p>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> "n>1인 모든 정수는 소수의 곱으로 표현된다"를 강한 귀납법으로 증명 (개요).</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: n=2, 소수 2 = 소수 곱 ✓. 귀납: 2~k까지 성립 가정. k+1이 소수면 자명. 합성수면 k+1=a×b(2≤a,b≤k) → a,b 각각 소수 곱 표현 가능(강한 귀납 가정) → k+1도 소수 곱 ✓. 약한 귀납으로는 a,b가 k이하임을 활용 불가.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 피보나치 Fₙ≤2^n을 강한 귀납법으로 증명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: F₁=1≤2, F₂=1≤4 ✓. 귀납: F(k)≤2^k, F(k-1)≤2^(k-1) 가정. F(k+1)=F(k)+F(k-1)≤2^k+2^(k-1)=2^(k-1)×3<2^(k-1)×4=2^(k+1) ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 님 게임에서 강한 귀납법이 필요한 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Grundy(s)=mex{Grundy(next)} 정의에서 다음 상태가 여러 단계 이전일 수 있음. 약한 귀납: P(k-1)→P(k)만 사용 가능. 강한 귀납: 모든 이전 상태의 Grundy 값이 정확히 계산됐다고 가정 → P(k) 증명 가능.</div></div>
 </div>
 </div></div>
 
