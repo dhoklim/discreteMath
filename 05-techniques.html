@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기타 이산 수학 기법 · KOI 이산수학</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">
+    <a href="index.html" style="text-decoration:none;color:inherit;display:block">
+      <div class="logo-title">KOI 이산수학</div>
+      <div class="logo-sub">전체 개념 정리 · 66개 토픽</div>
+    </a>
+  </div>
+  <div class="search-wrap">
+    <input id="search" type="text" placeholder="개념 검색…" autocomplete="off">
+  </div>
+  <nav id="nav">
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">I</span>수론</div>
+      <a class="nav-link" href="01-number-theory.html#divisors">약수·배수</a>
+      <a class="nav-link" href="01-number-theory.html#primes">소수 판별</a>
+      <a class="nav-link" href="01-number-theory.html#factorize">소인수분해</a>
+      <a class="nav-link" href="01-number-theory.html#gcd">GCD / LCM</a>
+      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
+      <a class="nav-link" href="01-number-theory.html#sieve">에라토스테네스의 체</a>
+      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
+      <a class="nav-link" href="01-number-theory.html#modular">모듈러 산술</a>
+      <a class="nav-link" href="01-number-theory.html#fastpow">빠른 거듭제곱</a>
+      <a class="nav-link" href="01-number-theory.html#fermat">페르마 소정리</a>
+      <a class="nav-link" href="01-number-theory.html#modinv">모듈러 역원</a>
+      <a class="nav-link" href="01-number-theory.html#eulerphi">오일러 파이 함수</a>
+      <a class="nav-link" href="01-number-theory.html#eulerthm">오일러 정리</a>
+      <a class="nav-link" href="01-number-theory.html#crt">중국인 나머지 정리</a>
+      <a class="nav-link" href="01-number-theory.html#mobius">뫼비우스 함수</a>
+      <a class="nav-link" href="01-number-theory.html#millerrabin">밀러-라빈 소수 판별</a>
+      <a class="nav-link" href="01-number-theory.html#pollard">폴라드 로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">II</span>조합론</div>
+      <a class="nav-link" href="02-combinatorics.html#permcomb">순열·조합</a>
+      <a class="nav-link" href="02-combinatorics.html#binom">이항계수</a>
+      <a class="nav-link" href="02-combinatorics.html#pascal">파스칼 삼각형</a>
+      <a class="nav-link" href="02-combinatorics.html#binomthm">이항 정리</a>
+      <a class="nav-link" href="02-combinatorics.html#rep">중복 순열·조합</a>
+      <a class="nav-link" href="02-combinatorics.html#ie">포함-배제 원리</a>
+      <a class="nav-link" href="02-combinatorics.html#pigeonhole">비둘기집 원리</a>
+      <a class="nav-link" href="02-combinatorics.html#catalan">카탈란 수</a>
+      <a class="nav-link" href="02-combinatorics.html#lucas">뤼카 정리</a>
+      <a class="nav-link" href="02-combinatorics.html#partition">분할수</a>
+      <a class="nav-link" href="02-combinatorics.html#stirling">스털링 수</a>
+      <a class="nav-link" href="02-combinatorics.html#burnside">번사이드 보조정리</a>
+      <a class="nav-link" href="02-combinatorics.html#genfunc">생성함수 기초</a>
+      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
+      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">III</span>그래프 이론</div>
+      <a class="nav-link" href="03-graph-theory.html#graphbasic">그래프 기본 용어</a>
+      <a class="nav-link" href="03-graph-theory.html#graphrepr">그래프 표현</a>
+      <a class="nav-link" href="03-graph-theory.html#tree">트리</a>
+      <a class="nav-link" href="03-graph-theory.html#bipartite">이분 그래프</a>
+      <a class="nav-link" href="03-graph-theory.html#eulerham">오일러·해밀턴 경로</a>
+      <a class="nav-link" href="03-graph-theory.html#topo">위상 정렬</a>
+      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
+      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
+      <a class="nav-link" href="03-graph-theory.html#coloring">그래프 채색</a>
+      <a class="nav-link" href="03-graph-theory.html#planar">평면 그래프</a>
+      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
+      <a class="nav-link" href="03-graph-theory.html#spanning">스패닝 트리</a>
+      <a class="nav-link" href="03-graph-theory.html#flow">네트워크 플로우</a>
+      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">IV</span>논리·집합·귀납법</div>
+      <a class="nav-link" href="04-logic-sets.html#proposition">명제 논리</a>
+      <a class="nav-link" href="04-logic-sets.html#logicops">논리 연산자</a>
+      <a class="nav-link" href="04-logic-sets.html#demorgan">드 모르간 법칙</a>
+      <a class="nav-link" href="04-logic-sets.html#sets">집합 연산</a>
+      <a class="nav-link" href="04-logic-sets.html#induction">수학적 귀납법</a>
+      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
+      <a class="nav-link" href="04-logic-sets.html#boolean">부울 대수</a>
+      <a class="nav-link" href="04-logic-sets.html#bitops">비트 연산·비트마스크</a>
+      <a class="nav-link" href="04-logic-sets.html#relations">동치·편순서 관계</a>
+      <a class="nav-link" href="04-logic-sets.html#predicate">술어 논리</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">V</span>기타 기법</div>
+      <a class="nav-link" href="05-techniques.html#recurrence">점화식</a>
+      <a class="nav-link" href="05-techniques.html#matpow">행렬 거듭제곱</a>
+      <a class="nav-link" href="05-techniques.html#nim">님 게임·스프라그-그런디</a>
+      <a class="nav-link" href="05-techniques.html#probdp">확률·기댓값 DP</a>
+      <a class="nav-link" href="05-techniques.html#master">마스터 정리</a>
+      <a class="nav-link" href="05-techniques.html#bsgs">이산 로그 BSGS</a>
+      <a class="nav-link" href="05-techniques.html#fft">FFT / NTT</a>
+      <a class="nav-link" href="05-techniques.html#latin">라틴 방진</a>
+      <a class="nav-link" href="05-techniques.html#hamming">해밍 거리</a>
+      <a class="nav-link" href="05-techniques.html#sim">시뮬레이션 카운팅</a>
+    </div>
+  </nav>
+  <div class="legend">
+    <div class="legend-t">난이도</div>
+    <div class="legend-row">
+      <span class="badge easy">기초 KOI1차</span>
+      <span class="badge mid">중급 KOI2차</span>
+      <span class="badge hard">고급 IOI</span>
+    </div>
+  </div>
+</aside>
+<main>
+<header class="hero">
+  <div class="hero-lbl">Unit V · Techniques</div>
+  <h1>기타 이산 수학 기법</h1>
+  <p>점화식·행렬 거듭제곱, 게임 이론, FFT/NTT 등 고급 기법.</p>
+  <div class="stats">
+    <div><div class="stat-n">10</div><div class="stat-l">개념</div></div>
+  </div>
+</header>
+
+<div class="cw">
+
+<section class="us">
+<div class="uh"><span class="ubadge">Unit V</span><h2>기타 이산 수학 기법</h2><span class="ucnt">10개 개념</span></div>
+
+<div class="concept" id="recurrence"><div class="ch" onclick="T(this)"><span class="ct">점화식 (Recurrence Relations)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">선형 동차 점화식 aₙ=c₁aₙ₋₁+···+cₖaₙ₋ₖ의 일반항: 특성 방정식 r^k=c₁r^(k-1)+···+cₖ의 근 r₁,…,rₖ로 aₙ=A₁r₁ⁿ+A₂r₂ⁿ+···. 비동차는 특수해를 더함. 피보나치의 황금비는 특성 방정식 x²=x+1의 근.</p>
+<div class="formula">피보나치: x²=x+1  →  r=(1±√5)/2
+Fₙ = (φⁿ-ψⁿ)/√5  (φ=(1+√5)/2≈1.618)
+등비수열 aₙ=r·aₙ₋₁의 일반항: aₙ=a₁·r^(n-1)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> aₙ=2aₙ₋₁+1, a₁=1의 일반항을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 동차 해: aₙ=C·2^n. 특수해: aₙ=-1 (상수 추정). 일반해: aₙ=C·2^n-1. a₁=1: 2C-1=1 → C=1. 따라서 aₙ=<strong>2^n-1</strong>. 확인: a₁=1, a₂=3, a₃=7 ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> F₁=F₂=1, Fₙ=Fₙ₋₁+Fₙ₋₂일 때 F₁₀은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 1,1,2,3,5,8,13,21,34,<strong>55</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 하노이 탑 점화식 T(n)=2T(n-1)+1, T(1)=1의 일반항은?</div><div class="prob-a"><span class="ans-lbl">A.</span> T(n)=2^n-1. 증명: T(1)=1=2¹-1 ✓, T(n)=2T(n-1)+1=2(2^(n-1)-1)+1=2^n-2+1=<strong>2^n-1</strong> ✓</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="matpow"><div class="ch" onclick="T(this)"><span class="ct">행렬 거듭제곱으로 점화식 풀기</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">k항 선형 점화식을 k×k 전이 행렬 M으로 변환: [aₙ,…,aₙ₋ₖ₊₁]ᵀ=Mⁿ×[a₁,…,aₖ]ᵀ. 행렬 거듭제곱 O(k³ log n)으로 매우 큰 n번째 항을 구함. n이 10^18이어도 처리 가능.</p>
+<div class="formula">[Fₙ₊₁]   [1 1]ⁿ  [F₁]
+[Fₙ  ] = [1 0]  × [F₀]   →  O(k³ log n)</div>
+<pre><code class="language-cpp">typedef vector&lt;vector&lt;ll&gt;&gt; Mat;
+Mat mul(Mat&A,Mat&B,ll m){ int n=A.size(); Mat C(n,vector&lt;ll&gt;(n,0));
+    for(int i=0;i&lt;n;i++) for(int k=0;k&lt;n;k++) if(A[i][k])
+        for(int j=0;j&lt;n;j++) C[i][j]=(C[i][j]+A[i][k]*B[k][j])%m; return C; }
+Mat matpow(Mat A,ll e,ll m){ int n=A.size(); Mat R(n,vector&lt;ll&gt;(n,0));
+    for(int i=0;i&lt;n;i++)R[i][i]=1;
+    for(;e;e>>=1){if(e&1)R=mul(R,A,m);A=mul(A,A,m);} return R; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> aₙ=3aₙ₋₁+2aₙ₋₂를 행렬 형태로 변환하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> [aₙ₊₁, aₙ]ᵀ = [[3,2],[1,0]] × [aₙ, aₙ₋₁]ᵀ. 전이 행렬 M=[[3,2],[1,0]]. n번째 항: Mⁿ×[a₁,a₀]ᵀ.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 피보나치 F(10^9) mod (10^9+7)을 어떻게 구하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> M=[[1,1],[1,0]]으로 matpow(M, 10^9-1, MOD) 계산 후 [0][0]이 F(10^9). 총 연산: 2³×log₂(10^9)≈8×30=<strong>240회</strong> 행렬 곱셈.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 행렬 거듭제곱 vs DP의 선택 기준은?</div><div class="prob-a"><span class="ans-lbl">A.</span> n이 작으면(≤10^7) DP가 O(n)으로 더 빠름. n이 매우 크면(10^9~10^18) 행렬 거듭제곱 O(k³ log n) 필수. 쿼리가 Q개이고 n이 다양하면 행렬 거듭제곱.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="nim"><div class="ch" onclick="T(this)"><span class="ct">님 게임 · 스프라그-그런디 정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">님: 돌 더미에서 번갈아 가져가고 마지막을 가져가면 승. 필승: 모든 더미의 XOR(님 합)이 0이면 후공 필승, 아니면 선공 필승. 스프라그-그런디: 임의의 공정 게임을 님과 동치로 변환. mex(최소 제외 값)가 핵심.</p>
+<div class="formula">님 필승: 모든 더미 XOR ≠ 0 → 선공 필승
+그런디 수: G(s) = mex{G(다음 상태들)}  [mex = 집합에 없는 최솟값≥0]
+합성 게임: G(A+B) = G(A) ⊕ G(B)</div>
+<pre><code class="language-cpp">int nimXOR=0;
+for(int x:piles) nimXOR^=x;
+// nimXOR != 0 → 현재 플레이어 승
+
+unordered_map&lt;int,int&gt; memo;
+int grundy(int s){ if(memo.count(s))return memo[s];
+    set&lt;int&gt; reach; for(int nx:moves(s)) reach.insert(grundy(nx));
+    int mex=0; while(reach.count(mex))mex++;
+    return memo[s]=mex; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 더미 {3,5,6}의 님 게임에서 선공이 이기는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 3⊕5⊕6 = (011)⊕(101)⊕(110) = 000 = 0 → <strong>후공 필승</strong>. 선공이 어떻게 두든 후공은 XOR=0으로 만드는 수 존재.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 더미 {1,2,4}에서 XOR를 구하고 선공의 필승 전략 첫 수를 찾으시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 1⊕2⊕4=7≠0 → 선공 필승. XOR=7=111₂. 더미 4(100₂)를 4⊕7=011₂=3으로 바꾸면 {1,2,3}, 1⊕2⊕3=0 → 상대가 XOR=0인 패배 국면을 맞음. 따라서 <strong>더미 4에서 1개를 제거해 3으로 만들면 됨</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 돌 1개에서 1개 또는 2개 가져갈 수 있는 게임의 Grundy 수열은?</div><div class="prob-a"><span class="ans-lbl">A.</span> G(0)=0(종료), G(1)=mex{G(0)}=mex{0}=1, G(2)=mex{G(0),G(1)}=mex{0,1}=2, G(3)=mex{G(1),G(2)}=mex{1,2}=0. 주기 3: <strong>0,1,2,0,1,2,…</strong></div></div>
+</div>
+</div></div>
+
+<div class="concept" id="probdp"><div class="ch" onclick="T(this)"><span class="ct">확률 · 기댓값 DP</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">기댓값의 선형성 E[X+Y]=E[X]+E[Y]는 X,Y가 독립이 아니어도 성립 — DP에서 매우 강력. dp[state]=해당 상태에서 목표까지 기대 횟수. 사이클이 없는 DAG: 위상 정렬 역순. 사이클 있으면 연립방정식(가우스 소거법).</p>
+<div class="formula">E[X] = Σ x·P(X=x)
+dp[s] = 1 + Σ_{s'} P(s→s')·dp[s']  [기대 스텝 수]
+기댓값의 선형성: E[X₁+X₂+···+Xₙ] = E[X₁]+···+E[Xₙ]  (항상 성립)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 공정한 동전을 앞면이 나올 때까지 던지는 기댓값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> E=Σₙ₌₁∞ n×(1/2)ⁿ=2. 또는: E=1+(1/2)E (앞=1번, 뒤=1번+다시E) → E/2=1 → E=<strong>2</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> n=4 카드(1~4)를 랜덤 셔플할 때 원래 위치에 있는 카드 수의 기댓값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 기댓값의 선형성 사용. 카드 i가 제자리에 있을 확률=1/4. 4장 각각 E[Xᵢ]=1/4 → E[X₁+X₂+X₃+X₄]=4×1/4=<strong>1</strong>. 독립이 아니어도 성립.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 주사위 1~3이 나오면 그 수만큼 전진, 목표 칸 6에 도달하는 기대 횟수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 칸 0에서 출발, 6 이상에 도달하면 종료. dp[i]=칸 i에서 종료까지 기대 횟수: dp[i]=0 (i≥6), dp[i]=1+(dp[i+1]+dp[i+2]+dp[i+3])/3. 역방향: dp[5]=1, dp[4]=4/3, dp[3]=16/9, dp[2]=64/27, dp[1]=229/81, dp[0]=<strong>808/243 ≈ 3.33</strong></div></div>
+</div>
+</div></div>
+
+<div class="concept" id="master"><div class="ch" onclick="T(this)"><span class="ct">마스터 정리</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">분할 정복 점화식 T(n)=aT(n/b)+f(n)의 복잡도를 세 경우로 판별. log_b a: 재귀 트리의 리프 수 증가율. f(n): 각 레벨의 병합 비용. 둘을 비교해 어느 쪽이 지배하는지 결정.</p>
+<div class="tw"><table>
+<tr><th>조건</th><th>결과</th><th>예시</th></tr>
+<tr><td>f(n)=O(n^(log_b a-ε))</td><td>Θ(n^(log_b a))</td><td>a=8,b=2,f=O(n²): Θ(n³)</td></tr>
+<tr><td>f(n)=Θ(n^(log_b a))</td><td>Θ(n^(log_b a)·log n)</td><td>병합 정렬: Θ(n log n)</td></tr>
+<tr><td>f(n)=Ω(n^(log_b a+ε))</td><td>Θ(f(n))</td><td>a=2,b=2,f=n²: Θ(n²)</td></tr>
+</table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 병합 정렬 T(n)=2T(n/2)+n의 복잡도를 마스터 정리로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a=2, b=2, f(n)=n. log₂2=1, f(n)=n=Θ(n¹)=Θ(n^(log_b a)) → 2번째 경우 → <strong>Θ(n log n)</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> T(n)=4T(n/2)+n의 복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> a=4, b=2, f(n)=n. log₂4=2, f(n)=n=O(n^(2-1))=O(n^(log_b a-ε)) → 1번째 경우 → <strong>Θ(n²)</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> T(n)=T(n/2)+1(이진 탐색)의 복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> a=1, b=2, f(n)=1. log₂1=0, f(n)=1=Θ(n⁰)=Θ(n^(log_b a)) → 2번째 경우 → <strong>Θ(log n)</strong></div></div>
+</div>
+</div></div>
+
+<div class="concept" id="bsgs"><div class="ch" onclick="T(this)"><span class="ct">이산 로그 BSGS (Baby-Step Giant-Step)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">aˣ≡b (mod p) 에서 x를 O(√p)에 구한다. x=im-j(0≤j&lt;m, m=⌈√p⌉)로 분해: aⁱᵐ≡b×aʲ (mod p). Baby step: b×aʲ를 해시맵에 저장. Giant step: aⁱᵐ를 계산하며 해시맵에서 충돌 탐색.</p>
+<pre><code class="language-cpp">ll bsgs(ll a,ll b,ll p){ int m=ceil(sqrt(p));
+    unordered_map&lt;ll,int&gt; tab; ll cur=b;
+    for(int j=0;j&lt;=m;j++){tab[cur]=j;cur=cur*a%p;}
+    ll am=pw(a,m,p); cur=1;
+    for(int i=1;i&lt;=m+1;i++){ cur=cur*am%p;
+        if(tab.count(cur))return(ll)i*m-tab[cur]; }
+    return -1; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 3ˣ≡4 (mod 7)을 손으로 풀어 BSGS를 검증하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 3¹=3, 3²=2, 3³=6, 3⁴=4 → x=<strong>4</strong>. bsgs(3,4,7): m=3. baby={4:0, 5:1, 1:2, 3:3}. giant: 3³=6, 6∉tab; 3⁶=1∈tab(값2) → x=2×3-2=<strong>4</strong> ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> BSGS가 O(√p)인 이유를 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> m=⌈√p⌉. baby step: m번 계산+해시맵 저장. giant step: 최대 m번 aⁱᵐ 계산+조회. 총 2m=2√p 연산. 브루트포스 O(p) 대비 루트 개선.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 이산 로그가 어려워야 하는 암호학적 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Diffie-Hellman·타원 곡선 암호 등은 aˣ=b에서 x를 알아내기 어렵다는 것에 기반. BSGS는 O(√p)라 소수 p가 충분히 크면(2²⁵⁶ 이상) 실용 불가. 양자 알고리즘(쇼어)은 다항식 시간에 가능.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="fft"><div class="ch" onclick="T(this)"><span class="ct">FFT / NTT</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">다항식 곱 A(x)×B(x)의 계수를 직접 구하면 O(n²). FFT는 각 다항식을 n+m개 점의 값으로 변환→점별 곱셈→역변환으로 O(n log n). NTT는 FFT를 정수 체계로 구현해 부동소수점 오차 없음. 분할 정복으로 짝수/홀수 계수 분리가 핵심.</p>
+<div class="formula">NTT mod: 998244353 = 119×2²³+1  (원시근 3, KOI/ICPC 정석)
+10⁹+7은 NTT mod 불가 (2^23 인수 없음, 별도 처리 필요)
+활용: 다항식 곱, 큰 수 곱셈, 문자열 컨볼루션 매칭, 부분집합 합</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> (1+2x+x²)×(1+x)를 직접 계산하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 1×(1+x)+2x×(1+x)+x²×(1+x) = 1+x+2x+2x²+x²+x³ = <strong>1+3x+3x²+x³</strong>. FFT는 이를 O(n log n)에 자동화.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> NTT와 FFT의 가장 큰 차이점은?</div><div class="prob-a"><span class="ans-lbl">A.</span> FFT는 복소수 단위근 사용 → 부동소수점 오차 발생. NTT는 원시근 g(mod p)를 단위근으로 사용 → <strong>정수 연산, 오차 없음</strong>. 단, NTT는 특정 소수(NTT 소수) mod에서만 동작.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 998244353이 NTT 소수인 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 998244353-1 = 119×2²³. FFT에서 n이 최대 2²³까지 지원(분할 정복 깊이). 원시근 3이 존재. 반면 10⁹+7-1 = 2×500000003으로 2의 인수가 적어 큰 NTT 불가.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="latin"><div class="ch" onclick="T(this)"><span class="ct">라틴 방진 (Latin Square)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">n×n 배열에 n가지 기호를 각 행·열에서 정확히 한 번씩 배치. 스도쿠의 일반화(9×9 라틴 방진 + 3×3 블록 제약). 직교 라틴 방진 두 개를 겹치면 모든 (기호, 기호) 쌍이 정확히 한 번 나타남 → 실험 설계, Reed-Solomon 코드에 활용. n≠2,6이면 직교 라틴 방진 존재.</p>
+<div class="formula">축소된(reduced) 라틴 방진 수: n=1:1, 2:1, 3:1, 4:4, 5:56, ...
+(전체 라틴 방진 수: n=1:1, 2:2, 3:12, 4:576, 5:161280, ...)
+가장 단순한 구성: L[i][j] = (i+j) mod n</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> L[i][j]=(i+j) mod 3으로 3×3 라틴 방진을 구성하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 행0: 0,1,2 / 행1: 1,2,0 / 행2: 2,0,1. 각 행·열에 0,1,2가 정확히 한 번 → <strong>올바른 라틴 방진</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 스도쿠와 라틴 방진의 관계는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 9×9 스도쿠는 1~9의 라틴 방진 + 9개의 3×3 서브 박스에도 1~9가 모두 등장해야 하는 추가 제약. 라틴 방진 ⊃ 스도쿠(더 강한 조건).</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 직교 라틴 방진이 n=2일 때 존재하지 않는 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 2×2 라틴 방진은 본질적으로 [[0,1],[1,0]] 한 가지뿐이라, 서로 다른 두 방진을 겹쳐 4개 쌍 (0,0),(0,1),(1,0),(1,1)을 모두 한 번씩 만들 수 없음 → 직교쌍 불가. 오일러는 n≡2 (mod 4)에서 직교 라틴 방진이 없다고 추측했으나, n=6은 1901년 가스통 타리(Gaston Tarry)가 손으로 전수조사해 증명했고, n=10 이상은 1959년 반례가 발견되어 추측이 반증됨(실제 예외는 n=2,6뿐).</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="hamming"><div class="ch" onclick="T(this)"><span class="ct">해밍 거리 (Hamming Distance)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">두 등길이 문자열(또는 정수)에서 같은 위치에 다른 기호가 있는 위치의 수. 오류 수정 코드에서 최소 해밍 거리가 d이면 ⌊(d-1)/2⌋개 비트 오류를 수정 가능. 해밍 코드(7,4): 4비트 데이터+3비트 패리티, 최소 거리 3, 1비트 수정.</p>
+<div class="formula">d(x,y) = popcount(x XOR y)  [서로 다른 비트 수]
+최소 해밍 거리 d인 코드: ⌊(d-1)/2⌋비트 오류 수정, d-1비트 오류 감지
+해밍 한계: 코드워드 수 ≤ 2^n / Σ_{i=0}^{t} C(n,i)  [t=수정 가능 비트 수]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> d(1010₂, 1100₂)를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> XOR: 1010⊕1100=0110. popcount(0110)=<strong>2</strong>. 즉 2번째, 3번째 비트 위치가 다름.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 최소 해밍 거리가 3인 코드로 몇 비트까지 수정 가능한가?</div><div class="prob-a"><span class="ans-lbl">A.</span> ⌊(3-1)/2⌋=<strong>1비트</strong> 수정 가능. 1비트가 틀려도 다른 유효 코드워드까지 거리가 2이므로 가장 가까운 코드워드로 복원.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> ASCII 'A'(65=1000001₂)와 'a'(97=1100001₂)의 해밍 거리는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 65⊕97=32=0100000₂. popcount(32)=<strong>1</strong>. 즉 대소문자는 6번째 비트 하나만 다름. a|=32로 소문자 변환, a&=~32로 대문자 변환.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="sim"><div class="ch" onclick="T(this)"><span class="ct">시뮬레이션 카운팅</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">세 가지 중요 DP 패턴. 자리수 DP: 각 자릿수를 상태로 상한보다 작은지 여부 추적. 프로파일 DP: 타일링·격자에서 이전 열(행) 상태를 비트마스크로 압축. SOS DP(Sum over Subsets): f[mask]=Σ_{sub⊆mask} a[sub]를 O(n×2^n)에 전처리.</p>
+<ul class="pl">
+<li>자리수 DP: n 이하에서 조건 만족 수의 개수 — dp[자릿수][합/조건][tight여부]</li>
+<li>프로파일 DP: 타일링·격자 문제에서 이전 열 상태를 비트마스크로 저장</li>
+<li>SOS DP: f[mask]=Σ_{sub⊆mask} a[sub], O(n×2ⁿ) 전처리</li>
+</ul>
+<pre><code class="language-cpp">// SOS DP
+for(int i=0;i&lt;n;i++)
+    for(int mask=0;mask&lt;(1&lt;&lt;n);mask++)
+        if(mask>>i&1) f[mask]+=f[mask^(1&lt;&lt;i)];</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 1~999 중 각 자리 숫자 합이 10 이하인 수의 개수를 자리수 DP로 구하는 상태는?</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[자릿수 위치][현재까지 숫자 합][tight(상한에 딱 붙어있는지)]. 전이: 현재 자리에 0~9(또는 tight이면 0~상한숫자)를 넣어 합 갱신. 최종: dp[3][≤10][any] 합산.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 2×n 타일링(1×2 타일)의 점화식과 복잡도는?</div><div class="prob-a"><span class="ans-lbl">A.</span> dp[n]=dp[n-1]+dp[n-2] (피보나치). dp[n-1]: n번째 열에 세로 타일, dp[n-2]: n-1,n번째 열에 가로 타일 2개. O(n). 프로파일 DP는 더 복잡한 m×n에서 O(n×2^m).</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> SOS DP의 응용: a[]={1,0,3,2}(n=2)에서 f[mask]=Σa[sub] 결과는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 인덱스: a[00]=1, a[01]=0, a[10]=3, a[11]=2. 초기 f=a. i=0(0번 비트): f[01]+=f[00] → 0+1=1, f[11]+=f[10] → 2+3=5. i=1(1번 비트): f[10]+=f[00] → 3+1=4, f[11]+=f[01] → 5+1=6. 결과 <strong>f={1, 1, 4, 6}</strong>. 검산: f[11]=모든 부분집합 합=1+0+3+2=6 ✓</div></div>
+</div>
+</div></div>
+</section>
+
+</div><!-- /cw -->
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

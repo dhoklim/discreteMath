@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>그래프 이론 · KOI 이산수학</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">
+    <a href="index.html" style="text-decoration:none;color:inherit;display:block">
+      <div class="logo-title">KOI 이산수학</div>
+      <div class="logo-sub">전체 개념 정리 · 66개 토픽</div>
+    </a>
+  </div>
+  <div class="search-wrap">
+    <input id="search" type="text" placeholder="개념 검색…" autocomplete="off">
+  </div>
+  <nav id="nav">
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">I</span>수론</div>
+      <a class="nav-link" href="01-number-theory.html#divisors">약수·배수</a>
+      <a class="nav-link" href="01-number-theory.html#primes">소수 판별</a>
+      <a class="nav-link" href="01-number-theory.html#factorize">소인수분해</a>
+      <a class="nav-link" href="01-number-theory.html#gcd">GCD / LCM</a>
+      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
+      <a class="nav-link" href="01-number-theory.html#sieve">에라토스테네스의 체</a>
+      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
+      <a class="nav-link" href="01-number-theory.html#modular">모듈러 산술</a>
+      <a class="nav-link" href="01-number-theory.html#fastpow">빠른 거듭제곱</a>
+      <a class="nav-link" href="01-number-theory.html#fermat">페르마 소정리</a>
+      <a class="nav-link" href="01-number-theory.html#modinv">모듈러 역원</a>
+      <a class="nav-link" href="01-number-theory.html#eulerphi">오일러 파이 함수</a>
+      <a class="nav-link" href="01-number-theory.html#eulerthm">오일러 정리</a>
+      <a class="nav-link" href="01-number-theory.html#crt">중국인 나머지 정리</a>
+      <a class="nav-link" href="01-number-theory.html#mobius">뫼비우스 함수</a>
+      <a class="nav-link" href="01-number-theory.html#millerrabin">밀러-라빈 소수 판별</a>
+      <a class="nav-link" href="01-number-theory.html#pollard">폴라드 로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">II</span>조합론</div>
+      <a class="nav-link" href="02-combinatorics.html#permcomb">순열·조합</a>
+      <a class="nav-link" href="02-combinatorics.html#binom">이항계수</a>
+      <a class="nav-link" href="02-combinatorics.html#pascal">파스칼 삼각형</a>
+      <a class="nav-link" href="02-combinatorics.html#binomthm">이항 정리</a>
+      <a class="nav-link" href="02-combinatorics.html#rep">중복 순열·조합</a>
+      <a class="nav-link" href="02-combinatorics.html#ie">포함-배제 원리</a>
+      <a class="nav-link" href="02-combinatorics.html#pigeonhole">비둘기집 원리</a>
+      <a class="nav-link" href="02-combinatorics.html#catalan">카탈란 수</a>
+      <a class="nav-link" href="02-combinatorics.html#lucas">뤼카 정리</a>
+      <a class="nav-link" href="02-combinatorics.html#partition">분할수</a>
+      <a class="nav-link" href="02-combinatorics.html#stirling">스털링 수</a>
+      <a class="nav-link" href="02-combinatorics.html#burnside">번사이드 보조정리</a>
+      <a class="nav-link" href="02-combinatorics.html#genfunc">생성함수 기초</a>
+      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
+      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">III</span>그래프 이론</div>
+      <a class="nav-link" href="03-graph-theory.html#graphbasic">그래프 기본 용어</a>
+      <a class="nav-link" href="03-graph-theory.html#graphrepr">그래프 표현</a>
+      <a class="nav-link" href="03-graph-theory.html#tree">트리</a>
+      <a class="nav-link" href="03-graph-theory.html#bipartite">이분 그래프</a>
+      <a class="nav-link" href="03-graph-theory.html#eulerham">오일러·해밀턴 경로</a>
+      <a class="nav-link" href="03-graph-theory.html#topo">위상 정렬</a>
+      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
+      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
+      <a class="nav-link" href="03-graph-theory.html#coloring">그래프 채색</a>
+      <a class="nav-link" href="03-graph-theory.html#planar">평면 그래프</a>
+      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
+      <a class="nav-link" href="03-graph-theory.html#spanning">스패닝 트리</a>
+      <a class="nav-link" href="03-graph-theory.html#flow">네트워크 플로우</a>
+      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">IV</span>논리·집합·귀납법</div>
+      <a class="nav-link" href="04-logic-sets.html#proposition">명제 논리</a>
+      <a class="nav-link" href="04-logic-sets.html#logicops">논리 연산자</a>
+      <a class="nav-link" href="04-logic-sets.html#demorgan">드 모르간 법칙</a>
+      <a class="nav-link" href="04-logic-sets.html#sets">집합 연산</a>
+      <a class="nav-link" href="04-logic-sets.html#induction">수학적 귀납법</a>
+      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
+      <a class="nav-link" href="04-logic-sets.html#boolean">부울 대수</a>
+      <a class="nav-link" href="04-logic-sets.html#bitops">비트 연산·비트마스크</a>
+      <a class="nav-link" href="04-logic-sets.html#relations">동치·편순서 관계</a>
+      <a class="nav-link" href="04-logic-sets.html#predicate">술어 논리</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">V</span>기타 기법</div>
+      <a class="nav-link" href="05-techniques.html#recurrence">점화식</a>
+      <a class="nav-link" href="05-techniques.html#matpow">행렬 거듭제곱</a>
+      <a class="nav-link" href="05-techniques.html#nim">님 게임·스프라그-그런디</a>
+      <a class="nav-link" href="05-techniques.html#probdp">확률·기댓값 DP</a>
+      <a class="nav-link" href="05-techniques.html#master">마스터 정리</a>
+      <a class="nav-link" href="05-techniques.html#bsgs">이산 로그 BSGS</a>
+      <a class="nav-link" href="05-techniques.html#fft">FFT / NTT</a>
+      <a class="nav-link" href="05-techniques.html#latin">라틴 방진</a>
+      <a class="nav-link" href="05-techniques.html#hamming">해밍 거리</a>
+      <a class="nav-link" href="05-techniques.html#sim">시뮬레이션 카운팅</a>
+    </div>
+  </nav>
+  <div class="legend">
+    <div class="legend-t">난이도</div>
+    <div class="legend-row">
+      <span class="badge easy">기초 KOI1차</span>
+      <span class="badge mid">중급 KOI2차</span>
+      <span class="badge hard">고급 IOI</span>
+    </div>
+  </div>
+</aside>
+<main>
+<header class="hero">
+  <div class="hero-lbl">Unit III · Graph Theory</div>
+  <h1>그래프 이론</h1>
+  <p>그래프 표현과 트리, 위상 정렬·SCC·이분 매칭·네트워크 플로우.</p>
+  <div class="stats">
+    <div><div class="stat-n">14</div><div class="stat-l">개념</div></div>
+  </div>
+</header>
+
+<div class="cw">
+
+<section class="us">
+<div class="uh"><span class="ubadge">Unit III</span><h2>그래프 이론 (Graph Theory)</h2><span class="ucnt">14개 개념</span></div>
+
+<div class="concept" id="graphbasic"><div class="ch" onclick="T(this)"><span class="ct">그래프 기본 용어</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">그래프 G=(V,E). 완전 그래프 Kₙ: 모든 정점 쌍이 간선으로 연결, |E|=n(n-1)/2. 방향 그래프에서 차수는 in-degree(들어오는)와 out-degree(나가는)로 구분. 연결 성분: 연결된 최대 부분 그래프.</p>
+<div class="tw"><table>
+<tr><th>용어</th><th>설명</th></tr>
+<tr><td>정점 V</td><td>노드, 꼭짓점</td></tr>
+<tr><td>간선 E</td><td>두 정점을 잇는 선 (유향/무향)</td></tr>
+<tr><td>차수 deg(v)</td><td>v에 연결된 간선 수</td></tr>
+<tr><td>경로</td><td>정점들의 순서열 (반복 없으면 단순)</td></tr>
+<tr><td>사이클</td><td>시작 = 끝인 경로</td></tr>
+<tr><td>연결 그래프</td><td>임의의 두 정점 사이에 경로 존재</td></tr>
+</table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정점 5개, 간선 7개인 그래프에서 모든 정점의 차수 합은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 악수 보조정리: Σdeg(v) = 2|E| = 2×7 = <strong>14</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 완전 그래프 K₆의 간선 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> |E| = 6×5/2 = <strong>15</strong>. 각 정점의 차수는 5.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 연결 그래프에서 간선 수의 최솟값과 최댓값은? (정점 수 n)</div><div class="prob-a"><span class="ans-lbl">A.</span> 최솟값: <strong>n-1</strong> (트리), 최댓값: <strong>n(n-1)/2</strong> (완전 그래프 Kₙ)</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="graphrepr"><div class="ch" onclick="T(this)"><span class="ct">그래프 표현</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">인접 행렬: V²공간, 간선 존재 확인 O(1), 밀집 그래프(E≈V²)에 적합. 인접 리스트: V+E 공간, BFS/DFS 순회 O(V+E), 희소 그래프에 적합. 간선 리스트: 크루스칼 등 간선 정렬이 필요한 알고리즘에 사용.</p>
+<pre><code class="language-cpp">// 인접 행렬 O(V²): 간선 확인 O(1), 밀집 그래프
+int adj[MAXV][MAXV];
+// 인접 리스트 O(V+E): 희소 그래프, BFS/DFS에 적합
+vector&lt;pair&lt;int,int&gt;&gt; adj[MAXV]; // {이웃, 가중치}
+adj[u].push_back({v, w});</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> V=4, 간선 {(0,1),(1,2),(2,3),(0,3)}을 인접 행렬로 표현하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 4×4 대칭 행렬. [0][1]=1,[0][3]=1,[1][2]=1,[2][3]=1 (및 대칭). 나머지는 0. 간선 확인: adj[1][3]=0 → 간선 없음을 O(1)에 확인.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> V=10만, E=30만인 그래프에서 인접 행렬의 메모리는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 10만² × 4바이트 = 40GB → <strong>불가</strong>. 인접 리스트는 (V+E)×(int 크기) ≈ 1.6MB로 충분.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 무방향 간선을 인접 리스트에 추가할 때 두 방향 모두 push_back 해야 하는 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 인접 리스트는 "u에서 갈 수 있는 이웃"만 저장. 무방향이면 u→v와 v→u 모두 저장해야 양방향 탐색이 가능. push_back 1번만 하면 사실상 방향 그래프가 됨.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="tree"><div class="ch" onclick="T(this)"><span class="ct">트리 (Tree)</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">연결된 비순환 그래프. V개 정점, V-1개 간선. 세 조건(①연결 ②비순환 ③|E|=|V|-1) 중 두 가지만 성립해도 트리. 루트 트리: 한 노드를 루트로 지정해 부모-자식 관계 정의. 이진 트리: 각 노드의 자식이 최대 2개.</p>
+<div class="formula">완전 이진 트리: n개 노드 → 높이 ⌊log₂n⌋
+리프 수 = 내부 노드 수 + 1  [이진 트리에서 자식이 0 또는 2인 경우]
+케일리 공식: 레이블 있는 트리 수 = n^(n-2)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정점 7개인 트리의 간선 수는? 리프가 최대 몇 개 가능한가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 간선 수: <strong>6</strong> (|V|-1). 리프 최대: 내부 노드를 루트 1개만 남기면 리프 6개 (별 모양 그래프).</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 노드가 31개인 완전 이진 트리의 높이는?</div><div class="prob-a"><span class="ans-lbl">A.</span> ⌊log₂31⌋ = <strong>4</strong>. (2⁴=16≤31<32=2⁵). 리프는 16개, 내부 노드는 15개.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> K₄(레이블 있는 4개 정점)의 스패닝 트리 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 케일리 공식: 4^(4-2) = 4² = <strong>16</strong>개</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="bipartite"><div class="ch" onclick="T(this)"><span class="ct">이분 그래프</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">정점을 U, V로 분할해 모든 간선이 U-V 사이에만 존재. 이분 그래프 ⟺ 홀수 사이클 없음 ⟺ 2-컬러링 가능. BFS로 인접 정점에 반대 색을 칠하다 같은 색 충돌 시 이분 그래프 아님. 이분 매칭, 최대 유량의 기반.</p>
+<pre><code class="language-cpp">bool isBipartite(int n, vector&lt;int&gt; adj[]) {
+    vector&lt;int&gt; color(n,-1);
+    for(int s=0;s&lt;n;s++){
+        if(color[s]!=-1)continue;
+        queue&lt;int&gt; q; q.push(s); color[s]=0;
+        while(!q.empty()){ int u=q.front();q.pop();
+            for(int v:adj[u]){ if(color[v]==-1){color[v]=1-color[u];q.push(v);}
+                else if(color[v]==color[u])return false; } }
+    } return true; }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 사이클 C₄(사각형)는 이분 그래프인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>Yes</strong>. 정점 {0,1,2,3}에서 U={0,2}, V={1,3}으로 분리. 간선 0-1, 1-2, 2-3, 3-0 모두 U-V 사이. 짝수 사이클이므로 이분.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 사이클 C₅(오각형)는 이분 그래프인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>No</strong>. 홀수 길이(5) 사이클 존재 → 2-컬러링 불가. BFS 진행 시 어느 시점에서 같은 색 정점끼리 간선 발생.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 트리는 항상 이분 그래프인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>Yes</strong>. 트리는 사이클이 없으므로 홀수 사이클도 없음 → 이분 그래프. 루트에서 BFS로 짝수 깊이=0색, 홀수 깊이=1색으로 2-컬러링이 항상 성공.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="eulerham"><div class="ch" onclick="T(this)"><span class="ct">오일러 경로 · 해밀턴 경로</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">오일러 경로: 모든 <b>간선</b>을 정확히 한 번 통과. 차수 조건으로 O(V+E)에 존재 여부 판별. 해밀턴 경로: 모든 <b>정점</b>을 정확히 한 번 방문 — NP-완전이라 일반 다항식 알고리즘 없음.</p>
+<ul class="pl">
+<li>오일러 경로(무방향): 홀수 차수 정점 0개(회로) 또는 정확히 2개(경로, 그 두 정점이 끝점)</li>
+<li>오일러 회로(방향): 모든 정점에서 in-degree = out-degree, 그래프 연결</li>
+<li>해밀턴 경로: NP-완전, n≤20은 비트마스크 DP O(2ⁿ×n²)</li>
+</ul>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 쾨니히스베르크 다리 문제: 4개 지역이 7개 다리로 연결될 때 오일러 경로가 존재하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 각 지역의 다리 수(차수): 3, 3, 3, 5 → 홀수 차수 정점이 4개. 오일러 경로 조건(홀수 0개 또는 2개)에 <strong>위배 → 존재하지 않음</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> K₅(완전 그래프, 5정점)에서 오일러 회로가 존재하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 각 정점의 차수=4(짝수). 홀수 차수 0개 → <strong>오일러 회로 존재</strong>. 연결 그래프이므로 조건 만족.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n≥3인 완전 그래프 Kₙ에서 해밀턴 사이클이 항상 존재하는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>Yes</strong>. 디락 조건: 모든 정점의 차수≥n/2이면 해밀턴 사이클 존재. Kₙ에서 각 차수=n-1≥n/2. 예) K₃: 1→2→3→1.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="topo"><div class="ch" onclick="T(this)"><span class="ct">위상 정렬 (Topological Sort)</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">DAG에서 "u→v 간선이 있으면 u가 v보다 앞"인 순서. Kahn: 진입차수 0인 정점을 큐에서 꺼내며 이웃의 진입차수 감소, 0이 되면 큐에 추가. 결과 크기&lt;n이면 사이클 존재. 과목 선수 과목, 빌드 의존성, 이벤트 순서에 활용.</p>
+<pre><code class="language-cpp">vector&lt;int&gt; topoSort(int n, vector&lt;int&gt; adj[]) {
+    vector&lt;int&gt; indeg(n,0);
+    for(int u=0;u&lt;n;u++) for(int v:adj[u]) indeg[v]++;
+    queue&lt;int&gt; q; for(int i=0;i&lt;n;i++) if(!indeg[i]) q.push(i);
+    vector&lt;int&gt; order;
+    while(!q.empty()){ int u=q.front();q.pop();order.push_back(u);
+        for(int v:adj[u]) if(--indeg[v]==0) q.push(v); }
+    return order; // size&lt;n → 사이클 존재
+}</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 간선 {0→2, 1→2, 1→3, 2→4, 3→4}에서 위상 정렬 결과를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 진입차수: 0:0, 1:0, 2:2, 3:1, 4:2. 초기 큐: {0,1}. 0 처리→2의 indeg=1. 1 처리→2의 indeg=0→큐 추가, 3의 indeg=0→큐 추가. 순서 예시: <strong>0,1,2,3,4</strong> 또는 <strong>0,1,3,2,4</strong> (복수 가능)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 위상 정렬이 유일한 경우는 언제인가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 매 단계에서 진입차수 0인 정점이 정확히 1개일 때. 즉 DAG가 하나의 해밀턴 경로를 가지면 위상 정렬이 유일.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 0→1→2→0 사이클이 있는 그래프에서 Kahn 알고리즘의 결과는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 사이클 내 정점들의 진입차수는 절대 0이 되지 않아 큐에 들어오지 못함. order.size()=0 &lt; 3=n → <strong>사이클 존재 감지</strong></div></div>
+</div>
+</div></div>
+
+<div class="concept" id="scc"><div class="ch" onclick="T(this)"><span class="ct">강한 연결 성분 (SCC)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">방향 그래프에서 u→v, v→u가 모두 가능한 최대 정점 집합. 타잔: DFS 탐색 순서(id)와 도달 가능한 최솟값(low)을 추적, low[u]==id[u]이면 스택에서 SCC 추출. SCC 압축 후 항상 DAG가 됨 → 위상 정렬 가능.</p>
+<pre><code class="language-cpp">// 타잔 (Tarjan) — 핵심 구조
+int idx=0,cnt=0;
+vector&lt;int&gt; id(n,-1),low(n),stk,comp(n,-1);
+vector&lt;bool&gt; onStk(n,false);
+function&lt;void(int)&gt; dfs=[&](int u){
+    low[u]=id[u]=idx++;stk.push_back(u);onStk[u]=true;
+    for(int v:adj[u]){
+        if(id[v]==-1){dfs(v);low[u]=min(low[u],low[v]);}
+        else if(onStk[v]) low[u]=min(low[u],id[v]);
+    }
+    if(low[u]==id[u]){
+        while(true){int v=stk.back();stk.pop_back();
+            onStk[v]=false;comp[v]=cnt;if(v==u)break;}cnt++;}
+};</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 간선 {0→1, 1→2, 2→0, 1→3, 3→4, 4→3}의 SCC를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> {0,1,2}: 0→1→2→0 사이클. {3,4}: 3→4→3 사이클. → SCC: <strong>{0,1,2}, {3,4}</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> SCC 압축 후 그래프가 항상 DAG인 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 두 SCC 간에 사이클이 있으면 두 SCC가 사실 같은 하나의 SCC (모순). 따라서 SCC 간 간선은 단방향만 → <strong>DAG</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 2-SAT에서 SCC가 어떻게 활용되는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> 변수 xᵢ와 ¬xᵢ를 정점으로, 절 (a∨b)를 ¬a→b, ¬b→a 간선으로 변환. xᵢ와 ¬xᵢ가 같은 SCC이면 <strong>불가능</strong>. 아니면 위상 정렬 역순으로 진리값 결정.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="matching"><div class="ch" onclick="T(this)"><span class="ct">이분 매칭 (Bipartite Matching)</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">이분 그래프 U-V에서 간선을 통해 최대 짝을 만드는 문제. 증가 경로(현재 매칭되지 않은 U 정점 → 매칭된 V 정점 → 그 V와 매칭된 U → ...)를 DFS로 탐색. 경로가 있으면 매칭 1 증가. 쾨닉: 최대 매칭 = 최소 정점 커버. 딜워스: 최소 사슬 커버 = 전체 - 최대 매칭.</p>
+<pre><code class="language-cpp">vector&lt;int&gt; match(R,-1);
+function&lt;bool(int,vector&lt;bool&gt;&amp;)&gt; dfs=[&](int u,vector&lt;bool&gt;&amp;vis){
+    for(int v:adj[u]){if(vis[v])continue;vis[v]=true;
+        if(match[v]==-1||dfs(match[v],vis)){match[v]=u;return true;}}
+    return false;};
+int cnt=0; for(int u=0;u&lt;L;u++){vector&lt;bool&gt;vis(R,false);if(dfs(u,vis))cnt++;}</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 학생 3명(A,B,C)과 과제 3개(1,2,3)에서 A→{1,2}, B→{2,3}, C→{1,3}일 때 최대 매칭은?</div><div class="prob-a"><span class="ans-lbl">A.</span> A→1, B→2, C→3 또는 A→2, B→3, C→1 등. 최대 매칭 = <strong>3</strong> (완전 매칭 존재)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 쾨닉 정리: 최대 매칭=2인 이분 그래프의 최소 정점 커버 크기는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 쾨닉 정리에 의해 최소 정점 커버 = 최대 매칭 = <strong>2</strong>. 즉 2개의 정점으로 모든 간선을 커버 가능.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> "n×n 체스판에서 룩(Rook) n개를 서로 공격하지 않게 배치하는 최대 수"를 이분 매칭으로 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 행(U)과 열(V)을 정점으로. 격자 (i,j)를 간선으로 표현. 매칭: 같은 행/열에 하나씩 → 최대 매칭 = <strong>n</strong> (항상 완전 매칭).</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="coloring"><div class="ch" onclick="T(this)"><span class="ct">그래프 채색</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">인접한 정점에 같은 색을 쓰지 않으며 칠하는 최소 색 수 χ(G)를 색수라 함. 일반적으로 최소 색수를 구하는 문제는 NP-하드이나 특수 그래프(트리, 이분, 평면)는 공식이 있다.</p>
+<ul class="pl">
+<li>χ(G): 색수, 인접 정점이 다른 색이 되도록 하는 최소 색 수</li>
+<li>트리: χ=2, 이분 그래프 ⟺ χ≤2, 완전 그래프 Kₙ: χ=n</li>
+<li>평면 그래프: χ≤4 (4색 정리, 컴퓨터로 증명)</li>
+<li>χ(G) ≤ Δ(G)+1  [Δ=최대 차수, Vizing 정리의 정점 채색 버전]</li>
+</ul>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 6각형(사이클 C₆)의 색수 χ는?</div><div class="prob-a"><span class="ans-lbl">A.</span> C₆는 짝수 사이클 → 이분 그래프 → χ = <strong>2</strong>. (짝수 위치=빨강, 홀수 위치=파랑)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 5각형(C₅)의 색수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 홀수 사이클 → 이분 그래프 아님 → χ ≥ 3. 3색으로 가능: 1,2,1,2,3 배치. → χ(C₅) = <strong>3</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> K₄(4정점 완전 그래프)의 색수와 최대 차수 Δ는?</div><div class="prob-a"><span class="ans-lbl">A.</span> χ(K₄)=<strong>4</strong> (n개 서로 인접), Δ=3. χ=Δ+1이 성립. Vizing 정리(간선 채색): 간선 채색 색수=Δ 또는 Δ+1.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="planar"><div class="ch" onclick="T(this)"><span class="ct">평면 그래프와 오일러 공식</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">평면 그래프: 간선이 교차하지 않게 평면에 그릴 수 있는 그래프. 오일러 공식 V-E+F=2는 연결된 평면 그래프에서 항상 성립(외부 면 포함). 각 면은 최소 3개 간선으로 둘러싸이므로 3F≤2E → E≤3V-6 도출.</p>
+<div class="formula">V - E + F = 2  [연결된 평면 그래프, F=면의 수(외부 포함)]
+단순 평면 그래프: E ≤ 3V-6  (이분이면 E ≤ 2V-4)
+K₅(V=5,E=10>9), K₃,₃(V=6,E=9>8)은 비평면 (쿠라토프스키)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정육면체 그래프(V=8, E=12)에서 면의 수 F는?</div><div class="prob-a"><span class="ans-lbl">A.</span> V-E+F=2 → 8-12+F=2 → F=<strong>6</strong>. 정육면체의 면 6개와 일치.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> K₅가 평면 그래프가 아님을 E≤3V-6으로 보이시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> K₅: V=5, E=10. 3V-6=9. E=10 > 9 → <strong>평면 그래프 불가</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 정이십면체(V=12, E=30)의 면의 수를 오일러 공식으로 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 12-30+F=2 → F=<strong>20</strong>. 정이십면체의 삼각형 면 20개와 일치.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="handshake"><div class="ch" onclick="T(this)"><span class="ct">악수 보조정리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">각 간선은 두 끝점의 차수를 각각 1씩 늘리므로 차수의 합=2|E|. 따라서 차수의 합은 항상 짝수, 홀수 차수 정점의 개수도 항상 짝수. 오일러 경로 조건 증명에도 사용.</p>
+<div class="formula">Σ deg(v) = 2|E|  →  홀수 차수 정점의 수는 항상 짝수
+Kₙ: 각 차수 n-1, |E|=n(n-1)/2
+Kₘ,ₙ(완전 이분): |E|=mn, U쪽 차수=n, V쪽 차수=m</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 파티에서 6명이 악수를 총 10번 했다. 평균 악수 횟수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Σdeg = 2×10 = 20. 평균 = 20/6 = <strong>10/3 ≈ 3.3회</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 5명 중 홀수 번 악수한 사람이 홀수 명일 수 있는가?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>불가능</strong>. 악수 보조정리: 홀수 차수 정점의 수는 항상 짝수. 따라서 홀수 명은 모순.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> k-정규 그래프(모든 정점 차수=k)에서 V=8, k=3일 때 간선 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Σdeg = k×V = 3×8 = 24 = 2|E| → |E| = <strong>12</strong></div></div>
+</div>
+</div></div>
+
+<div class="concept" id="spanning"><div class="ch" onclick="T(this)"><span class="ct">스패닝 트리 · 케일리 공식</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">스패닝 트리: 그래프의 모든 정점을 포함하는 트리 부분 그래프(V개 정점, V-1개 간선). 최소 스패닝 트리(MST): 가중치 합 최소. 크루스칼(간선 정렬+유니온 파인드 O(E log E)), 프림(우선순위 큐 O(E log V)). 행렬-나무 정리로 스패닝 트리 개수를 세는 것은 IOI 수준.</p>
+<div class="formula">케일리 공식: 레이블 있는 n개 정점 트리 수 = n^(n-2)
+행렬-나무 정리: 라플라시안 L의 임의 (n-1)×(n-1) 여인수 = 스패닝 트리 수
+L = D - A  [D: 차수 행렬, A: 인접 행렬]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> K₃의 스패닝 트리 수를 케일리 공식과 직접 나열로 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 케일리: 3^(3-2)=3. 직접: 정점 {0,1,2}에서 간선 3개 중 하나 제거 → {0-1,1-2}, {0-1,0-2}, {0-2,1-2} → <strong>3가지</strong> ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> MST를 구하는 크루스칼 알고리즘의 핵심 아이디어는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 간선을 가중치 오름차순 정렬 후 사이클을 만들지 않는 간선을 V-1개 선택. 사이클 여부는 유니온-파인드로 O(α(n))≈O(1). 전체 O(E log E).</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> K₄의 스패닝 트리 수는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 케일리: 4^(4-2) = 4² = <strong>16</strong></div></div>
+</div>
+</div></div>
+
+<div class="concept" id="flow"><div class="ch" onclick="T(this)"><span class="ct">네트워크 플로우</span><span class="badge hard">고급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">s(소스)→t(싱크)로 흐를 수 있는 최대 유량. 각 간선에 용량 c(u,v)가 있고 플로우 f(u,v)≤c(u,v)를 만족. 잔여 그래프에서 증가 경로를 찾아 플로우를 늘리는 Ford-Fulkerson 계열. 디닉은 레벨 그래프 BFS+블로킹 플로우로 최악 O(V²E).</p>
+<ul class="pl">
+<li>디닉(Dinic): O(V²E), 이분 매칭엔 O(E√V)</li>
+<li>Max-flow Min-cut 정리: 최대 유량 = 최소 컷</li>
+<li>이분 매칭 = 최대 유량 (소스→U 용량1, U→V 간선, V→싱크 용량1)</li>
+<li>DAG 최소 경로 커버 = V - 최대 이분 매칭</li>
+</ul>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> s→a(용량3), s→b(용량2), a→t(용량2), b→t(용량3), a→b(용량1)의 최대 유량은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 경로 s→a→t: 유량2. 경로 s→b→t: 유량2. 경로 s→a→b→t: 남은 a 용량 1, b→t 남은 용량 1 → 유량1. 총 = <strong>5</strong>. 최소 컷: {s}↔{a,b,t}, 용량=3+2=5 ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 최대 유량 = 최소 컷의 직관적 의미는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 가장 병목이 되는 간선 집합(컷)의 용량 합이 최대로 보낼 수 있는 유량의 상한이며, 실제로 그 값에 도달할 수 있음. s와 t를 분리하는 최소 용량의 간선 집합을 제거하면 유량이 0이 됨.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n개 작업의 DAG에서 최소 경로 커버를 이분 매칭으로 구하는 방법은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 각 작업 i를 U의 i와 V의 i'로 복제. DAG 간선 i→j를 U의 i → V의 j' 간선으로. 최소 경로 커버 = n - 최대 이분 매칭. (매칭 = 작업들을 연결해 경로로 합치는 것)</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="lca"><div class="ch" onclick="T(this)"><span class="ct">트리 지름 · LCA</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">트리 지름: BFS/DFS 2회. 임의 점 u에서 가장 먼 v, v에서 가장 먼 w까지 dist(v,w)가 지름. LCA(Least Common Ancestor): u와 v의 공통 조상 중 가장 깊은 것. 희소 테이블로 O(n log n) 전처리, O(log n) 쿼리. 두 노드 거리=depth[u]+depth[v]-2×depth[lca(u,v)].</p>
+<pre><code class="language-cpp">int up[MAXN][LOG]; // up[v][k] = v의 2^k번째 조상
+// 전처리: up[v][k]=up[up[v][k-1]][k-1]
+int lca(int u,int v){
+    if(depth[u]&lt;depth[v])swap(u,v);
+    for(int k=LOG-1;k&gt;=0;k--)
+        if(depth[u]-depth[v]&gt;=(1&lt;&lt;k)) u=up[u][k];
+    if(u==v) return u;
+    for(int k=LOG-1;k&gt;=0;k--)
+        if(up[u][k]!=up[v][k]){u=up[u][k];v=up[v][k];}
+    return up[u][0];
+}</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 트리 지름을 BFS 2회로 구하는 알고리즘이 올바른 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> 임의 시작점에서 가장 먼 점 v는 반드시 지름의 한 끝점. 증명: v가 지름 끝점이 아니라면 지름을 이루는 두 점 a,b 중 하나가 v보다 멀어야 하는데 모순. 따라서 v→w가 지름.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 루트=1인 트리에서 depth[3]=4, depth[7]=6, lca(3,7)=2(depth=2)일 때 dist(3,7)은?</div><div class="prob-a"><span class="ans-lbl">A.</span> dist = depth[3]+depth[7]-2×depth[lca] = 4+6-2×2 = <strong>6</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> up[v][k]의 희소 테이블이 O(n log n)으로 전처리되는 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> up[v][0]=부모(DFS 1회 O(n)). up[v][k]=up[up[v][k-1]][k-1]으로 k=1~LOG-1 계산. 총 n×LOG개 항목, 각 O(1) → O(n log n). 이후 LCA 쿼리: 깊이 맞추기+공통 조상 찾기 각 O(log n).</div></div>
+</div>
+</div></div>
+</section>
+
+</div><!-- /cw -->
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

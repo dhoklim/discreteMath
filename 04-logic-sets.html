@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>논리 · 집합 · 귀납법 · KOI 이산수학</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">
+    <a href="index.html" style="text-decoration:none;color:inherit;display:block">
+      <div class="logo-title">KOI 이산수학</div>
+      <div class="logo-sub">전체 개념 정리 · 66개 토픽</div>
+    </a>
+  </div>
+  <div class="search-wrap">
+    <input id="search" type="text" placeholder="개념 검색…" autocomplete="off">
+  </div>
+  <nav id="nav">
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">I</span>수론</div>
+      <a class="nav-link" href="01-number-theory.html#divisors">약수·배수</a>
+      <a class="nav-link" href="01-number-theory.html#primes">소수 판별</a>
+      <a class="nav-link" href="01-number-theory.html#factorize">소인수분해</a>
+      <a class="nav-link" href="01-number-theory.html#gcd">GCD / LCM</a>
+      <a class="nav-link" href="01-number-theory.html#extgcd">확장 유클리드</a>
+      <a class="nav-link" href="01-number-theory.html#sieve">에라토스테네스의 체</a>
+      <a class="nav-link" href="01-number-theory.html#spf">선형 체 SPF</a>
+      <a class="nav-link" href="01-number-theory.html#modular">모듈러 산술</a>
+      <a class="nav-link" href="01-number-theory.html#fastpow">빠른 거듭제곱</a>
+      <a class="nav-link" href="01-number-theory.html#fermat">페르마 소정리</a>
+      <a class="nav-link" href="01-number-theory.html#modinv">모듈러 역원</a>
+      <a class="nav-link" href="01-number-theory.html#eulerphi">오일러 파이 함수</a>
+      <a class="nav-link" href="01-number-theory.html#eulerthm">오일러 정리</a>
+      <a class="nav-link" href="01-number-theory.html#crt">중국인 나머지 정리</a>
+      <a class="nav-link" href="01-number-theory.html#mobius">뫼비우스 함수</a>
+      <a class="nav-link" href="01-number-theory.html#millerrabin">밀러-라빈 소수 판별</a>
+      <a class="nav-link" href="01-number-theory.html#pollard">폴라드 로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">II</span>조합론</div>
+      <a class="nav-link" href="02-combinatorics.html#permcomb">순열·조합</a>
+      <a class="nav-link" href="02-combinatorics.html#binom">이항계수</a>
+      <a class="nav-link" href="02-combinatorics.html#pascal">파스칼 삼각형</a>
+      <a class="nav-link" href="02-combinatorics.html#binomthm">이항 정리</a>
+      <a class="nav-link" href="02-combinatorics.html#rep">중복 순열·조합</a>
+      <a class="nav-link" href="02-combinatorics.html#ie">포함-배제 원리</a>
+      <a class="nav-link" href="02-combinatorics.html#pigeonhole">비둘기집 원리</a>
+      <a class="nav-link" href="02-combinatorics.html#catalan">카탈란 수</a>
+      <a class="nav-link" href="02-combinatorics.html#lucas">뤼카 정리</a>
+      <a class="nav-link" href="02-combinatorics.html#partition">분할수</a>
+      <a class="nav-link" href="02-combinatorics.html#stirling">스털링 수</a>
+      <a class="nav-link" href="02-combinatorics.html#burnside">번사이드 보조정리</a>
+      <a class="nav-link" href="02-combinatorics.html#genfunc">생성함수 기초</a>
+      <a class="nav-link" href="02-combinatorics.html#countdp">경우의 수 DP</a>
+      <a class="nav-link" href="02-combinatorics.html#lattice">격자 경로</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">III</span>그래프 이론</div>
+      <a class="nav-link" href="03-graph-theory.html#graphbasic">그래프 기본 용어</a>
+      <a class="nav-link" href="03-graph-theory.html#graphrepr">그래프 표현</a>
+      <a class="nav-link" href="03-graph-theory.html#tree">트리</a>
+      <a class="nav-link" href="03-graph-theory.html#bipartite">이분 그래프</a>
+      <a class="nav-link" href="03-graph-theory.html#eulerham">오일러·해밀턴 경로</a>
+      <a class="nav-link" href="03-graph-theory.html#topo">위상 정렬</a>
+      <a class="nav-link" href="03-graph-theory.html#scc">강한 연결 성분 SCC</a>
+      <a class="nav-link" href="03-graph-theory.html#matching">이분 매칭</a>
+      <a class="nav-link" href="03-graph-theory.html#coloring">그래프 채색</a>
+      <a class="nav-link" href="03-graph-theory.html#planar">평면 그래프</a>
+      <a class="nav-link" href="03-graph-theory.html#handshake">악수 보조정리</a>
+      <a class="nav-link" href="03-graph-theory.html#spanning">스패닝 트리</a>
+      <a class="nav-link" href="03-graph-theory.html#flow">네트워크 플로우</a>
+      <a class="nav-link" href="03-graph-theory.html#lca">트리 지름·LCA</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">IV</span>논리·집합·귀납법</div>
+      <a class="nav-link" href="04-logic-sets.html#proposition">명제 논리</a>
+      <a class="nav-link" href="04-logic-sets.html#logicops">논리 연산자</a>
+      <a class="nav-link" href="04-logic-sets.html#demorgan">드 모르간 법칙</a>
+      <a class="nav-link" href="04-logic-sets.html#sets">집합 연산</a>
+      <a class="nav-link" href="04-logic-sets.html#induction">수학적 귀납법</a>
+      <a class="nav-link" href="04-logic-sets.html#strongind">강한 귀납법</a>
+      <a class="nav-link" href="04-logic-sets.html#boolean">부울 대수</a>
+      <a class="nav-link" href="04-logic-sets.html#bitops">비트 연산·비트마스크</a>
+      <a class="nav-link" href="04-logic-sets.html#relations">동치·편순서 관계</a>
+      <a class="nav-link" href="04-logic-sets.html#predicate">술어 논리</a>
+    </div>
+    <div class="nav-unit">
+      <div class="nav-unit-head"><span class="unum">V</span>기타 기법</div>
+      <a class="nav-link" href="05-techniques.html#recurrence">점화식</a>
+      <a class="nav-link" href="05-techniques.html#matpow">행렬 거듭제곱</a>
+      <a class="nav-link" href="05-techniques.html#nim">님 게임·스프라그-그런디</a>
+      <a class="nav-link" href="05-techniques.html#probdp">확률·기댓값 DP</a>
+      <a class="nav-link" href="05-techniques.html#master">마스터 정리</a>
+      <a class="nav-link" href="05-techniques.html#bsgs">이산 로그 BSGS</a>
+      <a class="nav-link" href="05-techniques.html#fft">FFT / NTT</a>
+      <a class="nav-link" href="05-techniques.html#latin">라틴 방진</a>
+      <a class="nav-link" href="05-techniques.html#hamming">해밍 거리</a>
+      <a class="nav-link" href="05-techniques.html#sim">시뮬레이션 카운팅</a>
+    </div>
+  </nav>
+  <div class="legend">
+    <div class="legend-t">난이도</div>
+    <div class="legend-row">
+      <span class="badge easy">기초 KOI1차</span>
+      <span class="badge mid">중급 KOI2차</span>
+      <span class="badge hard">고급 IOI</span>
+    </div>
+  </div>
+</aside>
+<main>
+<header class="hero">
+  <div class="hero-lbl">Unit IV · Logic & Sets</div>
+  <h1>논리 · 집합 · 귀납법</h1>
+  <p>명제·술어 논리, 집합 연산, 수학적 귀납법과 부울 대수.</p>
+  <div class="stats">
+    <div><div class="stat-n">10</div><div class="stat-l">개념</div></div>
+  </div>
+</header>
+
+<div class="cw">
+
+<section class="us">
+<div class="uh"><span class="ubadge">Unit IV</span><h2>논리 · 집합 · 귀납법</h2><span class="ucnt">10개 개념</span></div>
+
+<div class="concept" id="proposition"><div class="ch" onclick="T(this)"><span class="ct">명제 논리</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">명제: 참/거짓이 명확한 문장. P→Q(함의): P가 참이면 Q도 참. P가 거짓이면 Q와 무관하게 전체는 참. 역(Q→P)과 이(¬P→¬Q)는 원명제와 동치가 아님. 대우(¬Q→¬P)만 동치. 귀류법: P를 거짓이라 가정하면 모순 도출 → P는 참.</p>
+<div class="tw"><table>
+<tr><th>종류</th><th>형태</th><th>원명제와 동치?</th></tr>
+<tr><td>역 (Converse)</td><td>Q → P</td><td>아니오</td></tr>
+<tr><td>이 (Inverse)</td><td>¬P → ¬Q</td><td>아니오</td></tr>
+<tr><td>대우 (Contrapositive)</td><td>¬Q → ¬P</td><td>예 ✓</td></tr>
+</table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> "n이 짝수이면 n²도 짝수이다"의 역·이·대우를 쓰시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 역: "n²이 짝수이면 n도 짝수". 이: "n이 홀수이면 n²도 홀수". 대우: "n²이 홀수이면 n도 홀수". 원명제와 대우만 동치이고 실제로 모두 참임.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> P=거짓, Q=참일 때 P→Q의 진리값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 함의 P→Q는 P=거짓이면 Q에 상관없이 <strong>참</strong>. "거짓이 전제인 약속은 항상 지킨 것"으로 이해.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> √2가 무리수임을 귀류법으로 증명하시오 (개요).</div><div class="prob-a"><span class="ans-lbl">A.</span> √2=p/q (기약분수)라 가정 → 2=p²/q² → p²=2q² → p는 짝수(p=2k) → 4k²=2q² → q²=2k² → q도 짝수. p,q 모두 짝수 → 기약분수 모순 → <strong>√2는 무리수</strong> ✓</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="logicops"><div class="ch" onclick="T(this)"><span class="ct">논리 연산자</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">논리 연산은 비트 연산과 직결. AND는 둘 다 참, OR은 하나라도 참, XOR은 홀수 개 참. 함의 P→Q = ¬P∨Q (P가 거짓이거나 Q가 참). 쌍조건 P↔Q = (P→Q)∧(Q→P).</p>
+<div class="tw"><table>
+<tr><th>연산</th><th>기호</th><th>C++ 비트</th></tr>
+<tr><td>AND</td><td>P∧Q</td><td>a &amp; b</td></tr>
+<tr><td>OR</td><td>P∨Q</td><td>a | b</td></tr>
+<tr><td>NOT</td><td>¬P</td><td>~a</td></tr>
+<tr><td>XOR</td><td>P⊕Q</td><td>a ^ b</td></tr>
+<tr><td>함의</td><td>P→Q</td><td>¬P∨Q</td></tr>
+</table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> P=참, Q=거짓일 때 P∧Q, P∨Q, P→Q, P⊕Q의 진리값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> P∧Q=<strong>거짓</strong>, P∨Q=<strong>참</strong>, P→Q=<strong>거짓</strong>(참인 P가 거짓 Q를 함의 불가), P⊕Q=<strong>참</strong>(서로 다름)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> a=5(=101₂), b=3(=011₂)에서 a&b, a|b, a^b를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a&b=001₂=<strong>1</strong>, a|b=111₂=<strong>7</strong>, a^b=110₂=<strong>6</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> XOR의 항등원과 역원은 무엇인가? 실제 응용은?</div><div class="prob-a"><span class="ans-lbl">A.</span> 항등원: 0 (a^0=a). 역원: 자기 자신 (a^a=0). 응용: 님 게임 필승 전략(XOR≠0), 배열에서 중복 없는 유일 원소 찾기(모두 XOR하면 쌍들이 0이 됨), 스왑 (a^=b; b^=a; a^=b).</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="demorgan"><div class="ch" onclick="T(this)"><span class="ct">드 모르간 법칙</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">AND/OR의 부정을 분배할 때 연산자가 반전됨. 논리·집합·비트 모두 동일하게 적용. 복잡한 조건의 NOT을 구현할 때 자주 사용(루프 탈출 조건 변환, 쿼리 조건 반전 등).</p>
+<div class="formula">¬(P∧Q) ≡ ¬P∨¬Q      ¬(P∨Q) ≡ ¬P∧¬Q
+집합: (A∩B)ᶜ=Aᶜ∪Bᶜ   (A∪B)ᶜ=Aᶜ∩Bᶜ
+비트: ~(a&amp;b)==(~a|~b)  ~(a|b)==(~a&amp;~b)</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> ¬(P∧¬Q)를 드 모르간으로 단순화하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ¬(P∧¬Q) = ¬P∨¬(¬Q) = ¬P∨Q = <strong>P→Q</strong> (함의와 동치)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (A∩B)ᶜ = Aᶜ∪Bᶜ를 원소 증명으로 보이시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> x∈(A∩B)ᶜ ⟺ x∉(A∩B) ⟺ ¬(x∈A∧x∈B) ⟺ x∉A∨x∉B ⟺ x∈Aᶜ∨x∈Bᶜ ⟺ x∈Aᶜ∪Bᶜ ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> C++ 조건 !(a>0 && b>0)를 드 모르간으로 변환하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> !(a>0 && b>0) = !(a>0) || !(b>0) = <strong>(a<=0 || b<=0)</strong></div></div>
+</div>
+</div></div>
+
+<div class="concept" id="sets"><div class="ch" onclick="T(this)"><span class="ct">집합 연산</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">집합: 중복 없는 원소의 모음. 비트마스크로 집합을 표현하면 합집합=OR, 교집합=AND, 차집합=AND NOT, 여집합=NOT. 멱집합 2^A: A의 모든 부분집합 집합, |A|=n이면 |2^A|=2^n.</p>
+<div class="tw"><table>
+<tr><th>연산</th><th>표기</th><th>비트마스크</th></tr>
+<tr><td>합집합</td><td>A∪B</td><td>a | b</td></tr>
+<tr><td>교집합</td><td>A∩B</td><td>a &amp; b</td></tr>
+<tr><td>차집합</td><td>A\B</td><td>a &amp; ~b</td></tr>
+<tr><td>여집합</td><td>Aᶜ=U\A</td><td>~a (전체 mask 기준)</td></tr>
+<tr><td>멱집합</td><td>2^A</td><td>0 ~ (1&lt;&lt;n)-1</td></tr>
+</table></div>
+<div class="formula">|A∪B| = |A|+|B|-|A∩B|     |2^A| = 2^|A|</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> A={1,2,3,4}, B={3,4,5,6}일 때 A∩B, A∪B, A\B를 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> A∩B=<strong>{3,4}</strong>, A∪B=<strong>{1,2,3,4,5,6}</strong>, A\B=<strong>{1,2}</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> |A|=20, |B|=15, |A∩B|=8이면 |A∪B|는?</div><div class="prob-a"><span class="ans-lbl">A.</span> |A∪B| = 20+15-8 = <strong>27</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> {0,1,2,3}의 부분집합 {1,3}을 비트마스크로 표현하고, 전체집합 대비 여집합을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> {1,3} → 비트 1,3번이 켜짐 → 0b1010 = <strong>10</strong>. 전체집합=0b1111=15. 여집합=15 & ~10 = 0b0101 = <strong>5</strong> → {0,2}</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="induction"><div class="ch" onclick="T(this)"><span class="ct">수학적 귀납법</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">①P(1)(또는 P(0)) 기저 사례 증명 ②P(k)가 참이라 가정 후 P(k+1) 증명 → 모든 자연수에서 P(n) 성립. 도미노 원리와 동일. 기저를 여럿 필요로 하거나 이전 여러 단계가 필요하면 강한 귀납법 사용.</p>
+<div class="formula">예: 1+2+···+n=n(n+1)/2
+P(k): 성립 가정 → P(k+1): k(k+1)/2+(k+1)=(k+1)(k+2)/2 ✓</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 1+3+5+···+(2n-1)=n²를 귀납법으로 증명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: n=1, 1=1² ✓. 귀납: P(k) 가정: 1+3+···+(2k-1)=k². P(k+1): k²+(2k+1)=k²+2k+1=(k+1)² ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 2^n > n (n≥1)을 귀납법으로 증명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: 2^1=2>1 ✓. 귀납: 2^k>k 가정 → 2^(k+1)=2×2^k>2k=k+k≥k+1 (k≥1이므로 k≥1). 따라서 2^(k+1)>k+1 ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> Σᵢ₌₁ⁿ i² = n(n+1)(2n+1)/6을 귀납법으로 증명 (귀납 단계만).</div><div class="prob-a"><span class="ans-lbl">A.</span> P(k) 가정 후 P(k+1): k(k+1)(2k+1)/6 + (k+1)² = (k+1)[k(2k+1)/6+(k+1)] = (k+1)[(2k²+k+6k+6)/6] = (k+1)(k+2)(2k+3)/6 ✓</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="strongind"><div class="ch" onclick="T(this)"><span class="ct">강한 귀납법</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">일반(약한) 귀납법: P(k)→P(k+1). 강한 귀납법: P(1)∧P(2)∧···∧P(k)→P(k+1). 이전 모든 단계를 쓸 수 있어 더 강력. 소인수분해 유일성, 피보나치 점화식, 게임 이론 Grundy 수 증명에 필수. 구조적 귀납법은 트리·식 등 재귀 구조에 적용.</p>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> "n>1인 모든 정수는 소수의 곱으로 표현된다"를 강한 귀납법으로 증명 (개요).</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: n=2, 소수 2 = 소수 곱 ✓. 귀납: 2~k까지 성립 가정. k+1이 소수면 자명. 합성수면 k+1=a×b(2≤a,b≤k) → a,b 각각 소수 곱 표현 가능(강한 귀납 가정) → k+1도 소수 곱 ✓. 약한 귀납으로는 a,b가 k이하임을 활용 불가.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 피보나치 Fₙ≤2^n을 강한 귀납법으로 증명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 기저: F₁=1≤2, F₂=1≤4 ✓. 귀납: F(k)≤2^k, F(k-1)≤2^(k-1) 가정. F(k+1)=F(k)+F(k-1)≤2^k+2^(k-1)=2^(k-1)×3<2^(k-1)×4=2^(k+1) ✓</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 님 게임에서 강한 귀납법이 필요한 이유는?</div><div class="prob-a"><span class="ans-lbl">A.</span> Grundy(s)=mex{Grundy(next)} 정의에서 다음 상태가 여러 단계 이전일 수 있음. 약한 귀납: P(k-1)→P(k)만 사용 가능. 강한 귀납: 모든 이전 상태의 Grundy 값이 정확히 계산됐다고 가정 → P(k) 증명 가능.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="boolean"><div class="ch" onclick="T(this)"><span class="ct">부울 대수</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">0과 1로 이루어진 대수 체계. 논리회로와 직결. 흡수 법칙: a+ab=a, a(a+b)=a. 불 합(+)=OR, 불 곱(·)=AND. 카르노 맵으로 부울 식을 최소화해 게이트 수를 줄임. NAND 하나로 AND·OR·NOT 모두 구현 가능(기능적 완전성).</p>
+<div class="formula">항등: a+0=a, a·1=a    영: a+1=1, a·0=0
+멱등: a+a=a, a·a=a   보: a+¬a=1, a·¬a=0
+분배: a(b+c)=ab+ac   흡수: a+ab=a, a(a+b)=a
+이중부정: ¬(¬a)=a</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> a+a·b를 부울 대수로 단순화하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> a+a·b = a·1+a·b = a(1+b) = a·1 = <strong>a</strong> (흡수 법칙 직접 적용)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> (A+B)(A+C)를 곱의 합(SOP) 형태로 전개하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> (A+B)(A+C) = A·A+A·C+B·A+B·C = A+AC+AB+BC = A(1+C+B)+BC = <strong>A+BC</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> NAND 게이트만으로 NOT을 구현하는 방법은?</div><div class="prob-a"><span class="ans-lbl">A.</span> ¬A = NAND(A,A). 왜냐면 NAND(a,a)=¬(a·a)=¬a. 또한 AND(a,b)=NAND(NAND(a,b),NAND(a,b)), OR(a,b)=NAND(NAND(a,a),NAND(b,b)).</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="bitops"><div class="ch" onclick="T(this)"><span class="ct">비트 연산 · 비트마스크</span><span class="badge easy">기초</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">정수를 집합으로 표현: k번째 비트=원소 k 포함 여부. a&(a-1): 최하위 1비트 제거(핵심 트릭). n&(n-1)==0이면 2의 거듭제곱. 부분집합 순회는 SOS DP, 비트마스크 DP의 핵심.</p>
+<pre><code class="language-cpp">(a>>k)&1          // k번째 비트 확인
+a|(1&lt;&lt;k)          // k번째 비트 켜기
+a&~(1&lt;&lt;k)         // k번째 비트 끄기
+a^(1&lt;&lt;k)          // 토글
+a&(a-1)           // 최하위 1비트 끄기
+a&(-a)            // 최하위 1비트만 추출
+__builtin_popcount(a)  // 켜진 비트 수
+
+// 부분집합 순회 O(2^|mask|)
+for(int sub=mask;sub;sub=(sub-1)&mask){ /* sub: mask의 부분집합 */ }</code></pre>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> n=12(=1100₂)에서 n&(n-1)과 n&(-n)을 구하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> n-1=11(=1011₂). n&(n-1)=1100&1011=1000=<strong>8</strong> (최하위 1비트 제거). -n=…10100₂(2의 보수). n&(-n)=0100=<strong>4</strong> (최하위 1비트만 추출)</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> mask=7(=111₂)의 부분집합 순회에서 방문하는 값은?</div><div class="prob-a"><span class="ans-lbl">A.</span> sub=7→6→5→4→3→2→1 (총 7회, 공집합=0 제외). 모두 방문: 7,6,5,4,3,2,1 → 비어있지 않은 부분집합 <strong>7=2³-1개</strong></div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> n이 2의 거듭제곱인지 O(1)에 확인하는 방법은?</div><div class="prob-a"><span class="ans-lbl">A.</span> <strong>n>0 && (n&(n-1))==0</strong>. 2의 거듭제곱은 비트가 정확히 하나만 켜짐. n&(n-1)이 그 비트를 끄면 0이 됨. 예) 8=1000, 7=0111, 8&7=0 ✓</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="relations"><div class="ch" onclick="T(this)"><span class="ct">동치 · 편순서 관계</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">관계 R⊆A×A. 반사: aRa 항상 성립. 대칭: aRb→bRa. 추이: aRb∧bRc→aRc. 반대칭: aRb∧bRa→a=b. 동치 관계는 집합을 동치류로 분할(서로소 분할). 편순서의 Hasse 다이어그램으로 시각화.</p>
+<div class="tw"><table>
+<tr><th>종류</th><th>성질</th><th>예시</th></tr>
+<tr><td>동치 관계</td><td>반사+대칭+추이</td><td>mod m 합동, 같은 SCC</td></tr>
+<tr><td>편순서 관계</td><td>반사+반대칭+추이</td><td>약수 관계 |, 집합 포함 ⊆</td></tr>
+<tr><td>전순서 관계</td><td>편순서+임의 쌍 비교 가능</td><td>정수의 ≤, 사전순</td></tr>
+</table></div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> 정수에서 "mod 3 합동(≡₃)"이 동치 관계임을 세 성질로 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 반사: a≡a(mod 3) ✓. 대칭: a≡b→b≡a(mod 3) ✓. 추이: a≡b, b≡c→a≡c(mod 3) ✓ → <strong>동치 관계</strong>. 동치류: {…,-3,0,3,6,…}, {…,-2,1,4,7,…}, {…,-1,2,5,8,…}</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> 자연수에서 "약수 관계 a|b"가 편순서임을 확인하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 반사: a|a ✓. 반대칭: a|b∧b|a → a=b(양수) ✓. 추이: a|b∧b|c → a|c ✓. 하지만 임의 쌍에서 2|3은 성립 안 하므로 <strong>전순서가 아닌 편순서</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> 그래프의 SCC와 동치 관계의 연결을 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> 방향 그래프에서 "u에서 v에 도달 가능하고 v에서 u에도 도달 가능"이 동치 관계. 반사(자기 자신 도달), 대칭(정의상), 추이(경로 합성). 각 동치류 = <strong>SCC</strong>.</div></div>
+</div>
+</div></div>
+
+<div class="concept" id="predicate"><div class="ch" onclick="T(this)"><span class="ct">술어 논리 · 한정 기호</span><span class="badge mid">중급</span><span class="chev">▾</span></div><div class="cb">
+<p class="desc">술어 P(x): x에 따라 참/거짓이 달라지는 명제 함수. ∀(전칭): 모든 x, ∃(존재): 어떤 x. 부정 시 한정 기호가 반전되고 술어도 부정됨(드 모르간의 한정 기호 버전). 유일 존재 ∃!x P(x) = ∃x(P(x)∧∀y(P(y)→y=x)).</p>
+<div class="formula">∀x P(x): 모든 x에서 P(x) 참
+∃x P(x): P(x)가 참인 x 존재
+¬(∀x P(x)) ≡ ∃x ¬P(x)
+¬(∃x P(x)) ≡ ∀x ¬P(x)
+∀x∃y P(x,y) ≢ ∃y∀x P(x,y)  [순서 중요]</div>
+<div class="prob-box"><div class="prob-t">예시 문제</div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q1</span> "모든 소수는 홀수이다"를 술어 논리로 쓰고 참/거짓을 판단하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ∀x(Prime(x)→Odd(x)). <strong>거짓</strong>. 반례: 2는 소수이나 짝수. 즉 ¬(∀x P(x))=∃x¬P(x) → 2라는 반례가 존재.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q2</span> ¬(∃x(x>0 ∧ x²<0))를 단순화하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ¬∃x P(x) = ∀x¬P(x) = ∀x¬(x>0∧x²<0) = ∀x(x≤0∨x²≥0). 실제로 모든 실수에서 x²≥0이므로 이 명제는 <strong>참</strong>.</div></div>
+<div class="prob-item"><div class="prob-q" onclick="PT(this)"><span class="prob-qn">Q3</span> "모든 x에 대해 어떤 y>x가 존재한다"와 "어떤 y가 모든 x보다 크다"의 차이를 설명하시오.</div><div class="prob-a"><span class="ans-lbl">A.</span> ∀x∃y(y>x): 정수에서 <strong>참</strong> (y=x+1). ∃y∀x(y>x): 정수에서 <strong>거짓</strong> (최대 정수 없음). ∀x∃y는 y가 x에 따라 달라질 수 있음, ∃y∀x는 고정된 하나의 y가 모든 x에 성립해야 함.</div></div>
+</div>
+</div></div>
+</section>
+
+</div><!-- /cw -->
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
